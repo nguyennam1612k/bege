@@ -6,9 +6,11 @@
     $user = isset($_SESSION[AUTH]) ? $_SESSION[AUTH] : null;
     $cart = isset($_SESSION[CART]) ? $_SESSION[CART] : null;
     $totalPrice = 0;
-    foreach ($cart as $key => $value) {
-        $itemTotal = $value['sale_price']*$value['quantity'];
-        $totalPrice += $itemTotal;
+    if($cart != null){
+        foreach ($cart as $key => $value) {
+            $itemTotal = $value['sale_price']*$value['quantity'];
+            $totalPrice += $itemTotal;
+        }
     }
     //select categories
     $sqlQuery = "SELECT * from categories";
