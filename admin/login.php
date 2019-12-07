@@ -1,63 +1,54 @@
-<?php require_once "../connection.php";
-    session_start();
+<?php 
+    require_once "../commons/db.php";
+    require_once '../commons/constants.php';
     $mess = "";
-    $username = "";
-    $password = "";
-    if(isset($_POST['btn_login'])){
-        $username = $_POST['username'];
-        $password = md5($_POST['password']);
+    //Chuyển trang nếu đã đăng nhập
+    if(isset($_SESSION[AUTH])){
+        header('location: '. BASE_URL);
+    }
 
-        $sql = "SELECT * FROM users WHERE username='$username'";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        $user = $stmt->fetch();
+    $username = isset($_POST['username']) ? $_POST['username'] : "";
+    $password = isset($_POST['password']) ? $_POST['password'] : "";
+    // $remember = isset($_POST['remember']) ? $_POST['remember'] : "";
+    if($username != "" && $password != ""){
+        // lấy dữ liệu từ csdl bảng users dựa vào email
+        $sqlUserQuery = "SELECT * from users where username = '$username'";
+        $user = executeQuery($sqlUserQuery, false);
 
-        if($username == $user['username']){
-            if($password == $user['password']){
-                //verify cao cấp :v
-                $verify = password_hash($user['password'], PASSWORD_DEFAULT);
-                if(password_verify($user['password'], $verify) === true){
-                    //Nếu verify đúng thì cho phép đăng nhập
-                    //Kiểm tra status account
-                    $status = $user['status'];
-                    if($status == 0){
-                    //Nếu tài khoản không được kích hoạt (bị chặn) sẽ không đăng nhập được
-                        echo "<script>alert('Tài khoản của bạn đang bị khóa')</script>";
-                    }else{
-                    //Kiểm tra remember
-                        if(isset($_POST['remember'])){
-                            $_SESSION['user'] = $user['username'];
-                            $_SESSION['role'] = $user['role'];
-                        }else{
-                        //Lưu tài khoản trong 15 phút
-                            setcookie("user", $user['username'], time() + (3600), "/");
-                            setcookie("role", $user['role'], time() + (3600), "/");
-                        }
-                    //Chuyển trang phân quyền
-                        if($user['role'] == 1){
-                            header('location: index.php');
-                        }else{
-                            header('Location: ../index.php');
-                        }
-                    }
-                }else{
-                    //nếu verify sai thì chặn đăng nhập
-                    echo "<script>alert('Chặn đăng nhập !')</script>";
-                }
-                
+        if($user && password_verify($password, $user['password'])){
+            //Kiểm tra status
+            if($user['status'] == 0){
+                $mess = "Tài khoản của bạn đang bị khóa";
             }else{
-                // $mess = "Sai mật khẩu";
-                echo "<script>alert('Mật khẩu không chính xác')</script>";
+                $_SESSION[AUTH] = [
+                    "id" => $user['id'],
+                    "username" => $user['username'],
+                    "name" => $user['name'],
+                    "status" => $user['status'],
+                    "avatar" => $user['avatar'],
+                    "email" => $user['email'],
+                    "phone_number" => $user['phone_number'],
+                    "address" => $user['address'],
+                    "points" => $user['points'],
+                    "role" => $user['role']
+                ];
+                $id_u = $user['id'];
+                $sqlUpdateUser = "UPDATE users set onlines=onlines+1 where id=$id_u";
+                executeQuery($sqlUpdateUser);
+
+                if($user['role'] == 1){
+                    header('location: '. BASE_URL . 'admin/');
+                    die;
+                }else{
+                    header('location: '. BASE_URL . 'my-account.php');
+                    die;
+                }
             }
         }else{
-            // $mess = "Sai tài khoản";
-            echo "<script>alert('Tài khoản không tồn tại')</script>";
+            $mess = "Tài khoản hoặc mật khẩu không đúng";
         }
     }
-    //Chuyển trang nếu đã đăng nhập
-    if(isset($_SESSION['user']) || isset($_COOKIE['user']) ){
-        header('location: index.php');
-    }
+
 ?>
 
 <!DOCTYPE html>

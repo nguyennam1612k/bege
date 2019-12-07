@@ -132,7 +132,7 @@
                                                             }
                                                              ?>
                                                         </span></td>
-                                                        <td class="product-add-to-cart"><a href="cart.html">Add to cart</a></td>
+                                                        <td class="product-add-to-cart"><a href="add-cart.php?id=<?php echo $value['product_id'] ?>">Add to cart</a></td>
                                                     </tr>
                                                 <?php endforeach ?>
                                             <?php endif ?>

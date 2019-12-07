@@ -7,9 +7,10 @@
     $user = isset($_SESSION[AUTH]) ? $_SESSION[AUTH] : null;
     if ($user != null && $id != null) {
     	$user_id = $user['id'];
-    	$sqlQuery = "SELECT * from wish_lists where product_id=$id";
+    	$sqlQuery = "SELECT * from wish_lists where product_id=$id and user_id=$user_id";
     	$check = executeQuery($sqlQuery, false);
     	$checkPro = $check['product_id'];
+
     	//Nếu tồn tại thì không thêm vào wish list 
     	//nếu chưa tồn tại thì thêm vào wish list
     	if($id != $checkPro){
@@ -21,6 +22,7 @@
 	    	header('location: '.$_SERVER['HTTP_REFERER']);
 	    	die;
     	}else{
+            $sqlInsert = "Tồn tại";
     		header('location: '.$_SERVER['HTTP_REFERER']);
 	    	die;
     	}

@@ -1,7 +1,7 @@
 <?php
-    require "../commons/db.php";
-    require "../commons/constants.php";
-    require "../commons/helpers.php";
+    require_once "../commons/db.php";
+    require_once "../commons/constants.php";
+    require_once "../commons/helpers.php";
 
     $user = isset($_SESSION[AUTH]) ? $_SESSION[AUTH] : null;
     $cart = isset($_SESSION[CART]) ? $_SESSION[CART] : null;

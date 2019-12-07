@@ -278,24 +278,26 @@
                                     </span>
                                 </a>
                                 <ul>
-                                    <?php foreach ($cart as $value): ?>
-                                        <li>
-                                            <!-- single-shop-cart-wrapper -->
-                                            <div class="single-shop-cart-wrapper">
-                                                <div class="shop-cart-img">
-                                                    <a href="cart.php"><img src="<?php echo $value['feature_image'] ?>" alt="Image of Product"></a>
-                                                </div>
-                                                <div class="shop-cart-info">
-                                                    <h5><a href="cart.php"><?php echo $value['name'] ?></a></h5>
-                                                    <span class="price">
-                                                        <?php $itemTotal = $value['sale_price']*$value['quantity']; ?>
-                                                        <?php echo number_format($value['sale_price'], 0, '', ','); ?> vnđ</span>
-                                                    <span class="quantaty">Qty: <?php echo $value['quantity'] ?></span>
-                                                    <span class="cart-remove"><a href="?action=deleteCart&id=<?php echo $value['id'] ?>"><i class="fa fa-times"></i></a></span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    <?php endforeach ?>
+                                    <?php if ($cart != null): ?>
+                                        <?php foreach ($cart as $value): ?>
+                                            <li>
+                                                <!-- single-shop-cart-wrapper -->
+                                                <div class="single-shop-cart-wrapper">
+                                                    <div class="shop-cart-img">
+                                                        <a href="cart.php"><img src="<?php echo $value['feature_image'] ?>" alt="Image of Product"></a>
+                                                    </div>
+                                                    <div class="shop-cart-info">
+                                                        <h5><a href="cart.php"><?php echo $value['name'] ?></a></h5>
+                                                        <span class="price">
+                                                            <?php $itemTotal = $value['sale_price']*$value['quantity']; ?>
+                                                            <?php echo number_format($value['sale_price'], 0, '', ','); ?> vnđ</span>
+                                                            <span class="quantaty">Qty: <?php echo $value['quantity'] ?></span>
+                                                            <span class="cart-remove"><a href="?action=deleteCart&id=<?php echo $value['id'] ?>"><i class="fa fa-times"></i></a></span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            <?php endforeach ?>
+                                    <?php endif ?>
                                     
                                     <li>
                                         <!-- shop-cart-total -->

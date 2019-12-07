@@ -16,6 +16,7 @@
         // lấy dữ liệu từ csdl bảng users dựa vào email
         $sqlUserQuery = "SELECT * from users where username = '$username'";
         $user = executeQuery($sqlUserQuery, false);
+
         if($user && password_verify($password, $user['password'])){
             //Kiểm tra status
             if($user['status'] == 0){
@@ -33,6 +34,10 @@
                     "points" => $user['points'],
                     "role" => $user['role']
                 ];
+                $id_u = $user['id'];
+                $sqlUpdateUser = "UPDATE users set onlines=onlines+1 where id=$id_u";
+                executeQuery($sqlUpdateUser);
+
                 if($user['role'] == 1){
                     header('location: '. BASE_URL . 'admin/');
                     die;

@@ -63,6 +63,9 @@ require_once './commons/helpers.php';
                     <div class="row">
                         <div class="col-sm-12">
                             <h1 class="entry-title">Cart</h1>
+                            <?php if ($cart == null): ?>
+                                <p style="color: #E05E07; font-size: 20px; text-align: center; margin-top: 30px">Giỏ hàng của bạn đang trống</p>
+                            <?php endif ?>
                         </div>
                     </div>
                 </div>
@@ -88,55 +91,34 @@ require_once './commons/helpers.php';
                                                 <th class="product-remove">Remove</th>
                                             </tr>
                                         </thead>
-                                        <!-- <tbody>
-                                            <tr>
-                                                <td class="product-thumbnail">
-                                                    <a href="#"><img src="images/product/1.jpg" alt="cart-image"></a>
-                                                </td>
-                                                <td class="product-name"><a href="#">dictum idrisus</a></td>
-                                                <td class="product-price"><span class="amount">£165.00</span></td>
-                                                <td class="product-quantity"><input type="number" value="1"></td>
-                                                <td class="product-subtotal">£165.00</td>
-                                                <td class="product-remove"> <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="product-thumbnail">
-                                                    <a href="#"><img src="images/product/2.jpg" alt="cart-image"></a>
-                                                </td>
-                                                <td class="product-name"><a href="#">Carte Postal Clock</a></td>
-                                                <td class="product-price"><span class="amount">£50.00</span></td>
-                                                <td class="product-quantity"><input type="number" value="1"></td>
-                                                <td class="product-subtotal">£50.00</td>
-                                                <td class="product-remove"> <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a></td>
-                                            </tr>
-                                        </tbody> -->
                                         <tbody>
-                                            <?php foreach ($cart as $key => $item): ?>
+                                            <?php if ($cart != null): ?>
+                                                <?php foreach ($cart as $key => $item): ?>
 
-                                                <tr>
-                                                    <td class="product-thumbnail">
-                                                        <a href="#">
-                                                            <img src="<?php echo $item['feature_image'] ?>" alt="">
-                                                        </a>
-                                                    </td>
-                                                    <td class="product-name">
-                                                        <a href="#"><?php echo $item['name'] ?></a>
-                                                    </td>
-                                                    <td class="product-price">
-                                                        <span class="amount"><?php echo number_format($item['sale_price'], 0, '', ','); ?> vnđ</span>
+                                                    <tr>
+                                                        <td class="product-thumbnail">
+                                                            <a href="#">
+                                                                <img src="<?php echo $item['feature_image'] ?>" alt="">
+                                                            </a>
+                                                        </td>
+                                                        <td class="product-name">
+                                                            <a href="#"><?php echo $item['name'] ?></a>
+                                                        </td>
+                                                        <td class="product-price">
+                                                            <span class="amount"><?php echo number_format($item['sale_price'], 0, '', ','); ?> vnđ</span>
 
-                                                    </td>
-                                                    <td class="product-quantity">
-                                                        <input type="number" min="1" name="quantity[<?php echo $key ?>]" value="<?php echo $item['quantity'] ?>">
-                                                    </td>
-                                                    <td class="product-subtotal"><?php 
-                                                    $itemTotal = $item['sale_price']*$item['quantity'];
+                                                        </td>
+                                                        <td class="product-quantity">
+                                                            <input type="number" min="1" name="quantity[<?php echo $key ?>]" value="<?php echo $item['quantity'] ?>">
+                                                        </td>
+                                                        <td class="product-subtotal"><?php 
+                                                        $itemTotal = $item['sale_price']*$item['quantity'];
 
-                                                    echo number_format($itemTotal, 0, '', ','); ?> vnđ</td>
-                                                    <td class="product-remove"> <a href="?action=deleteCart&id=<?php echo $item['id'] ?>"><i class="fa fa-times" aria-hidden="true"></i></a></td>
-                                                </tr>
-                                            <?php endforeach ?>
-
+                                                        echo number_format($itemTotal, 0, '', ','); ?> vnđ</td>
+                                                        <td class="product-remove"> <a href="?action=deleteCart&id=<?php echo $item['id'] ?>"><i class="fa fa-times" aria-hidden="true"></i></a></td>
+                                                    </tr>
+                                                <?php endforeach ?>
+                                            <?php endif ?>
                                         </tbody>
                                     </table>
                                 </div>

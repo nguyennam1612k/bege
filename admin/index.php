@@ -1,6 +1,21 @@
 <?php
+    require_once "../commons/db.php";
+    require_once "../commons/constants.php";
+    require_once "../commons/helpers.php";
+
     //select tổng sản phẩm , bình luận, lượt xem, tài khoản
-    
+    $sqlQuery = "SELECT count(id) as count, sum(view) as sum from products";
+    $countPro = executeQuery($sqlQuery, false);
+
+    $sqlQuery = "SELECT count(id) as count from comments";
+    $countCmt = executeQuery($sqlQuery, false);
+
+    $sqlQuery = "SELECT count(id) as count from users";
+    $countUser = executeQuery($sqlQuery, false);
+
+    //SELECT khách hàng
+    $sqlQuery = "SELECT * from users limit 5";
+    $users = executeQuery($sqlQuery, true);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -99,7 +114,7 @@
                             <div class="bg-secondary card-body">
                                 <div class="media static-top-widget">
                                     <div class="media-body"><span class="m-0">Sản phẩm</span>
-                                        <h3 class="mb-0"> <span class="counter">9856</span><small> Máy chủ</small></h3>
+                                        <h3 class="mb-0"> <span class="counter"><?php echo $countPro['count'] ?></span><small> sản phẩm trên hệ thống</small></h3>
                                     </div>
                                     <div class="icons-widgets">
                                         <i data-feather="box"></i>
@@ -113,7 +128,7 @@
                             <div class="bg-primary card-body">
                                 <div class="media static-top-widget">
                                     <div class="media-body"><span class="m-0">Bình luận</span>
-                                        <h3 class="mb-0"> <span class="counter">893</span><small> Máy chủ</small></h3>
+                                        <h3 class="mb-0"> <span class="counter"><?php echo $countCmt['count'] ?></span><small> lượt bình luận</small></h3>
                                     </div>
                                     <div class="icons-widgets">
                                         <i data-feather="message-square"></i>
@@ -127,7 +142,7 @@
                             <div class="bg-warning card-body">
                                 <div class="media static-top-widget">
                                     <div class="media-body"><span class="m-0">Lượt xem</span>
-                                        <h3 class="mb-0"> <span class="counter">6659</span><small> Máy chủ</small></h3>
+                                        <h3 class="mb-0"> <span class="counter"><?php echo $countPro['sum'] ?></span><small> lượt xem sản phẩm</small></h3>
                                     </div>
                                     <div class="icons-widgets">
                                         <i data-feather="navigation"></i>
@@ -141,7 +156,7 @@
                             <div class="bg-success card-body">
                                 <div class="media static-top-widget">
                                     <div class="media-body"><span class="m-0">Tài khoản</span>
-                                        <h3 class="mb-0"> <span class="counter">45631</span><small> Máy chủ</small></h3>
+                                        <h3 class="mb-0"> <span class="counter"><?php echo $countUser['count'] ?></span><small> đã được tạo</small></h3>
                                     </div>
                                     <div class="icons-widgets">
                                         <i data-feather="users"></i>
@@ -216,50 +231,50 @@
                                 <div class="code-box-copy">
                                     <button class="code-box-copy__btn btn-clipboard" data-clipboard-target="#example-head1" title="" data-original-title="Copy"><i class="icofont icofont-copy-alt"></i></button>
                                     <pre class=" language-html"><code class=" language-html" id="example-head1">
-&lt;div class="user-status table-responsive latest-order-table"&gt;
-    &lt;table class="table table-bordernone"&gt;
-        &lt;thead&gt;
-            &lt;tr&gt;
-                &lt;th scope="col"&gt;Order ID&lt;/th&gt;
-                &lt;th scope="col"&gt;Order Total&lt;/th&gt;
-                &lt;th scope="col"&gt;Payment Method&lt;/th&gt;
-                &lt;th scope="col"&gt;Status&lt;/th&gt;
-            &lt;/tr&gt;
-        &lt;/thead&gt;
-        &lt;tbody&gt;
-            &lt;tr&gt;
-                &lt;td&gt;1&lt;/td&gt;
-                &lt;td class="digits"&gt;$120.00&lt;/td&gt;
-                &lt;td class="font-secondary"&gt;Bank Transfers&lt;/td&gt;
-                &lt;td class="digits"&gt;Delivered&lt;/td&gt;
-            &lt;/tr&gt;
-            &lt;tr&gt;
-                &lt;td&gt;2&lt;/td&gt;
-                &lt;td class="digits"&gt;$90.00&lt;/td&gt;
-                &lt;td class="font-secondary"&gt;Ewallets&lt;/td&gt;
-                &lt;td class="digits"&gt;Delivered&lt;/td&gt;
-            &lt;/tr&gt;
-            &lt;tr&gt;
-                &lt;td&gt;3&lt;/td&gt;
-                &lt;td class="digits"&gt;$240.00&lt;/td&gt;
-                &lt;td class="font-secondary"&gt;Cash&lt;/td&gt;
-                &lt;td class="digits"&gt;Delivered&lt;/td&gt;
-            &lt;/tr&gt;
-            &lt;tr&gt;
-                &lt;td&gt;4&lt;/td&gt;
-                &lt;td class="digits"&gt;$120.00&lt;/td&gt;
-                &lt;td class="font-primary"&gt;Direct Deposit&lt;/td&gt;
-                &lt;td class="digits"&gt;Delivered&lt;/td&gt;
-            &lt;/tr&gt;
-            &lt;tr&gt;
-                &lt;td&gt;5&lt;/td&gt;
-                &lt;td class="digits"&gt;$50.00&lt;/td&gt;
-                &lt;td class="font-primary"&gt;Bank Transfers&lt;/td&gt;
-                &lt;td class="digits"&gt;Delivered&lt;/td&gt;
-            &lt;/tr&gt;
-        &lt;/tbody&gt;
-    &lt;/table&gt;
-&lt;/div&gt;
+                                        <div class="user-status table-responsive latest-order-table">
+                                            <table class="table table-bordernone">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Order ID</th>
+                                                        <th scope="col">Order Total</th>
+                                                        <th scope="col">Payment Method</th>
+                                                        <th scope="col">Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td class="digits">$120.00</td>
+                                                        <td class="font-secondary">Bank Transfers</td>
+                                                        <td class="digits">Delivered</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td class="digits">$90.00</td>
+                                                        <td class="font-secondary">Ewallets</td>
+                                                        <td class="digits">Delivered</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td class="digits">$240.00</td>
+                                                        <td class="font-secondary">Cash</td>
+                                                        <td class="digits">Delivered</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>4</td>
+                                                        <td class="digits">$120.00</td>
+                                                        <td class="font-primary">Direct Deposit</td>
+                                                        <td class="digits">Delivered</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>5</td>
+                                                        <td class="digits">$50.00</td>
+                                                        <td class="font-primary">Bank Transfers</td>
+                                                        <td class="digits">Delivered</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </code></pre>
                                 </div>
                             </div>
@@ -281,7 +296,7 @@
                                 <div class="code-box-copy">
                                     <button class="code-box-copy__btn btn-clipboard" data-clipboard-target="#example-head7" title="" data-original-title="Copy"><i class="icofont icofont-copy-alt"></i></button>
                                     <pre class=" language-html"><code class=" language-html" id="example-head7">
-&lt;div id="customers"&gt;&lt;/div&gt;
+                                    <div id="customers"></div>
                                     </code></pre>
                                 </div>
                             </div>
@@ -312,138 +327,110 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td class="bd-t-none u-s-tb">
-                                                <div class="align-middle image-sm-size"><img class="img-radius align-top m-r-15 rounded-circle blur-up lazyloaded" src="assets/images/dashboard/user2.jpg" alt="" data-original-title="" title="">
-                                                    <div class="d-inline-block">
-                                                        <h6>John Deo <span class="text-muted digits">(14+ Online)</span></h6>
+                                        <?php foreach ($users as $value): ?>
+                                            <tr>
+                                                <td class="bd-t-none u-s-tb">
+                                                    <div class="align-middle image-sm-size"><img class="img-radius align-top m-r-15 rounded-circle blur-up lazyloaded" src="assets/images/dashboard/user2.jpg" alt="" data-original-title="" title="">
+                                                        <div class="d-inline-block">
+                                                            <h6><?php echo $value['name'] ?> <span class="text-muted digits">(<?php echo $value['onlines'] ?>+ Online)</span></h6>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td class="digits">2 Year</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="bd-t-none u-s-tb">
-                                                <div class="align-middle image-sm-size"><img class="img-radius align-top m-r-15 rounded-circle blur-up lazyloaded" src="assets/images/dashboard/man.png" alt="" data-original-title="" title="">
-                                                    <div class="d-inline-block">
-                                                        <h6>Mohsib lara<span class="text-muted digits">(99+ Online)</span></h6>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="digits">5 Month</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="bd-t-none u-s-tb">
-                                                <div class="align-middle image-sm-size"><img class="img-radius align-top m-r-15 rounded-circle blur-up lazyloaded" src="assets/images/dashboard/user.png" alt="" data-original-title="" title="">
-                                                    <div class="d-inline-block">
-                                                        <h6>Hileri Soli <span class="text-muted digits">(150+ Online)</span></h6>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="digits">3 Month</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="bd-t-none u-s-tb">
-                                                <div class="align-middle image-sm-size"><img class="img-radius align-top m-r-15 rounded-circle blur-up lazyloaded" src="assets/images/dashboard/designer.jpg" alt="" data-original-title="" title="">
-                                                    <div class="d-inline-block">
-                                                        <h6>Pusiz bia <span class="text-muted digits">(14+ Online)</span></h6>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="digits">5 Year</td>
-                                        </tr>
+                                                </td>
+                                                <td class="digits"><?php echo $value['date_register'] ?></td>
+                                            </tr>
+                                        <?php endforeach ?>
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="code-box-copy">
                                     <button class="code-box-copy__btn btn-clipboard" data-clipboard-target="#example-head5" title="" data-original-title="Copy"><i class="icofont icofont-copy-alt"></i></button>
                                     <pre class=" language-html"><code class=" language-html" id="example-head5">
-&lt;div class="user-status table-responsive products-table"&gt;
-    &lt;table class="table table-bordernone mb-0"&gt;
-        &lt;thead&gt;
-            &lt;tr&gt;
-                &lt;th scope="col"&gt;Name&lt;/th&gt;
-                &lt;th scope="col"&gt;Designation&lt;/th&gt;
-                &lt;th scope="col"&gt;Skill Level&lt;/th&gt;
-                &lt;th scope="col"&gt;Experience&lt;/th&gt;
-            &lt;/tr&gt;
-        &lt;/thead&gt;
-        &lt;tbody&gt;
-                &lt;tr&gt;
-                    &lt;td class="bd-t-none u-s-tb"&gt;
-                        &lt;div class="align-middle image-sm-size"&gt;&lt;img class="img-radius align-top m-r-15 rounded-circle blur-up lazyloaded" src="assets/images/dashboard/user2.jpg" alt="" data-original-title="" title=""&gt;
-                        &lt;div class="d-inline-block"&gt;
-                        &lt;h6&gt;John Deo &lt;span class="text-muted digits"&gt;(14+ Online)&lt;/span&gt;&lt;/h6&gt;
-                        &lt;/div&gt;
-                        &lt;/div&gt;
-                    &lt;/td&gt;
-                    &lt;td&gt;Designer&lt;/td&gt;
-                    &lt;td&gt;
-                        &lt;div class="progress-showcase"&gt;
-                        &lt;div class="progress" style="height: 8px;"&gt;
-                        &lt;div class="progress-bar bg-primary" role="progressbar" style="width: 30%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"&gt;&lt;/div&gt;
-                        &lt;/div&gt;
-                        &lt;/div&gt;
-                    &lt;/td&gt;
-                    &lt;td class="digits"&gt;2 Year&lt;/td&gt;
-                &lt;/tr&gt;
-            &lt;tr&gt;
-                &lt;td class="bd-t-none u-s-tb"&gt;
-                    &lt;div class="align-middle image-sm-size"&gt;&lt;img class="img-radius align-top m-r-15 rounded-circle blur-up lazyloaded" src="assets/images/dashboard/man.png" alt="" data-original-title="" title=""&gt;
-                    &lt;div class="d-inline-block"&gt;
-                    &lt;h6&gt;Mohsib lara&lt;span class="text-muted digits"&gt;(99+ Online)&lt;/span&gt;&lt;/h6&gt;
-                    &lt;/div&gt;
-                    &lt;/div&gt;
-                &lt;/td&gt;
-                &lt;td&gt;Tester&lt;/td&gt;
-                &lt;td&gt;
-                    &lt;div class="progress-showcase"&gt;
-                    &lt;div class="progress" style="height: 8px;"&gt;
-                    &lt;div class="progress-bar bg-primary" role="progressbar" style="width: 60%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"&gt;&lt;/div&gt;
-                    &lt;/div&gt;
-                    &lt;/div&gt;
-                &lt;/td&gt;
-                &lt;td class="digits"&gt;5 Month&lt;/td&gt;
-            &lt;/tr&gt;
-            &lt;tr&gt;
-                &lt;td class="bd-t-none u-s-tb"&gt;
-                    &lt;div class="align-middle image-sm-size"&gt;&lt;img class="img-radius align-top m-r-15 rounded-circle blur-up lazyloaded" src="assets/images/dashboard/user.png" alt="" data-original-title="" title=""&gt;
-                    &lt;div class="d-inline-block"&gt;
-                    &lt;h6&gt;Hileri Soli &lt;span class="text-muted digits"&gt;(150+ Online)&lt;/span&gt;&lt;/h6&gt;
-                    &lt;/div&gt;
-                    &lt;/div&gt;
-                &lt;/td&gt;
-                &lt;td&gt;Designer&lt;/td&gt;
-                &lt;td&gt;
-                    &lt;div class="progress-showcase"&gt;
-                    &lt;div class="progress" style="height: 8px;"&gt;
-                    &lt;div class="progress-bar bg-secondary" role="progressbar" style="width: 30%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"&gt;&lt;/div&gt;
-                    &lt;/div&gt;
-                    &lt;/div&gt;
-                &lt;/td&gt;
-                &lt;td class="digits"&gt;3 Month&lt;/td&gt;
-            &lt;/tr&gt;
-            &lt;tr&gt;
-                &lt;td class="bd-t-none u-s-tb"&gt;
-                    &lt;div class="align-middle image-sm-size"&gt;&lt;img class="img-radius align-top m-r-15 rounded-circle blur-up lazyloaded" src="assets/images/dashboard/designer.jpg" alt="" data-original-title="" title=""&gt;
-                    &lt;div class="d-inline-block"&gt;
-                    &lt;h6&gt;Pusiz bia &lt;span class="text-muted digits"&gt;(14+ Online)&lt;/span&gt;&lt;/h6&gt;
-                    &lt;/div&gt;
-                    &lt;/div&gt;
-                &lt;/td&gt;
-                &lt;td&gt;Designer&lt;/td&gt;
-                &lt;td&gt;
-                    &lt;div class="progress-showcase"&gt;
-                    &lt;div class="progress" style="height: 8px;"&gt;
-                    &lt;div class="progress-bar bg-primary" role="progressbar" style="width: 90%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"&gt;&lt;/div&gt;
-                    &lt;/div&gt;
-                    &lt;/div&gt;
-                &lt;/td&gt;
-                &lt;td class="digits"&gt;5 Year&lt;/td&gt;
-            &lt;/tr&gt;
-        &lt;/tbody&gt;
-    &lt;/table&gt;
-&lt;/div&gt;
+                                        <div class="user-status table-responsive products-table">
+                                            <table class="table table-bordernone mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Name</th>
+                                                        <th scope="col">Designation</th>
+                                                        <th scope="col">Skill Level</th>
+                                                        <th scope="col">Experience</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="bd-t-none u-s-tb">
+                                                            <div class="align-middle image-sm-size"><img class="img-radius align-top m-r-15 rounded-circle blur-up lazyloaded" src="assets/images/dashboard/user2.jpg" alt="" data-original-title="" title="">
+                                                                <div class="d-inline-block">
+                                                                    <h6>John Deo <span class="text-muted digits">(14+ Online)</span></h6>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>Designer</td>
+                                                        <td>
+                                                            <div class="progress-showcase">
+                                                                <div class="progress" style="height: 8px;">
+                                                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 30%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="digits">2 Year</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="bd-t-none u-s-tb">
+                                                            <div class="align-middle image-sm-size"><img class="img-radius align-top m-r-15 rounded-circle blur-up lazyloaded" src="assets/images/dashboard/man.png" alt="" data-original-title="" title="">
+                                                                <div class="d-inline-block">
+                                                                    <h6>Mohsib lara<span class="text-muted digits">(99+ Online)</span></h6>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>Tester</td>
+                                                        <td>
+                                                            <div class="progress-showcase">
+                                                                <div class="progress" style="height: 8px;">
+                                                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 60%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="digits">5 Month</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="bd-t-none u-s-tb">
+                                                            <div class="align-middle image-sm-size"><img class="img-radius align-top m-r-15 rounded-circle blur-up lazyloaded" src="assets/images/dashboard/user.png" alt="" data-original-title="" title="">
+                                                                <div class="d-inline-block">
+                                                                    <h6>Hileri Soli <span class="text-muted digits">(150+ Online)</span></h6>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>Designer</td>
+                                                        <td>
+                                                            <div class="progress-showcase">
+                                                                <div class="progress" style="height: 8px;">
+                                                                    <div class="progress-bar bg-secondary" role="progressbar" style="width: 30%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="digits">3 Month</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="bd-t-none u-s-tb">
+                                                            <div class="align-middle image-sm-size"><img class="img-radius align-top m-r-15 rounded-circle blur-up lazyloaded" src="assets/images/dashboard/designer.jpg" alt="" data-original-title="" title="">
+                                                                <div class="d-inline-block">
+                                                                    <h6>Pusiz bia <span class="text-muted digits">(14+ Online)</span></h6>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>Designer</td>
+                                                        <td>
+                                                            <div class="progress-showcase">
+                                                                <div class="progress" style="height: 8px;">
+                                                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 90%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="digits">5 Year</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </code></pre>
                                 </div>
                             </div>

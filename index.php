@@ -15,15 +15,9 @@
     $sqlQuery = "SELECT * from deals limit 3";
     $deals = executeQuery($sqlQuery, true);
 
-    //Ưu đãi trong ngày, cần sửa lại sau
-    $sqlDealProduct = " SELECT
-                            price-sale_price as sale,
-                            products.*,
-                            comments.rating
-                        from products
-                        LEFT JOIN comments
-                            ON products.id=comments.product_id
-                        order by sale DESC LIMIT 8";
+    //Lượt mua nhiều nhất
+    $sqlDealProduct = " SELECT* from products
+                        order by sold DESC LIMIT 8";
     $topDealProducts = executeQuery($sqlDealProduct, true);
 
     //Sản phẩm nổi bật
@@ -31,7 +25,7 @@
     $hotProducts = executeQuery($sqlQuery, true);
 
     //Sản phẩm top đánh giá
-    $sqlQuery = "SELECT * from products order by rate asc limit 16";
+    $sqlQuery = "SELECT * from products order by rate desc limit 16";
     $rateProducts = executeQuery($sqlQuery, true);
 
     //Sản phẩm mới nằm trong sidebar
@@ -178,9 +172,6 @@
                                     <div class="row">
                                         <div class="product-carousel-active-h2 carosel-next-prive owl-carousel">
                                             <?php foreach($topDealProducts as $deal): ?>
-                                                <?php 
-                                                // $sqlStar = "SELECT * from comments";
-                                                ?>
                                             <div class="col-sm-12">
                                                 <!-- single product -->
                                                 <div class="single-product-area">
@@ -210,33 +201,54 @@
                                                             </div>
                                                             <div class="product-hidden">
                                                                 <div class="add-to-cart">
-                                                                    <<a href="add-cart.php?id=<?php echo $deal['id'] ?>&page=index">Thêm vào giỏ</a>
+                                                                    <a href="add-cart.php?id=<?php echo $deal['id'] ?>&page=index">Thêm vào giỏ</a>
                                                                 </div>
                                                                 <div class="star-actions">
                                                                     <div class="product-rattings">
                                                                     <!-- Đánh giá sao -->
-                                    
-                                                                        <!-- <span><i class="fa fa-star"></i></span>
-                                                                        <span><i class="fa fa-star"></i></span>
-                                                                        <span><i class="fa fa-star"></i></span>
-                                                                        <span><i class="fa fa-star-half-o"></i></span>
-                                                                        <span><i class="fa fa-star-o"></i></span> -->
-
-                                                                        <span><i class="fa fa-star-o"></i></span>
-                                                                        <span><i class="fa fa-star-o"></i></span>
-                                                                        <span><i class="fa fa-star-o"></i></span>
-                                                                        <span><i class="fa fa-star-o"></i></span>
-                                                                        <span><i class="fa fa-star-o"></i></span>
+                                                                    <?php
+                                                                    if ($deal['rate'] == 0) {
+                                                                        $ilki = true;
+                                                                    }
+                                                                    for($ppp = 1; $ppp <= 5; $ppp++){
+                                                                        if($deal['rate'] >= $ppp){
+                                                                            $starClass = "fa fa-star";
+                                                                            $ilki = is_float($deal['rate']);
+                                                                        }else if($ilki == false ){
+                                                                            $starClass = "fa fa-star-half-o";
+                                                                            $ilki = true;
+                                                                        }else{
+                                                                            $starClass = "fa fa-star-o";
+                                                                        }
+                                                                        ?>
+                                                                        <span><i class="<?php echo $starClass ?>"></i></span>
+                                                                        <?php
+                                                                    }
+                                                                    ?>
                                                                     </div>
 
                                                                     <ul class="actions">
                                                                         
                                                                         <?php if ($user == null): ?>
-                                                                            <li><a href="javascript:void(0)" onclick="return alert('Bạn cần đăng nhập để sử dụng chức năng này')" ><i class="ion-android-favorite-outline"></i></a></li>
+                                                                            <li><a href="javascript:void(0)" onclick="return alert('Bạn cần đăng nhập để sử dụng chức năng ngày')"><i class="ion-android-favorite-outline"></i></a></li>
                                                                         <?php endif ?>
-                                                                        <?php if ($user != null): ?>
-                                                                            <li><a href="add-wish.php?id=<?php echo $deal['id'] ?>"><i class="ion-android-favorite-outline"></i></a></li>
-                                                                        <?php endif ?>
+                                                                        <?php
+                                                                        if($user != null){
+                                                                            $user_id = $user['id'];
+                                                                            $product_id = $deal['id'];
+                                                                            $sqlCheck = "SELECT * from wish_lists where user_id=$user_id and product_id=$product_id";
+                                                                            $checkWish = executeQuery($sqlCheck, false);
+                                                                            if($checkWish == null){
+                                                                                ?>
+                                                                                <li><a href="add-wish.php?id=<?php echo $deal['id'] ?>"><i class="ion-android-favorite-outline"></i></a></li>
+                                                                                <?php
+                                                                            }else{
+                                                                                ?>
+                                                                                <li><a href="javascipt:void(0)" onclick="return alert('Sản phẩm đã tồn tại trong danh sách yêu thích')"><i class="ion-android-favorite-outline"></i></a></li>
+                                                                                <?php
+                                                                            }
+                                                                        }
+                                                                        ?>
                                                                         <li><a href="javascript:void(0)"><i class="ion-ios-shuffle-strong"></i></a></li>
                                                                     </ul>
                                                                 </div>
@@ -315,15 +327,22 @@
                                                                         </div>
                                                                         <div class="star-actions">
                                                                             <div class="product-rattings">
-                                                                                <?php 
+                                                                                <?php
+                                                                                if ($value['rate'] == 0) {
+                                                                                    $il1 = true;
+                                                                                }
                                                                                 for($p1 = 1; $p1 <= 5; $p1++){
                                                                                     if($value['rate'] >= $p1){
                                                                                         $starClass = "fa fa-star";
+                                                                                        $il1 = is_float($value['rate']);
+                                                                                    }else if($il1 == false ){
+                                                                                        $starClass = "fa fa-star-half-o";
+                                                                                        $il1 = true;
                                                                                     }else{
                                                                                         $starClass = "fa fa-star-o";
                                                                                     }
                                                                                     ?>
-                                                                                    <i class="<?php echo $starClass ?>"></i>
+                                                                                    <span><i class="<?php echo $starClass ?>"></i></span>
                                                                                     <?php
                                                                                 }
                                                                                 ?>
@@ -331,11 +350,25 @@
                                                                             <ul class="actions">
 
                                                                                 <?php if ($user == null): ?>
-                                                                                    <li><a href="javascript:void(0)" onclick="return alert('Bạn cần đăng nhập để sử dụng chức năng này')" ><i class="ion-android-favorite-outline"></i></a></li>
+                                                                                    <li><a href="javascript:void(0)" onclick="return alert('Bạn cần đăng nhập để sử dụng chức năng ngày')"><i class="ion-android-favorite-outline"></i></a></li>
                                                                                 <?php endif ?>
-                                                                                <?php if ($user != null): ?>
-                                                                                    <li><a href="add-wish.php?id=<?php echo $deal['id'] ?>"><i class="ion-android-favorite-outline"></i></a></li>
-                                                                                <?php endif ?>
+                                                                                <?php
+                                                                                if($user != null){
+                                                                                    $user_id = $user['id'];
+                                                                                    $product_id = $value['id'];
+                                                                                    $sqlCheck = "SELECT * from wish_lists where user_id=$user_id and product_id=$product_id";
+                                                                                    $checkWish = executeQuery($sqlCheck, false);
+                                                                                    if($checkWish == null){
+                                                                                        ?>
+                                                                                        <li><a href="add-wish.php?id=<?php echo $value['id'] ?>"><i class="ion-android-favorite-outline"></i></a></li>
+                                                                                        <?php
+                                                                                    }else{
+                                                                                        ?>
+                                                                                        <li><a href="javascipt:void(0)" onclick="return alert('Sản phẩm đã tồn tại trong danh sách yêu thích')"><i class="ion-android-favorite-outline"></i></a></li>
+                                                                                        <?php
+                                                                                    }
+                                                                                }
+                                                                                ?>
                                                                                 <li><a href="javascript:void(0)"><i class="ion-ios-shuffle-strong"></i></a></li>
                                                                             </ul>
                                                                         </div>
@@ -401,15 +434,22 @@
                                                                             </div>
                                                                             <div class="star-actions">
                                                                                 <div class="product-rattings">
-                                                                                    <?php 
+                                                                                    <?php
+                                                                                    if ($value['rate'] == 0) {
+                                                                                        $il2 = true;
+                                                                                    }
                                                                                     for($p2 = 1; $p2 <= 5; $p2++){
                                                                                         if($value['rate'] >= $p2){
                                                                                             $starClass = "fa fa-star";
+                                                                                            $il2 = is_float($value['rate']);
+                                                                                        }else if($il2 == false ){
+                                                                                            $starClass = "fa fa-star-half-o";
+                                                                                            $il2 = true;
                                                                                         }else{
                                                                                             $starClass = "fa fa-star-o";
                                                                                         }
                                                                                         ?>
-                                                                                        <i class="<?php echo $starClass ?>"></i>
+                                                                                        <span><i class="<?php echo $starClass ?>"></i></span>
                                                                                         <?php
                                                                                     }
                                                                                     ?>
@@ -417,11 +457,25 @@
                                                                             <ul class="actions">
 
                                                                                 <?php if ($user == null): ?>
-                                                                                    <li><a href="javascript:void(0)" onclick="return alert('Bạn cần đăng nhập để sử dụng chức năng này')" ><i class="ion-android-favorite-outline"></i></a></li>
+                                                                                    <li><a href="javascript:void(0)" onclick="return alert('Bạn cần đăng nhập để sử dụng chức năng ngày')"><i class="ion-android-favorite-outline"></i></a></li>
                                                                                 <?php endif ?>
-                                                                                <?php if ($user != null): ?>
-                                                                                    <li><a href="add-wish.php?id=<?php echo $deal['id'] ?>"><i class="ion-android-favorite-outline"></i></a></li>
-                                                                                <?php endif ?>
+                                                                                <?php
+                                                                                if($user != null){
+                                                                                    $user_id = $user['id'];
+                                                                                    $product_id = $value['id'];
+                                                                                    $sqlCheck = "SELECT * from wish_lists where user_id=$user_id and product_id=$product_id";
+                                                                                    $checkWish = executeQuery($sqlCheck, false);
+                                                                                    if($checkWish == null){
+                                                                                        ?>
+                                                                                        <li><a href="add-wish.php?id=<?php echo $value['id'] ?>"><i class="ion-android-favorite-outline"></i></a></li>
+                                                                                        <?php
+                                                                                    }else{
+                                                                                        ?>
+                                                                                        <li><a href="javascipt:void(0)" onclick="return alert('Sản phẩm đã tồn tại trong danh sách yêu thích')"><i class="ion-android-favorite-outline"></i></a></li>
+                                                                                        <?php
+                                                                                    }
+                                                                                }
+                                                                                ?>
                                                                                 <li><a href="javascript:void(0)"><i class="ion-ios-shuffle-strong"></i></a></li>
                                                                             </ul>
                                                                         </div>
@@ -486,16 +540,22 @@
                                                                             </div>
                                                                             <div class="star-actions">
                                                                                 <div class="product-rattings">
-                                                                                    <?php 
+                                                                                    <?php
+                                                                                    if ($value['rate'] == 0) {
+                                                                                        $il3 = true;
+                                                                                    }
                                                                                     for($p3 = 1; $p3 <= 5; $p3++){
                                                                                         if($value['rate'] >= $p3){
                                                                                             $starClass = "fa fa-star";
-                                                                                        }else{
+                                                                                            $il3 = is_float($value['rate']);
+                                                                                        }else if($il3 == false ){
                                                                                             $starClass = "fa fa-star-half-o";
-                                                                                            // break; 
+                                                                                            $il3 = true;
+                                                                                        }else{
+                                                                                            $starClass = "fa fa-star-o";
                                                                                         }
                                                                                         ?>
-                                                                                        <i class="<?php echo $starClass ?>"></i>
+                                                                                        <span><i class="<?php echo $starClass ?>"></i></span>
                                                                                         <?php
                                                                                     }
                                                                                     ?>
@@ -503,11 +563,25 @@
                                                                             <ul class="actions">
 
                                                                                 <?php if ($user == null): ?>
-                                                                                    <li><a href="javascript:void(0)" onclick="return alert('Bạn cần đăng nhập để sử dụng chức năng này')" ><i class="ion-android-favorite-outline"></i></a></li>
+                                                                                    <li><a href="javascript:void(0)" onclick="return alert('Bạn cần đăng nhập để sử dụng chức năng ngày')"><i class="ion-android-favorite-outline"></i></a></li>
                                                                                 <?php endif ?>
-                                                                                <?php if ($user != null): ?>
-                                                                                    <li><a href="add-wish.php?id=<?php echo $deal['id'] ?>"><i class="ion-android-favorite-outline"></i></a></li>
-                                                                                <?php endif ?>
+                                                                                <?php
+                                                                                if($user != null){
+                                                                                    $user_id = $user['id'];
+                                                                                    $product_id = $value['id'];
+                                                                                    $sqlCheck = "SELECT * from wish_lists where user_id=$user_id and product_id=$product_id";
+                                                                                    $checkWish = executeQuery($sqlCheck, false);
+                                                                                    if($checkWish == null){
+                                                                                        ?>
+                                                                                        <li><a href="add-wish.php?id=<?php echo $value['id'] ?>"><i class="ion-android-favorite-outline"></i></a></li>
+                                                                                        <?php
+                                                                                    }else{
+                                                                                        ?>
+                                                                                        <li><a href="javascipt:void(0)" onclick="return alert('Sản phẩm đã tồn tại trong danh sách yêu thích')"><i class="ion-android-favorite-outline"></i></a></li>
+                                                                                        <?php
+                                                                                    }
+                                                                                }
+                                                                                ?>
                                                                                 <li><a href="javascript:void(0)"><i class="ion-ios-shuffle-strong"></i></a></li>
                                                                             </ul>
                                                                         </div>
@@ -597,16 +671,22 @@
                                                                             <?php echo number_format($pr_gr['sale_price'], 0, '', ',') ?> ₫
                                                                         </span>
                                                                         <div class="product-rattings">
-                                                                            <?php 
-                                                                            for($i = 1; $i <= 5; $i++){
-                                                                                if($pr_gr['rate'] >= $i){
+                                                                            <?php
+                                                                            if ($pr_gr['rate'] == 0) {
+                                                                                $il = true;
+                                                                            }
+                                                                            for($ui = 1; $ui <= 5; $ui++){
+                                                                                if($pr_gr['rate'] >= $ui){
                                                                                     $starClass = "fa fa-star";
-                                                                                }else{
+                                                                                    $il = is_float($pr_gr['rate']);
+                                                                                }else if($il == false ){
                                                                                     $starClass = "fa fa-star-half-o";
-                                                                                            // break; 
+                                                                                    $il = true;
+                                                                                }else{
+                                                                                    $starClass = "fa fa-star-o";
                                                                                 }
                                                                                 ?>
-                                                                                <i class="<?php echo $starClass ?>"></i>
+                                                                                <span><i class="<?php echo $starClass ?>"></i></span>
                                                                                 <?php
                                                                             }
                                                                             ?>
