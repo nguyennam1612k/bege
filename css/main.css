@@ -3420,7 +3420,9 @@ button.owl-dot {
 .tab-area-product .home-tabs-title li a:hover {
     color: #333;
 }
-
+/*.tab-area-product .home-tabs-title li a:visited {
+    color: #333;
+}*/
 .tab-area-product .tab-content {
     background: #fff;
     border: 1px solid #ededed;
