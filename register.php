@@ -1,3 +1,56 @@
+<?php 
+    require_once './commons/db.php';
+    require_once './commons/constants.php';
+    require_once './commons/helpers.php';
+    
+
+    //convert name
+    function convert_name($str) {
+        $str = preg_replace("/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/", 'a', $str);
+        $str = preg_replace("/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/", 'e', $str);
+        $str = preg_replace("/(ì|í|ị|ỉ|ĩ)/", 'i', $str);
+        $str = preg_replace("/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/", 'o', $str);
+        $str = preg_replace("/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/", 'u', $str);
+        $str = preg_replace("/(ỳ|ý|ỵ|ỷ|ỹ)/", 'y', $str);
+        $str = preg_replace("/(đ)/", 'd', $str);
+        $str = preg_replace("/(À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ)/", 'A', $str);
+        $str = preg_replace("/(È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ)/", 'E', $str);
+        $str = preg_replace("/(Ì|Í|Ị|Ỉ|Ĩ)/", 'I', $str);
+        $str = preg_replace("/(Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ)/", 'O', $str);
+        $str = preg_replace("/(Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ)/", 'U', $str);
+        $str = preg_replace("/(Ỳ|Ý|Ỵ|Ỷ|Ỹ)/", 'Y', $str);
+        $str = preg_replace("/(Đ)/", 'D', $str);
+        $str = preg_replace("/(\“|\”|\‘|\’|\,|\!|\&|\;|\@|\#|\%|\~|\`|\=|\_|\'|\]|\[|\}|\{|\)|\(|\+|\^)/", '-', $str);
+        $str = preg_replace("/( )/", '-', $str);
+        return $str;
+    }
+
+    if(isset($_POST['btn_register'])){
+        extract($_REQUEST);
+
+        //chuyển username thành viết thường không dấu
+        $username = strtolower(convert_name($username));
+        
+        //Kiem tra tài khoản tồn tại
+        $sqlQuery = "SELECT * from users where username='$username'";
+        $check = executeQuery($sqlQuery, false);
+        if($check != null){
+            echo "<script>alert('Tài khoản đã tồn tại')</script>";
+        }else if($password != $confirm_password){
+            echo "<script>alert('Xác thực mật khẩu không trùng khớp')</script>";
+        }else{
+            //Chuyển đổi mật khẩu
+            $password = password_hash($password, PASSWORD_DEFAULT);
+            $sqlInsert =     "INSERT into users
+                                (username, name, email, phone_number, password)
+                            values
+                                ('$username', '$name', '$email', '$phone_number', '$password')";
+            executeQuery($sqlInsert);
+            setcookie("mess", 'Đăng ký thành công, mời đăng nhập', time()+90);
+            header('location: ' . BASE_URL . 'login.php');
+        }
+    }
+ ?>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
     
@@ -64,31 +117,31 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
-                            <form class="form-register" action="#">
+                            <form class="form-register" method="post">
                                 <fieldset>
                                     <legend>Your Personal Details</legend>
                                     <div class="form-group d-md-flex align-items-md-center">
-                                        <label class="control-label col-md-2" for="f-name"><span class="require">*</span>First Name</label>
+                                        <label class="control-label col-md-2" for="f-name"><span class="require">*</span>Username</label>
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" id="f-name" placeholder="First Name">
+                                            <input type="text" class="form-control" id="f-name" placeholder="Username" name="username" required="">
                                         </div>
                                     </div>
                                     <div class="form-group d-md-flex align-items-md-center">
-                                        <label class="control-label col-md-2" for="l-name"><span class="require">*</span>Last Name</label>
+                                        <label class="control-label col-md-2" for="l-name"><span class="require">*</span>Full Name</label>
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" id="l-name" placeholder="Last Name">
+                                            <input type="text" class="form-control" id="l-name" placeholder="Full Name" name="name" required="">
                                         </div>
                                     </div>
                                     <div class="form-group d-md-flex align-items-md-center">
                                         <label class="control-label col-md-2" for="email"><span class="require">*</span>Enter you email address here...</label>
                                         <div class="col-md-10">
-                                            <input type="email" class="form-control" id="email" placeholder="Enter you email address here...">
+                                            <input type="email" class="form-control" id="email" placeholder="Enter you email address here..." name="email" required="">
                                         </div>
                                     </div>
                                     <div class="form-group d-md-flex align-items-md-center">
                                         <label class="control-label col-md-2" for="number"><span class="require">*</span>Telephone</label>
                                         <div class="col-md-10">
-                                            <input type="email" class="form-control" id="number" placeholder="Telephone">
+                                            <input type="number" class="form-control" id="number" placeholder="Telephone" name="phone_number" required="">
                                         </div>
                                     </div>
                                 </fieldset>
@@ -97,13 +150,13 @@
                                     <div class="form-group d-md-flex align-items-md-center">
                                         <label class="control-label col-md-2" for="pwd"><span class="require">*</span>Password:</label>
                                         <div class="col-md-10">
-                                            <input type="password" class="form-control" id="pwd" placeholder="Password">
+                                            <input type="password" class="form-control" id="pwd" placeholder="Password" name="password" required="">
                                         </div>
                                     </div>
                                     <div class="form-group d-md-flex align-items-md-center">
                                         <label class="control-label col-md-2" for="pwd-confirm"><span class="require">*</span>Confirm Password</label>
                                         <div class="col-md-10">
-                                            <input type="password" class="form-control" id="pwd-confirm" placeholder="Confirm password">
+                                            <input type="password" class="form-control" id="pwd-confirm" placeholder="Confirm password" name="confirm_password" required="">
                                         </div>
                                     </div>
                                 </fieldset>
@@ -121,7 +174,7 @@
                                     <div class="float-md-right">
                                         <span>I have read and agree to the <a href="#" class="agree"><b>Privacy Policy</b></a></span>
                                         <input type="checkbox" name="agree" value="1"> &nbsp;
-                                        <input type="submit" value="Continue" class="return-customer-btn">
+                                        <input type="submit" value="Continue" class="return-customer-btn" name="btn_register">
                                     </div>
                                 </div>
                             </form>

@@ -1,5 +1,6 @@
 <?php
-
+    //select tổng sản phẩm , bình luận, lượt xem, tài khoản
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">

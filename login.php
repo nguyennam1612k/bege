@@ -3,6 +3,7 @@
     require_once "commons/db.php";
     require_once 'commons/constants.php';
     
+    $mess = isset($_COOKIE['mess']) ? $_COOKIE['mess'] : null;
     //Chuyển trang nếu đã đăng nhập
     if(isset($_SESSION[AUTH])){
         header('location: '. BASE_URL);
@@ -412,6 +413,9 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h1 class="entry-title">Login</h1>
+                            <?php if ($mess != null): ?>
+                                <center style="font-size: 20px; color: #CE580A; margin-top: 30px"><?php echo $mess ?></center>
+                            <?php endif ?>
                         </div>
                     </div>
                 </div>
