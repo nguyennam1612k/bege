@@ -31,8 +31,8 @@
                             <span>Sản phẩm</span> <i class="fa fa-angle-right pull-right"></i>
                         </a>
                         <ul class="sidebar-submenu">
-                            <li><a href="products.php"><i class="fa fa-circle"></i>Chỉnh sửa</a></li>
-                            <li><a href="product-list.php"><i class="fa fa-circle"></i>Danh sách sản phẩm</a></li>
+                            <li><a href="products.php"><i class="fa fa-circle"></i>Danh sách sản phẩm</a></li>
+                            <li><a href="product-update.php"><i class="fa fa-circle"></i>Chỉnh sửa</a></li>
                             <li><a href="product-detail.php"><i class="fa fa-circle"></i>Chi tiết sản phẩm</a></li>
                             <li><a href="add-product.php"><i class="fa fa-circle"></i>Thêm sản phẩm</a></li>
                         </ul>

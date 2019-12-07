@@ -72,7 +72,7 @@
                                     <?php endif ?>
                                     <?php if ($searchs == null): ?>
                                         <h1>Hiện thị ngẫu nhiên</h1>
-                                        ( Không tìm ra sản phẩm: <b>#<?php echo $value_search; ?></b> )
+                                        ( Không có: <b>#<?php echo $value_search;?></b> )
                                     <?php endif ?>
                                 </div>
                                 <?php
@@ -83,7 +83,7 @@
                                     $searchs = executeQuery($sqlQuery, true);
                                 }
 
-    //đếm số lượng sản phẩm select
+                                //đếm số lượng sản phẩm select
                                 $countAb = count($searchs);
                                 ?>
                                 <div class="product-toolbar-inner">
@@ -129,7 +129,7 @@
                                                             </div>
                                                             <div class="list-col8">
                                                                 <div class="product-info">
-                                                                    <h2><a href="single-product.html"><?php echo $value['name'] ?></a></h2>
+                                                                    <h2><a href="single-product.php?product_id=<?php echo $value['id'] ?>"><?php echo $value['name'] ?></a></h2>
                                                                     <span class="price">
                                                                         <del><?php echo number_format($value['price'], 0, '', ',') ?> ₫</del> <?php echo number_format($value['sale_price'], 0, '', ',') ?> ₫
                                                                     </span>
@@ -162,11 +162,25 @@
                                                                         </div>
                                                                         <ul class="actions">
                                                                             <?php if ($user == null): ?>
-                                                                                <li><a href="javascript:void(0)" onclick="return alert('Bạn cần đăng nhập để sử dụng chức năng này')"><i class="ion-android-favorite-outline"></i></a></li>
+                                                                                <li><a href="javascript:void(0)" onclick="return alert('Bạn cần đăng nhập để sử dụng chức năng ngày')"><i class="ion-android-favorite-outline"></i></a></li>
                                                                             <?php endif ?>
-                                                                            <?php if ($user != null): ?>
-                                                                                <li><a href="add-wish.php?id=<?php echo $value['id'] ?>"><i class="ion-android-favorite-outline"></i></a></li>
-                                                                            <?php endif ?>
+                                                                            <?php
+                                                                            if($user != null){
+                                                                                $user_id = $user['id'];
+                                                                                $product_id = $value['id'];
+                                                                                $sqlCheck = "SELECT * from wish_lists where user_id=$user_id and product_id=$product_id";
+                                                                                $checkWish = executeQuery($sqlCheck, false);
+                                                                                if($checkWish == null){
+                                                                                    ?>
+                                                                                    <li><a href="add-wish.php?id=<?php echo $value['id'] ?>"><i class="ion-android-favorite-outline"></i></a></li>
+                                                                                    <?php
+                                                                                }else{
+                                                                                    ?>
+                                                                                    <li><a href="javascipt:void(0)" onclick="return alert('Sản phẩm đã tồn tại trong danh sách yêu thích')"><i class="ion-android-favorite-outline"></i></a></li>
+                                                                                    <?php
+                                                                                }
+                                                                            }
+                                                                            ?>
                                                                             <li><a href="javascript:void(0)"><i class="ion-ios-shuffle-strong"></i></a></li>
                                                                         </ul>
                                                                     </div>

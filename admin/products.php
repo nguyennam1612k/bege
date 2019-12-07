@@ -5,11 +5,13 @@
 
     //action & id
     $action = isset($_GET['action']) ? $_GET['action'] : null;
-    $id     = isset($_GET['id']) ? $_GET['id'] : null;
+    
 
     //select cate
     $sqlCate = "SELECT * from categories";
     $title = executeQuery($sqlCate, true);
+    // $select = "SELECT * from categories";
+    // $menu = executeQuery($select, true);
     // dd($title);
     //check cate id
     $cate_id = isset($_GET['cate_id']) ? $_GET['cate_id'] : null;
@@ -21,25 +23,6 @@
     }
     $products = executeQuery($sqlQuery, true);
 
-    //Hiện thị dữ liệu nếu có update
-    if($id != null){
-        $sqlQuery = "SELECT * from products where id=$id";
-        $proUpdate = executeQuery($sqlQuery, false);
-    }
-    //thực hiện theo action
-    //action = update
-    if($action == "update" && $id != null){
-        extract($_REQUEST);
-        $sqlUpdate =    "UPDATE products set
-                            (name, sale_price,feature_image, detail, especially, parameter, quantum, cate_id)
-                        values
-                            ('$name', $sale_price,'$feature_image', '$detail', $especially, '$parameter', $quantum, $cate_id)
-                        where
-                            id=$id";
-        executeQuery($sqlUpdate);
-        // dd($sqlUpdate);
-        // header('location: '. $_SERVER['HTTP_REFRESH']);
-    }
 
 ?>
 <!DOCTYPE html>
@@ -135,211 +118,104 @@
                                 <div class="btn-popup pull-right">
                                     <button type="button" class="btn btn-primary"><a href="add-product.php" style="color: #fff">Add Product</a></button>
                                 </div>
-                                <?php if ($action == null): ?>
-                                    <div class="table-responsive">
-                                        <div  class="product-physical jsgrid" style="position: relative; height: auto; width: 100%;">
-                                            <div class="jsgrid-grid-header jsgrid-header-scrollbar">
-                                                <table class="jsgrid-table">
-                                                    <tr class="jsgrid-header-row">
-                                                        <th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" style="width: 50px;">
-                                                        Image</th>
-                                                        <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 100px;">
-                                                        Name</th>
-                                                        <th class="jsgrid-header-cell jsgrid-align-right jsgrid-header-sortable" style="width: 50px;">
-                                                        Price</th>
-                                                        <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 50px;">
-                                                        Status</th>
-                                                        <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 50px;">
-                                                        Category</th>
-                                                        <th class="jsgrid-header-cell jsgrid-control-field jsgrid-align-center" style="width: 50px;">
-                                                            <input class="jsgrid-button jsgrid-mode-button jsgrid-insert-mode-button" type="button" title="Switch to inserting">
-                                                        </th>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                            <div class="jsgrid-grid-body">
-                                                <table class="jsgrid-table">
-                                                    <!-- hiện thị danh sách sản phẩm -->
-                                                    <tbody>
-                                                        <?php foreach ($products as $value): ?>
-                                                            <tr class="jsgrid-row">
-                                                                <td class="jsgrid-cell jsgrid-align-center" style="width: 50px;">
-                                                                    <img src="../<?php echo $value['feature_image'] ?>" class="blur-up lazyloaded" style="height: 50px; width: 50px;">
-                                                                </td>
-                                                                <td class="jsgrid-cell" style="width: 100px;">
-                                                                <?php echo $value['name'] ?></td>
-                                                                <td class="jsgrid-cell jsgrid-align-right" style="width: 50px;">
-                                                                    <?php echo number_format($value['sale_price'] , 0 , '', ',') ?> vnđ
-                                                                </td>
-                                                                <td class="jsgrid-cell" style="width: 50px;">
-                                                                    <?php
-                                                                    if ($value['quantum'] - $value['sold'] > 0){
-                                                                        $classStatusP = "fa fa-circle font-success f-12";
-                                                                        $titleStatusP = "còn hàng";
-                                                                    }else{
-                                                                        $classStatusP = "fa fa-circle font-danger f-12";
-                                                                        $titleStatusP = "hết hàng";
-                                                                    }
-                                                                    ?>
-                                                                    <i class="<?php echo $classStatusP ?>" title="<?php echo $titleStatusP ?>">
-                                                                        </i>
-                                                                </td>
-
+                                <div class="table-responsive">
+                                    <div  class="product-physical jsgrid" style="position: relative; height: auto; width: 100%;">
+                                        <div class="jsgrid-grid-header jsgrid-header-scrollbar">
+                                            <table class="jsgrid-table">
+                                                <tr class="jsgrid-header-row">
+                                                    <th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" style="width: 50px;">
+                                                    Image</th>
+                                                    <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 100px;">
+                                                    Name</th>
+                                                    <th class="jsgrid-header-cell jsgrid-align-right jsgrid-header-sortable" style="width: 50px;">
+                                                    Price</th>
+                                                    <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 50px;">
+                                                    Status</th>
+                                                    <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 50px;">
+                                                    Category</th>
+                                                    <th class="jsgrid-header-cell jsgrid-control-field jsgrid-align-center" style="width: 50px;">
+                                                        <input class="jsgrid-button jsgrid-mode-button jsgrid-insert-mode-button" type="button" title="Switch to inserting">
+                                                    </th>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="jsgrid-grid-body">
+                                            <table class="jsgrid-table">
+                                                <!-- hiện thị danh sách sản phẩm -->
+                                                <tbody>
+                                                    <?php foreach ($products as $value): ?>
+                                                        <tr class="jsgrid-row">
+                                                            <td class="jsgrid-cell jsgrid-align-center" style="width: 50px;">
+                                                                <img src="../<?php echo $value['feature_image'] ?>" class="blur-up lazyloaded" style="height: 50px; width: 50px;">
+                                                            </td>
+                                                            <td class="jsgrid-cell" style="width: 100px;">
+                                                            <?php echo $value['name'] ?></td>
+                                                            <td class="jsgrid-cell jsgrid-align-right" style="width: 50px;">
+                                                                <?php echo number_format($value['sale_price'] , 0 , '', ',') ?> vnđ
+                                                            </td>
+                                                            <td class="jsgrid-cell" style="width: 50px;">
                                                                 <?php
-                                                                $cate_id = $value['cate_id'];
-                                                                $sqlQuery = "SELECT title from categories where id=$cate_id";
-                                                                $titleC = executeQuery($sqlQuery, false);
+                                                                if ($value['quantum'] - $value['sold'] > 0){
+                                                                    $classStatusP = "fa fa-circle font-success f-12";
+                                                                    $titleStatusP = "còn hàng";
+                                                                }else{
+                                                                    $classStatusP = "fa fa-circle font-danger f-12";
+                                                                    $titleStatusP = "hết hàng";
+                                                                }
                                                                 ?>
+                                                                <i class="<?php echo $classStatusP ?>" title="<?php echo $titleStatusP ?>">
+                                                                    </i>
+                                                            </td>
 
-                                                                <td class="jsgrid-cell" style="width: 50px;">
-                                                                <?php echo $titleC['title'] ?>
-                                                                    
-                                                                </td>
-                                                                <td class="jsgrid-cell jsgrid-control-field jsgrid-align-center" style="width: 50px;">
-                                                                    <a href="?action=update&id=<?php echo $value['id'] ?>">
-                                                                        <input class="jsgrid-button jsgrid-edit-button" type="button" title="Edit">
-                                                                    </a>
-                                                                    <a href="?action=delete&id=<?php echo $value['id'] ?>">
-                                                                        <input class="jsgrid-button jsgrid-delete-button" type="button" title="Delete">
-                                                                    </a>
-                                                                </td>
-                                                            </tr>
-                                                        <?php endforeach ?>
-                                                    </tbody>
-                                                </table>
+                                                            <?php
+                                                            $cate_id = $value['cate_id'];
+                                                            $sqlQuery = "SELECT title from categories where id=$cate_id";
+                                                            $titleC = executeQuery($sqlQuery, false);
+                                                            ?>
+
+                                                            <td class="jsgrid-cell" style="width: 50px;">
+                                                            <?php echo $titleC['title'] ?>
+                                                                
+                                                            </td>
+                                                            <td class="jsgrid-cell jsgrid-control-field jsgrid-align-center" style="width: 50px;">
+                                                                <a href="product-update.php?id=<?php echo $value['id'] ?>">
+                                                                    <input class="jsgrid-button jsgrid-edit-button" type="button" title="Edit">
+                                                                </a>
+                                                                <a href="?action=delete&id=<?php echo $value['id'] ?>">
+                                                                    <input class="jsgrid-button jsgrid-delete-button" type="button" title="Delete">
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    <?php endforeach ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="jsgrid-pager-container" style="">
+                                            <div class="jsgrid-pager">Pages:
+                                                <span class="jsgrid-pager-nav-button jsgrid-pager-nav-inactive-button">
+                                                    <a href="javascript:void(0);">First</a>
+                                                </span> 
+                                                <span class="jsgrid-pager-nav-button jsgrid-pager-nav-inactive-button">
+                                                    <a href="javascript:void(0);">Prev</a>
+                                                </span>
+                                                <span class="jsgrid-pager-page jsgrid-pager-current-page">1</span><span class="jsgrid-pager-page">
+                                                    <a href="javascript:void(0);">2</a>
+                                                </span> 
+                                                <span class="jsgrid-pager-nav-button">
+                                                    <a href="javascript:void(0);">Next</a>
+                                                </span> 
+                                                <span class="jsgrid-pager-nav-button">
+                                                    <a href="javascript:void(0);">Last</a>
+                                                </span>
+                                                &nbsp;&nbsp; 1 of 2 
                                             </div>
-                                            <div class="jsgrid-pager-container" style="">
-                                                <div class="jsgrid-pager">Pages:
-                                                    <span class="jsgrid-pager-nav-button jsgrid-pager-nav-inactive-button">
-                                                        <a href="javascript:void(0);">First</a>
-                                                    </span> 
-                                                    <span class="jsgrid-pager-nav-button jsgrid-pager-nav-inactive-button">
-                                                        <a href="javascript:void(0);">Prev</a>
-                                                    </span>
-                                                    <span class="jsgrid-pager-page jsgrid-pager-current-page">1</span><span class="jsgrid-pager-page">
-                                                        <a href="javascript:void(0);">2</a>
-                                                    </span> 
-                                                    <span class="jsgrid-pager-nav-button">
-                                                        <a href="javascript:void(0);">Next</a>
-                                                    </span> 
-                                                    <span class="jsgrid-pager-nav-button">
-                                                        <a href="javascript:void(0);">Last</a>
-                                                    </span>
-                                                    &nbsp;&nbsp; 1 of 2 
-                                                </div>
-                                             </div>
-                                             <div class="jsgrid-load-shader" style="display: none; position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; z-index: 1000;">
-                                                 
-                                             </div>
-                                             <div class="jsgrid-load-panel" style="display: none; position: absolute; top: 50%; left: 50%; z-index: 1000;">Please, wait...</div>
                                          </div>
-                                    </div>
-                                <?php endif ?>
-                                <?php if ($action == "update"): ?>
-                                    <div class="table-responsive">
-                                        <div  class="product-physical jsgrid" style="position: relative; height: auto; width: 100%;">
-                                            <div class="jsgrid-grid-header jsgrid-header-scrollbar">
-                                                <table class="jsgrid-table">
-                                                    <tr class="jsgrid-header-row">
-                                                        <th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" style="width: 50px;">
-                                                        Image</th>
-                                                        <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 100px;">
-                                                        Name</th>
-                                                        <th class="jsgrid-header-cell jsgrid-align-right jsgrid-header-sortable" style="width: 50px;">
-                                                        Price</th>
-                                                        <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 50px;">
-                                                        Status</th>
-                                                        <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 50px;">
-                                                        Category</th>
-                                                        <th class="jsgrid-header-cell jsgrid-control-field jsgrid-align-center" style="width: 50px;">
-                                                            <input class="jsgrid-button jsgrid-mode-button jsgrid-insert-mode-button" type="button" title="Switch to inserting">
-                                                        </th>
-                                                    </tr>                                                    
-                                                </table>
-                                            </div>
-                                            <form method="post">
-                                                <div class="jsgrid-grid-body">
-                                                    <table class="jsgrid-table">
-                                                        <!-- hiện thị danh sách sản phẩm -->
-                                                        <tbody>
-                                                            <tr class="jsgrid-row">
-                                                                <td class="jsgrid-cell jsgrid-align-center" style="width: 50px;">
-                                                                    <label for="new">
-                                                                        <img src="../<?php echo $proUpdate['feature_image'] ?>" class="blur-up lazyloaded" style="height: 50px; width: 50px;">
-                                                                    </label>
-                                                                    <input type="file" name="new" id="new" style="display: none;">
-                                                                </td>
-                                                                <td class="jsgrid-cell" style="width: 100px;">
-                                                                    <label for="name">
-                                                                        <?php echo $proUpdate['name'] ?>
-                                                                    </label>
-                                                                    <input type="name" name="name" id="name" style="border: 0">
-                                                                </td>
-                                                                <td class="jsgrid-cell jsgrid-align-right" style="width: 50px;">
-                                                                    <label for="sale_price">
-                                                                        <?php echo number_format($proUpdate['sale_price'] , 0 , '', ',') ?> vnđ
-                                                                    </label>
-                                                                    <input type="number" name="sale_price" id="sale_price" style="border: 0">
-                                                                </td>
-                                                                <td class="jsgrid-cell" style="width: 50px;">
-                                                                    <label for="quantum">
-                                                                        <?php echo $proUpdate['quantum'] ?>
-                                                                    </label>
-                                                                    <input type="number" name="quantum" id="quantum" style="border: 0">
-                                                                </td>
-                                                                <td class="jsgrid-cell" style="width: 50px;">
-                                                                    <select name="cate_id" id="">
-                                                                        <?php foreach ($title as $tit): ?>
-                                                                            <!-- <?php //if ($tit['id'] == $proUpdate['cate_id']): ?>
-                                                                                <option value="<?php //echo $title['id'] ?>" selected><?php //echo $title['title'] ?></option>
-                                                                            <?php //endif ?>
-                                                                            <?php //if ($tit['id'] != $proUpdate['cate_id']): ?>
-                                                                                <option value="<?php //echo $title['id'] ?>"><?php //echo $title['title'] ?></option>
-                                                                            <?php //endif ?> -->
-                                                                            <?php echo $tit['title'] ?>
-                                                                        <?php endforeach ?>
-                                                                    </select>
-                                                                </td>
-                                                                <td class="jsgrid-cell jsgrid-control-field jsgrid-align-center" style="width: 50px;">
-                                                                    <a href="?action=update&id=<?php echo $proUpdate['id'] ?>">
-                                                                        <input class="jsgrid-button jsgrid-edit-button" type="button" title="Edit">
-                                                                    </a>
-                                                                    <a href="?action=delete&id=<?php echo $proUpdate['id'] ?>">
-                                                                        <input class="jsgrid-button jsgrid-delete-button" type="button" title="Delete">
-                                                                    </a>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </form>
-                                            <div class="jsgrid-pager-container" style="">
-                                                <div class="jsgrid-pager">Pages:
-                                                    <span class="jsgrid-pager-nav-button jsgrid-pager-nav-inactive-button">
-                                                        <a href="javascript:void(0);">First</a>
-                                                    </span> 
-                                                    <span class="jsgrid-pager-nav-button jsgrid-pager-nav-inactive-button">
-                                                        <a href="javascript:void(0);">Prev</a>
-                                                    </span>
-                                                    <span class="jsgrid-pager-page jsgrid-pager-current-page">1</span><span class="jsgrid-pager-page">
-                                                        <a href="javascript:void(0);">2</a>
-                                                    </span> 
-                                                    <span class="jsgrid-pager-nav-button">
-                                                        <a href="javascript:void(0);">Next</a>
-                                                    </span> 
-                                                    <span class="jsgrid-pager-nav-button">
-                                                        <a href="javascript:void(0);">Last</a>
-                                                    </span>
-                                                    &nbsp;&nbsp; 1 of 2 
-                                                </div>
-                                             </div>
-                                             <div class="jsgrid-load-shader" style="display: none; position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; z-index: 1000;">
-                                                 
-                                             </div>
-                                             <div class="jsgrid-load-panel" style="display: none; position: absolute; top: 50%; left: 50%; z-index: 1000;">Please, wait...</div>
+                                         <div class="jsgrid-load-shader" style="display: none; position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; z-index: 1000;">
+                                             
                                          </div>
-                                    </div>
-                                <?php endif ?>
+                                         <div class="jsgrid-load-panel" style="display: none; position: absolute; top: 50%; left: 50%; z-index: 1000;">Please, wait...</div>
+                                     </div>
+                                </div>
                             </div>
                         </div>
                     </div>

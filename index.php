@@ -155,7 +155,7 @@
         </div>
         <!-- Product categori area end -->
         <!-- sidebar and content area -->
-        {<div class="sidebar-and-content-area">
+        <div class="sidebar-and-content-area">
             <div class="container">
                 <div class="row">
                     <?php include "includes/sidebar.php" ?>
@@ -188,7 +188,9 @@
                                                                     <img style="width: 225px; height: 225px" src="<?php echo $deal['feature_image'] ?>" alt="">
                                                                 </a>
                                                                 <div class="quickviewbtn">
+
                                                                     <a href="#" data-toggle="modal" data-target="#<?php echo $deal['id'] ?>" data-original-title="Quick View"><i class="ion-eye"></i></a>
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -660,7 +662,7 @@
                                                                             <img src="<?php echo $pr_gr['feature_image'] ?>" alt="">
                                                                         </a>
                                                                         <div class="quickviewbtn">
-                                                                            <a href="#" data-toggle="modal" data-target="# <?php echo $pr_gr['id'] ?>" data-original-title="Quick View"><i class="ion-eye"></i></a>
+                                                                            <a href="#" data-toggle="modal" data-target="#<?php echo $pr_gr['id'] ?>" data-original-title="Quick View"><i class="ion-eye"></i></a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -730,6 +732,7 @@
         <?php include "includes/footer.php" ?>
         <!-- QUICKVIEW PRODUCT START -->
         <?php include "includes/quickview.php" ?>
+
         <!-- QUICKVIEW PRODUCT END -->
     </div>
     <!-- Body main wrapper end -->

@@ -1,7 +1,7 @@
 <?php 
-    require_once "commons/db.php";
-    require_once "commons/constants.php";
-    require_once "commons/helpers.php";
+    // require_once "commons/db.php";
+    // require_once "commons/constants.php";
+    // require_once "commons/helpers.php";
 
     $sqlQuery = "SELECT * from products";
     $quickViews = executeQuery($sqlQuery, true);
@@ -115,11 +115,25 @@
                                         </div>
                                         <div class="wishlist-compear-area">
                                             <?php if ($user == null): ?>
-                                                <a href="javascript:void(0)" onclick="return alert('Bạn cần đăng nhập để sử dụng chức năng này')"><i class="ion-ios-heart-outline"></i> Add to Wishlist</a>
+                                                <a href="javascript:void(0)" onclick="return alert('Bạn cần đăng nhập để sử dụng chức năng này')" ><i class="ion-ios-heart-outline"></i> Add to Wishlist</a>
                                             <?php endif ?>
-                                            <?php if ($user != null): ?>
-                                                <a href="add-wish.php?id=<?php echo $value['id'] ?>"><i class="ion-ios-heart-outline"></i> Add to Wishlist</a>
-                                            <?php endif ?>
+                                            <?php
+                                            if($user != null){
+                                                $user_id = $user['id'];
+                                                $product_id = $value['id'];
+                                                $sqlCheck = "SELECT * from wish_lists where user_id=$user_id and product_id=$product_id";
+                                                $checkWish = executeQuery($sqlCheck, false);
+                                                if($checkWish == null){
+                                                    ?>
+                                                    <a href="add-wish.php?id=<?php echo $value['id'] ?>"><i class="ion-ios-heart-outline"></i> Add to Wishlist</a>
+                                                    <?php
+                                                }else{
+                                                    ?>
+                                                    <a href="javascript:void(0)" onclick="return alert('Sản phẩm đã tồn tại trong danh sách yêu thích')" ><i class="ion-ios-heart-outline"></i> Add to Wishlist</a>
+                                                    <?php
+                                                }
+                                            }
+                                            ?>
                                             <a href="javascript:void(0)"><i class="ion-ios-loop-strong"></i> Compare</a>
                                         </div>
                                         <div class="product_meta">

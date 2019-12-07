@@ -108,7 +108,7 @@
                                                 <th class="product-remove">Remove</th>
                                                 <th class="product-thumbnail">Image</th>
                                                 <th class="product-name">Product</th>
-                                                <th class="product-price">Unit Price</th>
+                                                <th class="product-price" width="20%">Unit Price</th>
                                                 <th class="product-quantity">Stock Status</th>
                                                 <th class="product-subtotal">add to cart</th>
                                             </tr>
