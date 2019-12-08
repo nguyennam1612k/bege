@@ -235,7 +235,7 @@
                                     </div>
                                     <p style="float: right ;margin-right: 300px">View: <?php echo $single['views'] ?> <i class="far fa-eye"></i></p>
                                     <span class="price">
-                                        <del><?php echo number_format($single['price'], 0, '', ',') ?> ₫</del> <?php echo number_format($single['sale_price'], 0, '', ',') ?> ₫
+                                        <del><?php echo number_format($single['price'], 0, '', ',') ?> ₫</del><br> <?php echo number_format($single['sale_price'], 0, '', ',') ?> ₫
                                     </span>
                                     <?php $detail = explode('&nbsp', $single['detail'], 2) ?>
                                     <p><?php echo $detail[0] ?> ....</p>

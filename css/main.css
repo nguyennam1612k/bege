@@ -5749,7 +5749,7 @@ a.shipping-calculator-button:hover {
 /* ----------------------------------------------
     22. Checkout CSS
 ---------------------------------------------- */
-.coupon-area .coupon-info input {
+.coupon-area .coupon-info button {
     background: transparent;
     border: 1px solid #e5e5e5;
 }
@@ -5852,7 +5852,7 @@ p.lost-password a:hover {
 }
 
 .coupon-info p.form-row input[type="submit"]:hover,
-p.checkout-coupon input[type="submit"]:hover {
+p.checkout-coupon button[type="submit"]:hover {
     background: #12A4DD none repeat scroll 0 0;
 }
 
@@ -5884,7 +5884,7 @@ p.checkout-coupon input[type=text] {
     width: 170px;
 }
 
-p.checkout-coupon input[type="submit"] {
+p.checkout-coupon button {
     background: #333 none repeat scroll 0 0;
     border: medium none;
     border-radius: 0;

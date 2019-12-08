@@ -1,3 +1,52 @@
+<?php
+    require_once "commons/db.php";
+    require_once 'commons/constants.php';
+
+    $user = isset($_SESSION[AUTH]) ? $_SESSION[AUTH] : null;
+    if(isset($_POST['btn_login']) && $user == null){
+        $username = isset($_POST['username']) ? $_POST['username'] : "";
+        $password = isset($_POST['password']) ? $_POST['password'] : "";
+        // $remember = isset($_POST['remember']) ? $_POST['remember'] : "";
+        if($username != "" && $password != ""){
+            // lấy dữ liệu từ csdl bảng users dựa vào email
+            $sqlUserQuery = "SELECT * from users where username = '$username'";
+            $user = executeQuery($sqlUserQuery, false);
+
+            if($user && password_verify($password, $user['password'])){
+                //Kiểm tra status
+                if($user['status'] == 0){
+                    echo "<script>alert('Tài khoản đang bị khóa')</script>";
+                }else{
+                    $_SESSION[AUTH] = [
+                        "id" => $user['id'],
+                        "username" => $user['username'],
+                        "name" => $user['name'],
+                        "status" => $user['status'],
+                        "avatar" => $user['avatar'],
+                        "email" => $user['email'],
+                        "phone_number" => $user['phone_number'],
+                        "address" => $user['address'],
+                        "points" => $user['points'],
+                        "role" => $user['role']
+                    ];
+                    $id_u = $user['id'];
+                    $sqlUpdateUser = "UPDATE users set onlines=onlines+1 where id=$id_u";
+                    executeQuery($sqlUpdateUser);
+
+                    if($user['role'] == 1){
+                        header('location: '. BASE_URL . 'admin/');
+                        die;
+                    }else{
+                        header('location: '. BASE_URL . 'my-account.php');
+                        die;
+                    }
+                }
+            }else{
+                echo "<script>alert('Tài khoản hoặc mật khẩu không đúng')</script>";
+            }
+        }
+    }
+?>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
     
@@ -68,45 +117,50 @@
                             <div class="col-md-12">
                                 <div class="coupon-accordion">
                                     <!-- ACCORDION START -->
-                                    <h3>Returning customer? <span id="showlogin">Click here to login</span></h3>
-                                    <div id="checkout-login" class="coupon-content">
-                                        <div class="coupon-info">
-                                            <p class="coupon-text">Quisque gravida turpis sit amet nulla posuere lacinia. Cras sed est sit amet ipsum luctus.</p>
-                                            <form action="#">
-                                                <p class="form-row-first">
-                                                    <label>Username or email <span class="required">*</span></label>
-                                                    <input type="text">
-                                                </p>
-                                                <p class="form-row-last">
-                                                    <label>Password  <span class="required">*</span></label>
-                                                    <input type="text">
-                                                </p>
-                                                <p class="form-row">
-                                                    <input type="submit" value="Login">
-                                                    <label>
-                                                    <input type="checkbox">
-                                                     Remember me 
-                                                </label>
-                                                </p>
-                                                <p class="lost-password">
-                                                    <a href="#">Lost your password?</a>
-                                                </p>
-                                            </form>
+                                    <?php if ($user == null): ?>
+                                        <h3 role="button" data-toggle="collapse" data-parent="#checkout-login" href="#checkout-login" aria-expanded="true" aria-controls="collapseOne">Returning customer? <span id="showlogin">Click here to login</span></h3>
+
+                                        <div id="checkout-login" class="coupon-content">
+                                            <div class="coupon-info">
+                                                <p class="coupon-text">Quisque gravida turpis sit amet nulla posuere lacinia. Cras sed est sit amet ipsum luctus.</p>
+                                                <form method="post">
+                                                    <p class="form-row-first">
+                                                        <label>Username <span class="required">*</span></label>
+                                                        <input type="text" name="username">
+                                                    </p>
+                                                    <p class="form-row-last">
+                                                        <label>Password  <span class="required">*</span></label>
+                                                        <input type="text" name="password">
+                                                    </p>
+                                                    <p class="form-row">
+                                                        <input type="submit" value="Login" name="btn_login">
+                                                        <label>
+                                                        <input type="checkbox">
+                                                         Remember me 
+                                                    </label>
+                                                    </p>
+                                                    <p class="lost-password">
+                                                        <a href="forgot-password.php">Lost your password?</a>
+                                                    </p>
+                                                </form>
+                                            </div>
                                         </div>
-                                    </div>
+                                    <?php endif ?>
                                     <!-- ACCORDION END -->
                                     <!-- ACCORDION START -->
-                                    <h3>Have a coupon? <span id="showcoupon">Click here to enter your code</span></h3>
-                                    <div id="checkout_coupon" class="coupon-checkout-content">
-                                        <div class="coupon-info">
-                                            <form action="#">
+                                    <h3 role="button" data-toggle="collapse" data-parent="#checkout_coupon" href="#checkout_coupon" aria-expanded="true" aria-controls="collapseOne">Have a coupon? <span id="showcoupon">Click here to enter your code</span></h3>
+                                    <!-- <div id="checkout_coupon" class="coupon-checkout-content">
+                                        <div class="coupon-info"> -->
+                                            <form >
                                                 <p class="checkout-coupon">
-                                                    <input type="text" class="code" placeholder="Coupon code">
-                                                    <input type="submit" value="Apply Coupon">
+                                                    <input type="text" class="code" placeholder="Coupon code" class="voucher-code-input">
+                                                    <!-- <input type="submit" value="Apply Coupon" class="btn-voucher"> -->
+                                                    
+                                                    <button type="button" class="btn-voucher btn btn-small btn-dark-solid">Apply Voucher Code</button>
                                                 </p>
                                             </form>
-                                        </div>
-                                    </div>
+                                        <!-- </div>
+                                    </div> -->
                                     <!-- ACCORDION END -->
                                 </div>
                             </div>
@@ -336,7 +390,7 @@
                                                     </tr>
                                                     <tr class="order-total">
                                                         <th>Order Total</th>
-                                                        <td><strong><span class="amount"><?php echo number_format($totalPrice, 0, '', ','); ?> đ</span></strong>
+                                                        <td><strong><span class="amount" class="cart-total"><?php echo number_format($totalPrice, 0, '', ','); ?> đ</span></strong>
                                                         </td>
                                                     </tr>
                                                 </tfoot>
@@ -423,8 +477,32 @@
         <script src="js/plugins.js"></script>
         <!-- Main js  -->
         <script src="js/main.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <input type="hidden" id="total-price" value="<?php echo $totalPrice ?>">
+        <script>
+            $("input[name='demo0']").TouchSpin({});
 
+            var buttonApplyVoucher = document.querySelector(".btn-voucher"); //button
+            buttonApplyVoucher.onclick = function(){
+                var voucherCode = document.querySelector('.voucher-code-input').value; //value text input
 
+                var url = "checkVoucherCode.php?code=" + voucherCode;
+                fetch(url, {method: 'GET'})
+                .then((resp) => resp.json())
+                .then(function(data){
+                    if(data == null){
+                        alert('Mã Voucher không tồn tại/hết hạn');
+                    }else{
+                        var totalPrice = document.querySelector('#total-price').value;
+                        totalPrice = parseInt(totalPrice)-parseInt(data.discount_price);
+                        totalPrice = totalPrice.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+                        document.querySelector('.cart-total').innerText = totalPrice; //Hiện thị tổng tiền
+
+                    }
+                });
+
+            }
+        </script>
 
         <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
         <script>

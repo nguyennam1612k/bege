@@ -28,5 +28,6 @@
     	}
 
     }
+    die;
 	// dd($sqlInsert);
  ?>

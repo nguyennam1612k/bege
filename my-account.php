@@ -331,7 +331,6 @@
                                             ?>
                                             <div><?= $user['address']?></div>
                                         </address>
-
                                         <a href="#" class="btn d-inline-block"><i class="fa fa-edit"></i> Chỉnh sửa</a>
                                     </div>
                                 </div>

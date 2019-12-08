@@ -56,6 +56,9 @@
     }
     
 ?>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
 <header class="header-area">
     <!-- Header top area start -->
     <div class="header-top-area">
@@ -65,11 +68,9 @@
                     <div class="top-bar-left">
                         <!-- main-menu -->
                         <div class="main-menu">
-                            <nav>
+                            <nav class="nav">
                                 <ul>
-                                    <li class="current"><a href="index.php">trang chủ</a>
-                                        
-                                    </li>
+                                    <li><a href="index.php">trang chủ</a></li>
                                     <li><a href="shop.php">cửa hàng</a></li>
                                     <li><a href="about-us.php">giới thiệu</a></li>
                                     <li><a href="contact-us.php">liên hệ</a></li>

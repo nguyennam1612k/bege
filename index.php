@@ -59,7 +59,7 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/colors.css">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -776,3 +776,9 @@
 
 <!-- Mirrored from preview.hasthemes.com/bege-v4/bege/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Nov 2019 11:48:38 GMT -->
 </html>
+<script type="text/javascript">
+    $('.home-tabs-title').on('click', 'li', function(){
+        $('.home-tabs-title li').removeClass('active');
+        $(this).addClass('active');
+    });
+</script>
