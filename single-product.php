@@ -211,7 +211,7 @@
                            <div class="col-xs-12 col-md-5 col-lg-5" style="padding-left: 5%">
                                <div class="single-product-info">
                                    <h1><?php echo $single['name'] ?></h1>
-
+        
                                    <div class="product-rattings" style="float: left">
                                     <?php
                                     if ($single['rate'] == 0) {

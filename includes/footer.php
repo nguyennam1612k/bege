@@ -7,7 +7,7 @@
                     <div class="newsletter-text">
                         <div class="icon"><i class="icon ion-email"></i></div>
                         <h3>đăng ký thông báo mới</h3>
-                        <h4>.. và nhận Points khi mua sắm thành công.</h4>
+                        <h4>.. và nhận Points khi mua sắm.</h4>
                     </div>
                     <div class="newsletter">
                         <div class="newsletter-box">
@@ -21,7 +21,7 @@
                 <div class="col-sm-12 col-xl-3">
                     <div class="footer-social">
                         <ul class="social-icons">
-                            <li><a class="facebook social-icon" href="#" title="Facebook" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                            <li><a class="facebook social-icon" href="https://www.facebook.com/DeveloperNVN" title="Facebook" target="_blank"><i class="fa fa-facebook"></i></a></li>
                             <li><a class="twitter social-icon" href="#" title="Twitter" target="_blank"><i class="fa fa-twitter"></i></a></li>
                             <li><a class="instagram social-icon" href="#" title="Instagram" target="_blank"><i class="fa fa-instagram"></i></a></li>
                             <li><a class="linkedin social-icon" href="#" title="Linkedin" target="_blank"><i class="fa fa-linkedin"></i></a></li>

@@ -54,6 +54,7 @@
             }
         }
     }
+    
 ?>
 <header class="header-area">
     <!-- Header top area start -->

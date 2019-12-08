@@ -44,7 +44,7 @@
             executeQuery($create);
 
             //Lưu ảnh vào thư mục menu
-            move_uploaded_file($_FILES['anh']['tmp_name'], "../images/product/menu/".$anh);
+            move_uploaded_file($_FILES['anh']['tmp_name'], "../".$anh);
             header("Refresh:0");
             
         }

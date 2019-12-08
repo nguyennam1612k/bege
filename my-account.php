@@ -13,7 +13,81 @@
     $sqlQuery = "SELECT ROW_NUMBER() OVER (ORDER BY id) AS stt ,orders.* from orders where user_id=$user_id";
     $orders = executeQuery($sqlQuery, true);
     // echo "ngày ".date("d-m-Y") . " lúc " . date(" H:i:s");
+    // dd($_SESSION[AUTH]);
+    //Cập nhật chi tiết tài khoản
+    if(isset($_POST['btn_update_detail'])){
+        extract($_REQUEST);
+        //Kiểm tra địa chỉ và số điện thoại nếu trống
+        
+        if(empty($address)){
+            $address = "";
+        }
+        if(empty($phone_number)){
+            $phone_number = "";
+        }
+        if(is_int($phone_number) == true){
+            echo "<script>alert('Định dạng sai số điện thoại')</script>";
+        }else{
+            //Thực hiện update
+            $sqlUpdateDetail = "UPDATE users set
+                                    name='$name',
+                                    email='$email',
+                                    address='$address',
+                                    phone_number='$phone_number' 
+                                where id=$user_id";
+            executeQuery($sqlUpdateDetail);
 
+            $_SESSION[AUTH]['name'] = $name;
+            $_SESSION[AUTH]['email'] = $email;
+            $_SESSION[AUTH]['address'] = $address;
+            $_SESSION[AUTH]['phone_number'] = $phone_number;
+
+            setcookie('mess', 'Cập nhật tài khoản thành công', time()+60);
+            header('location: ' . BASE_URL . 'my-account.php');
+        }
+    }
+
+    //Đổi mật khẩu
+    if(isset($_POST['btn_update_password'])){
+        extract($_REQUEST);
+        if($new_password == $confirm){
+
+            $sqlQuery = "SELECT password from users where id=$user_id";
+            $cf = executeQuery($sqlQuery, false);
+            $confirm_psw = $cf['password'];
+
+            if(password_verify($now_password, $confirm_psw)){
+                //Chuyển đổi mật khẩu mới sang password hand
+                $new_password = password_hash($new_password, PASSWORD_DEFAULT);
+
+                //Thực hiện update
+                $sqlUpdatePass = "UPDATE users set password='$new_password' where id=$user_id";
+                executeQuery($sqlUpdatePass);
+                header('location: ' . BASE_URL . 'my-account.php');
+                setcookie('mess', 'Cập nhật mật khẩu thành công, dùng mật khẩu mới đăng nhập vào lần tiếp theo', time()+30);
+            }else{
+                echo "<script>alert('Mật khẩu hiện tại bạn nhập không đúng')</script>";
+            }
+        }else{
+            echo "<script>alert('Xác thực mật khẩu không trùng khớp')</script>";
+        }
+        // dd($sqlUpdatePass);
+    }
+
+    //update avatar
+    if( isset($_POST['btn_update_avatar']) ){
+        if( $_FILES['avatar_update']['name'] == "" ){
+            $avatar = $user['avatar'];
+        }else{
+            $avatar = 'images/user/'.$_FILES['avatar_update']['name'];
+            move_uploaded_file($_FILES['avatar_update']['tmp_name'], $avatar);
+        }
+        //Thực hiện update
+        $sqlUpdateAvatar = "UPDATE users set avatar='$avatar' where id=$user_id";
+        executeQuery($sqlUpdateAvatar);
+        //set session
+        $_SESSION[AUTH]['avatar'] = $avatar;
+    }
 ?>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -71,6 +145,9 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h1 class="entry-title">Tài khoản của tôi</h1>
+                            <?php if (isset($_COOKIE['mess'])): ?>
+                                <center style="color: #D24F07; margin-top: 30px; font-size: 20px"><?php echo $_COOKIE['mess'] ?></center>
+                            <?php endif ?>
                         </div>
                     </div>
                 </div>
@@ -111,7 +188,26 @@
                                                     href="?action=logout" class="logout"> Đăng xuất</a>)</p>
                                         </div>
 
-                                        <p class="mb-0">Từ bảng điều khiển tài khoản của bạn. bạn có thể dễ dàng kiểm tra và xem các đơn đặt hàng gần đây, quản lý địa chỉ giao hàng và thanh toán cũng như chỉnh sửa mật khẩu và chi tiết tài khoản của bạn.</p>
+                                        <p class="mb-0" style="width: 60%;">Từ bảng điều khiển tài khoản của bạn. bạn có thể dễ dàng kiểm tra và xem các đơn đặt hàng gần đây, quản lý địa chỉ giao hàng và thanh toán cũng như chỉnh sửa mật khẩu và chi tiết tài khoản của bạn.</p>
+                                        <form method="post" enctype="multipart/form-data">
+                                            <div style="text-align: center ;float: right; width: 35%;height: 200px; margin-top: -120px">
+                                                <label for="img" onclick="myFunction()">
+                                                    <img style="width: 100px" src="<?php echo $user['avatar'] ?>" alt="">
+                                                </label>
+                                                <input type="file" id="img" name="avatar_update" style="display: none;">
+                                                <button style="display: none; margin-left: 120px;" class="btn" id="show_btn" name="btn_update_avatar">Update</button>
+                                                <script>
+                                                    function myFunction() {
+                                                        var x = document.getElementById("show_btn");
+                                                        if (x.style.display === "none") {
+                                                            x.style.display = "block";
+                                                        } else {
+                                                            x.style.display = "none";
+                                                        }
+                                                    }
+                                                </script>
+                                            </div>
+                                    </form>
                                     </div>
                                 </div>
                                 <!-- Single Tab Content End -->
@@ -207,7 +303,7 @@
                                 <div class="tab-pane fade" id="address-edit" role="tabpanel">
                                     <div class="myaccount-content">
                                         <h3>Địa chỉ thanh toán</h3>
-
+                        
                                         <address>
                                             <p><strong><?= $user['name']?></strong></p>
                                             <?php
@@ -245,52 +341,66 @@
                                 <div class="tab-pane fade" id="account-info" role="tabpanel">
                                     <div class="myaccount-content">
                                         <h3>Chi Tiết Tài Khoản</h3>
-
                                         <div class="account-details-form checkout-form-list">
                                             <form method="post">
                                                 <div class="single-input-item">
                                                     <label for="first-name" class="required">Họ Tên</label>
                                                     <input required="" type="text" id="first-name"
-                                                    placeholder="First Name" value="<?= $user['name']?>" />
+                                                    placeholder="First Name" name="name" value="<?= $user['name']?>" />
+                                                </div>
+
+                                                <div class="single-input-item">
+                                                    <label for="email" class="required">Email</label>
+                                                    <input required="" type="email" id="email" placeholder="Email Address" name="email" value="<?= $user['email']?>"/>
                                                 </div>
                                                 
-
                                                 <div class="single-input-item">
-                                                    <label for="email" class="required">Địa chỉ Email</label>
-                                                    <input required="" type="email" id="email" placeholder="Email Address" value="<?= $user['email']?>"/>
+                                                    <label for="email" class="required">Địa chỉ</label>
+                                                    <input type="text" id="address" placeholder="Address" name="address" value="<?= $user['address']?>"/>
                                                 </div>
 
-                                                <fieldset>
-                                                    <legend>Đổi mật khẩu</legend>
-                                                    <div class="single-input-item">
-                                                        <label for="current-pwd" class="required">Mật khẩu cũ</label>
-                                                        <input type="password" id="current-pwd"
-                                                               placeholder="Current Password"/>
-                                                    </div>
-
-                                                    <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <div class="single-input-item">
-                                                                <label for="new-pwd" class="required">Mật khẩu mới</label>
-                                                                <input type="password" id="new-pwd"
-                                                                       placeholder="New Password"/>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-lg-6">
-                                                            <div class="single-input-item">
-                                                                <label for="confirm-pwd" class="required">Nhập lại mật khẩu mới</label>
-                                                                <input type="password" id="confirm-pwd"
-                                                                       placeholder="Confirm Password"/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </fieldset>
-
                                                 <div class="single-input-item">
-                                                    <button class="btn">Save Changes</button>
+                                                    <label for="phone_number" class="required">Số điện thoại</label>
+                                                    <input type="text" maxlength="10" id="phone_number" placeholder="Phone Number" name="phone_number" value="<?= $user['phone_number']?>"/>
+                                                </div>
+                                                <div class="single-input-item">
+                                                    <button class="btn" name="btn_update_detail">Cập nhật</button>
                                                 </div>
                                             </form>
+                                        </div>
+                                            <div class="account-details-form checkout-form-list">
+                                                <form method="post">
+                                                    <fieldset>
+                                                        <legend>Đổi mật khẩu</legend>
+                                                        <div class="single-input-item">
+                                                            <label for="current-pwd" class="required">Mật khẩu cũ</label>
+                                                            <input required="" type="password" id="current-pwd"
+                                                            name="now_password" placeholder="Current Password"/>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <div class="single-input-item">
+                                                                    <label for="new-pwd" class="required">Mật khẩu mới</label>
+                                                                    <input required="" type="password" id="new-pwd"
+                                                                    name="new_password"   placeholder="New Password"/>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-lg-6">
+                                                                <div class="single-input-item">
+                                                                    <label for="confirm-pwd" class="required">Nhập lại mật khẩu mới</label>
+                                                                    <input required="" type="password" id="confirm-pwd"
+                                                                    name="confirm"   placeholder="Confirm Password"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                    <div class="single-input-item" style="margin-top: 20px">
+                                                        <button class="btn" name="btn_update_password">Đổi mật khẩu</button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -303,7 +413,6 @@
                 </div>
             </div>
             <!-- My Account page content end -->
-            
             <?php include "includes/footer.php" ?>
             <!-- QUICKVIEW PRODUCT START -->
             <div id="quickview-wrapper">
