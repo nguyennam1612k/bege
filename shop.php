@@ -71,8 +71,8 @@
                                         ( Từ khóa: <b>#<?php echo $value_search; ?></b> )
                                     <?php endif ?>
                                     <?php if ($searchs == null): ?>
-                                        <h1>Hiện thị ngẫu nhiên</h1>
-                                        ( Không có: <b>#<?php echo $value_search;?></b> )
+                                        <h1>Tham khảo sản phẩm khác</h1>
+                                        ( Không tìm thấy: <b>#<?php echo $value_search;?></b> )
                                     <?php endif ?>
                                 </div>
                                 <?php

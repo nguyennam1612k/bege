@@ -313,19 +313,21 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php foreach ($cart as $value): ?>
-                                                     <tr class="cart_item">
-                                                        <td class="product-name">
-                                                            <?php echo $value['name'] ?> <strong class="product-quantity"> × <?php echo $value['quantity'] ?></strong>
-                                                        </td>
-                                                        <td class="product-total">
-                                                            <span class="amount">
-                                                                <?php $itemTotal = $value['sale_price']*$value['quantity']; ?>
-                                                                <?php echo number_format($itemTotal, 0, '', ','); ?> vnđ
-                                                            </span>
-                                                        </td>
-                                                    </tr> 
-                                                    <?php endforeach ?>                                 
+                                                    <?php if ($cart != null): ?>
+                                                        <?php foreach ($cart as $value): ?>
+                                                         <tr class="cart_item">
+                                                            <td class="product-name">
+                                                                <?php echo $value['name'] ?> <strong class="product-quantity"> × <?php echo $value['quantity'] ?></strong>
+                                                            </td>
+                                                            <td class="product-total">
+                                                                <span class="amount">
+                                                                    <?php $itemTotal = $value['sale_price']*$value['quantity']; ?>
+                                                                    <?php echo number_format($itemTotal, 0, '', ','); ?> vnđ
+                                                                </span>
+                                                            </td>
+                                                        </tr> 
+                                                        <?php endforeach ?>                                 
+                                                    <?php endif ?>
                                                 </tbody>
                                                 <tfoot>
                                                     <tr class="cart-subtotal">
