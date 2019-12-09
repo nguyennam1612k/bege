@@ -189,30 +189,30 @@
                                                     <div class="col-md-12">
                                                         <div class="checkout-form-list">
                                                             <label>Full Name <span class="required">*</span></label>
-                                                            <input type="text" name="name" placeholder="Your name">
+                                                            <input type="text" required="" name="name" placeholder="Your name">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12">
                                                         <div class="checkout-form-list">
                                                             <label>Address <span class="required">*</span></label>
-                                                            <input type="text" name="address" placeholder="Street address">
+                                                            <input type="text" required="" name="address" placeholder="Street address">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12">
                                                         <div class="checkout-form-list mtb-30">
-                                                            <input type="text" placeholder="Apartment, suite, unit etc. (optional)">
+                                                            <input type="text" name="address_extra" placeholder="Apartment, suite, unit etc. (optional)">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="checkout-form-list mb-30">
                                                             <label>Email Address <span class="required">*</span></label>
-                                                            <input type="email" name="email" placeholder="Your email address">
+                                                            <input type="email" required="" name="email" placeholder="Your email address">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="checkout-form-list mb-30">
                                                             <label>Phone  <span class="required">*</span></label>
-                                                            <input type="text" name="phone_number" placeholder="Phone number contact">
+                                                            <input type="number" style="height: 45px" required="" name="phone_number" placeholder="Phone number contact">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12">
@@ -234,13 +234,13 @@
                                                     <div class="col-md-12">
                                                         <div class="checkout-form-list">
                                                             <label>Full Name <span class="required">*</span></label>
-                                                            <input type="text" name="name" placeholder="Your name" value="<?php echo $user['name'] ?>">
+                                                            <input type="text" required="" name="name" placeholder="Your name" value="<?php echo $user['name'] ?>">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12">
                                                         <div class="checkout-form-list">
                                                             <label>Address <span class="required">*</span></label>
-                                                            <input type="text" name="address" placeholder="Street address" value="<?php echo $user['address'] ?>">
+                                                            <input type="text" required="" name="address" placeholder="Street address" value="<?php echo $user['address'] ?>">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12">
@@ -251,24 +251,13 @@
                                                     <div class="col-md-6">
                                                         <div class="checkout-form-list mb-30">
                                                             <label>Email Address <span class="required">*</span></label>
-                                                            <input type="email" name="email" placeholder="Your email address" value="<?php echo $user['email'] ?>">
+                                                            <input type="email" required="" name="email" placeholder="Your email address" value="<?php echo $user['email'] ?>">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="checkout-form-list mb-30">
                                                             <label>Phone  <span class="required">*</span></label>
-                                                            <input type="text" name="phone_number" placeholder="Phone number contact" value="<?php echo $user['phone_number'] ?>">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="checkout-form-list create-acc mb-30">
-                                                            <input id="cbox" type="checkbox" role="button" data-toggle="collapse" data-parent="#cbox_info" href="#cbox_info" aria-expanded="true" aria-controls="collapseOne">
-                                                            <label for="cbox">Create an account?</label>
-                                                        </div>
-                                                        <div id="cbox_info" class="checkout-form-list create-accounts mb-25">
-                                                            <p class="mb-10">Create an account by entering the information below. If you are a returning customer please login at the top of the page.</p>
-                                                            <label>Account password  <span class="required">*</span></label>
-                                                            <input type="password" placeholder="password" style="height: 30px">
+                                                            <input type="number" style="height: 45px" required="" name="phone_number" placeholder="Phone number contact" value="<?php echo $user['phone_number'] ?>">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -371,7 +360,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="order-button-payment">
-                                                    <input type="submit" value="Place order">
+                                                    <input type="hidden" name="total_price" value="<?php echo $totalPrice ?>">
+                                                    <input type="submit" name="btn_order" value="Place order" onclick="return confirm('Xác nhận thanh toán đơn hàng?')">
                                                 </div>
                                             </div>
                                         </div>

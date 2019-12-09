@@ -10,7 +10,10 @@
     }
     //select all đơn hàng tài khoản
     $user_id = $user['id'];
-    $sqlQuery = "SELECT ROW_NUMBER() OVER (ORDER BY id) AS stt ,orders.* from orders where user_id=$user_id";
+    $sqlQuery = "SELECT 
+                    ROW_NUMBER() OVER (ORDER BY id) AS stt,orders.*
+                from orders
+                where user_id=$user_id";
     $orders = executeQuery($sqlQuery, true);
     // echo "ngày ".date("d-m-Y") . " lúc " . date(" H:i:s");
     // dd($_SESSION[AUTH]);
@@ -88,6 +91,7 @@
         //set session
         $_SESSION[AUTH]['avatar'] = $avatar;
     }
+
 ?>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -224,6 +228,7 @@
                                                     <th>Order</th>
                                                     <th>Date</th>
                                                     <th>Status</th>
+                                                    <th>Payment Method</th>
                                                     <th>Total</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -240,9 +245,41 @@
                                                             <td>
                                                                 <?php echo $value['created_date'] ?>
                                                             </td>
-                                                            <td><?php echo $value['status'] ?></td>
+                                                            <td>
+                                                                <?php
+                                                                $status = $value['status'];
+                                                                $sqlQuery = "SELECT name from status_order_extra where id=$status";
+                                                                $status_order = executeQuery($sqlQuery, false);
+                                                                ?>
+                                                                <?php echo $status_order['name'] ?>
+                                                                    
+                                                            </td>
+                                                            <td>
+                                                                <?php
+                                                                $method_pay = $value['payment'];
+                                                                $sqlQuery = "SELECT name from payment_methods_extra
+                                                                            where id=$method_pay";
+                                                                $payment_method = executeQuery($sqlQuery, false);
+                                                                ?>
+                                                                <?php echo $payment_method['name'] ?>
+                                                            </td>
                                                             <td><?php echo number_format($value['total_price'], 0, '', ','); ?> vnđ</td>
-                                                            <td><a href="#" class="btn">View</a></td>
+                                                            <td>
+                                                                <?php
+                                                                if($value['status'] == 1){
+                                                                    ?>
+                                                                    <form action="update-order.php" method="post" style="margin-top: 5px">
+                                                                        <input type="hidden" name="id" value="<?php echo $value['id'] ?>">
+                                                                        <button class="btn">Hủy</button>
+                                                                    </form>
+                                                                    <?php
+                                                                }else{
+                                                                    ?>
+                                                                    <a href="javascript:void(0)" class="btn_disable"><button  onclick="return alert('Đơn hàng đã xác nhận không thể hủy')" class="btn disabled">Hủy</button></a>
+                                                                    <?php
+                                                                }
+                                                                ?>
+                                                            </td>
                                                         </tr>
                                                     <?php endforeach ?>
                                                 <?php endif ?>                                                

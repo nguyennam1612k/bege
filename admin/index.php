@@ -323,7 +323,7 @@
                                         <thead>
                                         <tr>
                                             <th scope="col">Họ tên</th>
-                                            <th scope="col">Ngày đăng ký</th>
+                                            <th scope="col">Đăng nhập lần cuối</th>
                                         </tr>
                                         </thead>
                                         <tbody>

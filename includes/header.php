@@ -6,6 +6,35 @@
     $user = isset($_SESSION[AUTH]) ? $_SESSION[AUTH] : null;
     $cart = isset($_SESSION[CART]) ? $_SESSION[CART] : null;
     $totalPrice = 0;
+
+
+    //PHÂN TRANG
+    $page=1;//khởi tạo trang ban đầu
+    $limit=16;//số bản ghi trên 1 trang (2 bản ghi trên 1 trang)
+    
+    $arrs_list = "SELECT count(id) as count from products";
+    $count = executeQuery($arrs_list);
+
+    $total_record = $count['count'];//tính tổng số bản ghi có trong bảng khoahoc
+    
+    $total_page = $total_record/$limit;//tính tổng số trang sẽ chia
+
+    //xem trang có vượt giới hạn không:
+    if(isset($_GET["page"])){
+        $page=$_GET["page"];//nếu biến $_GET["page"] tồn tại thì trang hiện tại là trang $_GET["page"]
+    }
+    if($page<1){
+        $page=1;
+    }  //nếu trang hiện tại nhỏ hơn 1 thì gán bằng 1
+    if($page>$total_page){
+        $page=$total_page;
+    } //nếu trang hiện tại vượt quá số trang được chia thì sẽ bằng trang cuối cùng
+
+    //tính start (vị trí bản ghi sẽ bắt đầu lấy):
+    $start=($page-1)*$limit;
+    //PHÂN TRANG END
+
+
     if($cart != null){
         foreach ($cart as $key => $value) {
             $itemTotal = $value['sale_price']*$value['quantity'];
@@ -27,9 +56,9 @@
 
     if($value_search != null && $sort != null){
         if($sort == "all"){
-            $sqlQuery = "SELECT * from products where name like '%$value_search%' limit 16";
+            $sqlQuery = "SELECT * from products where name like '%$value_search%' limit $start,$limit";
         }else{
-            $sqlQuery = "SELECT * from products where name like '%$value_search%' and cate_id=$sort limit 16";
+            $sqlQuery = "SELECT * from products where name like '%$value_search%' and cate_id=$sort limit $start,$limit";
         }
         $searchs = executeQuery($sqlQuery, true);
     }
@@ -54,6 +83,8 @@
             }
         }
     }
+    // $url = "<script>location.href.split("/").slice(-1)</script>";
+    // echo $url;
     
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -72,7 +103,7 @@
                                 <ul>
                                     <li><a href="index.php">trang chủ</a></li>
                                     <li><a href="shop.php">cửa hàng</a></li>
-                                    <li><a href="about-us.php">giới thiệu</a></li>
+                                    <li><a href="blog.php">blog</a></li>
                                     <li><a href="contact-us.php">liên hệ</a></li>
                                     <li><a href="#">Menu <i class="fa fa-angle-down"></i></a>
                                         <!-- Hiện thị danh mục cha và danh mục con -->
@@ -303,12 +334,12 @@
                                                         <span class="price">
                                                             <?php $itemTotal = $value['sale_price']*$value['quantity']; ?>
                                                             <?php echo number_format($value['sale_price'], 0, '', ','); ?> vnđ</span>
-                                                            <span class="quantaty">Qty: <?php echo $value['quantity'] ?></span>
-                                                            <span class="cart-remove"><a href="?action=deleteCart&id=<?php echo $value['id'] ?>"><i class="fa fa-times"></i></a></span>
-                                                        </div>
+                                                        <span class="quantaty">Qty: <?php echo $value['quantity'] ?></span>
+                                                        <span class="cart-remove"><a href="?action=deleteCart&id=<?php echo $value['id'] ?>"><i class="fa fa-times"></i></a></span>
                                                     </div>
-                                                </li>
-                                            <?php endforeach ?>
+                                                </div>
+                                            </li>
+                                        <?php endforeach ?>
                                     <?php endif ?>
                                     
                                     <li>

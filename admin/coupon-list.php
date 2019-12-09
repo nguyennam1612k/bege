@@ -3,8 +3,44 @@
     require_once "../commons/constants.php";
     require_once "../commons/helpers.php";
 
-    $sqlQuery = "SELECT * from vouchers order by id";
+    //Select tất cả vouchers
+    $sqlQuery = "SELECT * from vouchers order by end_time desc";
     $vouchers = executeQuery($sqlQuery, true);
+
+    //Lấy get action
+    $action = isset($_GET['action']) ? $_GET['action'] : null;
+    $id = isset($_GET['id']) ? $_GET['id'] : null;
+
+    if($id != null){
+        $sqlQuery = "SELECT * from vouchers where id=$id";
+        $show = executeQuery($sqlQuery, false);
+    }
+
+    if( isset($_POST['btn_update']) && $action == "update"){
+        if($id == null){
+            header('location: coupon-list.php');
+            die;
+        }else{
+            if(empty($_POST['status_update'])){
+                $active = 0; 
+            }else{
+                $active = 1;
+            }
+            //Thực hiện update
+            $sqlUpdate = "UPDATE vouchers set active=$active where id=$id";
+            executeQuery($sqlUpdate);
+            // dd($sqlUpdate);
+            header('location: coupon-list.php');
+        }
+    }
+
+    //Thực hiện xóa nếu action = delete
+    if($action == "delete" && $id != null){
+        $sqlDelete = "DELETE from vouchers where id=$id";
+        executeQuery($sqlDelete);
+        // dd($sqlDelete);
+        header('location: coupon-list.php');
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -111,51 +147,105 @@
                                     <div class="jsgrid-grid-body">
                                         <table class="jsgrid-table">
                                             <tbody>
-                                                <?php foreach($vouchers as $vou): ?>
-                                                    <tr class="jsgrid-row">
-                                                    <td class="jsgrid-cell" style="width: 150px;"><?php echo $vou['title'] ?></td>
-                                                    <td class="jsgrid-cell jsgrid-align-right" style="width: 100px;"><?php echo $vou['code'] ?></td>
-                                                    <td class="jsgrid-cell jsgrid-align-right" style="width: 100px;">
-                                                        <?php echo number_format($vou['discount'], 0, '', ',')  ?> vnđ
-                                                    </td>
-                                                    <td class="jsgrid-cell jsgrid-align-right" style="width: 100px;">
-                                                        <?php
-                                                        $start_v = strtotime($vou['start_time']);
-                                                        $end_v = strtotime($vou['end_time']);
-                                                        $now_v = strtotime("now");
-                                                        if($now_v <= $start_v || $now_v > $end_v || $vou['used_count'] < 0){
-                                                            $status_title = "Hết";
-                                                            $status_voucher = "fa fa-circle font-dark f-12";
-                                                        }else{
-                                                            $status_title = "Còn";
-                                                            $status_voucher = "fa fa-circle font-warning f-12";
-                                                        }
-                                                        ?>
-                                                        <i class="<?php echo $status_voucher ?>" title="<?php echo $status_title ?>"></i>
-                                                        <?php
-                                                        ?>
+                                                <?php if ($action == null): ?>
+                                                    <?php foreach($vouchers as $vou): ?>
+                                                        <tr class="jsgrid-row">
+                                                        <td class="jsgrid-cell" style="width: 150px;"><?php echo $vou['title'] ?></td>
+                                                        <td class="jsgrid-cell jsgrid-align-right" style="width: 100px;"><?php echo $vou['code'] ?></td>
+                                                        <td class="jsgrid-cell jsgrid-align-right" style="width: 100px;">
+                                                            <?php echo number_format($vou['discount'], 0, '', ',')  ?> vnđ
                                                         </td>
-                                                    <td class="jsgrid-cell" style="width: 100px;">
-                                                        <?php
-                                                        if($vou['active'] == 1){
-                                                            $active_voucher = "fa fa-circle font-success f-12";
-                                                            $active_title = "Đã kích hoạt";
-                                                        }else{
-                                                            $active_voucher = "fa fa-circle font-danger f-12";
-                                                            $active_title = "Chưa kích hoạt";
-                                                        }
-                                                        ?>
-                                                        <i class="<?php echo $active_voucher ?>" title="<?php echo $active_title ?>"></i>
-                                                        <?php
-                                                        ?>
-                                                    </td>
-                                                    <td class="jsgrid-cell" style="width: 100px;">
-                                                        <a href="?action=update&id=<?php echo $vou['id'] ?>"><input class="jsgrid-button jsgrid-edit-button" type="button" title="Edit"></a>
-                                                        &#160;&#160;
-                                                        <a href="?action=delete&id=<?php echo $vou['id'] ?>" OnClick="return confirm('xóa Voucher này ?');"><input class="jsgrid-button jsgrid-delete-button" type="button" title="Delete"></a>
-                                                    </td>
-                                                </tr>
-                                                <?php endforeach ?>
+                                                        <td class="jsgrid-cell jsgrid-align-right" style="width: 100px;">
+                                                            <?php
+                                                            $start_v = strtotime($vou['start_time']);
+                                                            $end_v = strtotime($vou['end_time']);
+                                                            $now_v = strtotime("now");
+                                                            if($now_v <= $start_v || $now_v > $end_v || $vou['used_count'] < 0){
+                                                                $status_title = "Hết hạn";
+                                                                $status_voucher = "fa fa-circle font-dark f-12";
+                                                            }else{
+                                                                $status_title = "Còn sử dụng";
+                                                                $status_voucher = "fa fa-circle font-warning f-12";
+                                                            }
+                                                            ?>
+                                                            <i class="<?php echo $status_voucher ?>" title="<?php echo $status_title ?>"></i>
+                                                            <?php
+                                                            ?>
+                                                            </td>
+                                                        <td class="jsgrid-cell" style="width: 100px;">
+                                                            <?php
+                                                            if($vou['active'] == 1){
+                                                                $active_voucher = "fa fa-circle font-success f-12";
+                                                                $active_title = "Đã kích hoạt";
+                                                            }else{
+                                                                $active_voucher = "fa fa-circle font-danger f-12";
+                                                                $active_title = "Chưa kích hoạt";
+                                                            }
+                                                            ?>
+                                                            <i class="<?php echo $active_voucher ?>" title="<?php echo $active_title ?>"></i>
+                                                            <?php
+                                                            ?>
+                                                        </td>
+                                                        <td class="jsgrid-cell" style="width: 100px;">
+                                                            <a href="?action=update&id=<?php echo $vou['id'] ?>"><input class="jsgrid-button jsgrid-edit-button" type="button" title="Edit"></a>
+                                                            &#160;&#160;
+                                                            <a href="?action=delete&id=<?php echo $vou['id'] ?>" OnClick="return confirm('xóa Voucher này ?');"><input class="jsgrid-button jsgrid-delete-button" type="button" title="Delete"></a>
+                                                        </td>
+                                                    </tr>
+                                                    <?php endforeach ?>
+                                                <?php endif ?>
+                                                <?php if ($action == "update"): ?>
+                                                    <form method="post">
+                                                        <tr class="jsgrid-row">
+                                                            <td class="jsgrid-cell" style="width: 150px;"><?php echo $show['title'] ?></td>
+                                                            <td class="jsgrid-cell jsgrid-align-right" style="width: 100px;"><?php echo $show['code'] ?></td>
+                                                            <td class="jsgrid-cell jsgrid-align-right" style="width: 100px;">
+                                                                <?php echo number_format($show['discount'], 0, '', ',')  ?> vnđ
+                                                            </td>
+                                                            <td class="jsgrid-cell jsgrid-align-right" style="width: 100px;">
+                                                                <?php
+                                                                $start_v = strtotime($show['start_time']);
+                                                                $end_v = strtotime($show['end_time']);
+                                                                $now_v = strtotime("now");
+                                                                if($now_v <= $start_v || $now_v > $end_v || $show['used_count'] < 0){
+                                                                    $status_title = "Hết";
+                                                                    $status_voucher = "fa fa-circle font-dark f-12";
+                                                                }else{
+                                                                    $status_title = "Còn";
+                                                                    $status_voucher = "fa fa-circle font-warning f-12";
+                                                                }
+                                                                ?>
+                                                                <i class="<?php echo $status_voucher ?>" title="<?php echo $status_title ?>"></i>
+                                                                <?php
+                                                                ?>
+                                                            </td>
+                                                            <td class="jsgrid-cell" style="width: 100px;">
+                                                                <?php
+                                                                if($show['active'] == 1){
+                                                                    ?>
+                                                                    <label class="switch">
+                                                                        <input type="checkbox" name="status_update" checked >
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                    <?php
+                                                                }else{
+                                                                    ?>
+                                                                    <label class="switch">
+                                                                        <input type="checkbox" name="status_update" >
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                    <?php
+                                                                }
+                                                                ?>
+                                                            </td>
+                                                            <td class="jsgrid-cell" style="width: 100px;">
+                                                                <button name="btn_update" class="jsgrid-button jsgrid-update-button" type="submit" title="Update"></button>
+                                                                &#160;&#160;
+                                                                <input onClick="history.go(-1);" class="jsgrid-button jsgrid-cancel-edit-button" type="button" title="Cancel edit">
+                                                            </td>
+                                                        </tr>
+                                                    </form>
+                                                <?php endif ?>
                                             </tbody>
                                         </table>
                                     </div>

@@ -79,7 +79,7 @@
                                 //Nếu không tìm ra sản phẩm phù hợp sẽ select random products thay thế
                                 $searchs = isset($searchs) ? $searchs : null;
                                 if($searchs == null){
-                                    $sqlQuery = "SELECT * from products order by rand() limit 16";
+                                    $sqlQuery = "SELECT * from products limit $start,$limit";
                                     $searchs = executeQuery($sqlQuery, true);
                                 }
 
@@ -271,11 +271,25 @@
                             </div>
                             <nav class="woocommerce-pagination">
                                 <ul class="page-numbers">
-                                    <li><span aria-current="page" class="page-numbers current">1</span></li>
-                                    <li><a class="page-numbers" href="#">2</a></li>
-                                    <li><a class="page-numbers" href="#">3</a></li>
-                                    <li><a class="page-numbers" href="#">4</a></li>
-                                    <li><a class="next page-numbers" href="#">→</a></li>
+
+                                    <?php
+                                    $url_page = isset($_GET['page']) ? $_GET['page'] : 1;
+                                    for($tik = 1; $tik <= $total_page; $tik++){
+
+                                        if($url_page == $tik){
+                                            $classPage = "current";
+                                        }else{
+                                            $classPage = "";
+                                        }
+
+                                        ?>
+                                        <li><a class="page-numbers" href="?page=<?php echo $tik ?>"><span class="<?php echo $classPage ?>"><?php echo $tik ?></span></a></li>
+
+                                        <?php
+                                    }
+                                    ?>
+
+                                    <li><a class="next page-numbers" href="?page=<?php echo $page+1 ?>">→</a></li>
                                 </ul>
                             </nav>
                         </div>

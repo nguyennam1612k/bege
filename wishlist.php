@@ -5,9 +5,13 @@
 
     //select wish list
     $user = isset($_SESSION[AUTH]) ? $_SESSION[AUTH] : null;
-
     $user_id = $user['id'];
+    
     if($user != null){
+        $sqlQuery = "SELECT count(w.id) as count from products p inner join wish_lists w on w.product_id=p.id where user_id=$user_id";
+        $count_w = executeQuery($sqlQuery, false);
+        $countW = isset($count_w['count']) ? $count_w['count'] : 0;
+
         $sqlQuery = "SELECT w.*, p.name,p.feature_image, p.sale_price, p.quantum, p.sold
                     from products p
                     inner join wish_lists w
@@ -88,6 +92,9 @@
                             <?php if ($user == null): ?>
                                 <center style="font-size: 20px; color: #C4820F; margin-top: 40px">Bạn cần đăng nhập để sử dụng chức năng này</center>
                             <?php endif ?>
+                            <?php if ($user != null): ?>
+                                <center style="font-size: 20px; color: #C4820F; margin-top: 40px">( <?php echo $countW ?> sản phẩm trong danh sách yêu thích)</center>
+                            <?php endif ?>
                         </div>
                     </div>
                 </div>
@@ -139,6 +146,29 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <nav class="woocommerce-pagination">
+                                    <ul class="page-numbers">
+
+                                        <?php
+                                        $url_page = isset($_GET['page']) ? $_GET['page'] : 1;
+                                        for($tik = 1; $tik <= $total_page; $tik++){
+
+                                            if($url_page == $tik){
+                                                $classPage = "current";
+                                            }else{
+                                                $classPage = "";
+                                            }
+
+                                            ?>
+                                            <li><a class="page-numbers" href="?page=<?php echo $tik ?>"><span class="<?php echo $classPage ?>"><?php echo $tik ?></span></a></li>
+
+                                            <?php
+                                        }
+                                        ?>
+
+                                        <li><a class="next page-numbers" href="?page=<?php echo $page+1 ?>">→</a></li>
+                                    </ul>
+                                </nav>
                                 <!-- Table Content Start -->
                             </form>
                             <!-- Form End -->

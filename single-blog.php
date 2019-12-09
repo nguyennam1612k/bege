@@ -1,3 +1,66 @@
+<?php
+    require_once './commons/db.php';
+    require_once './commons/constants.php';
+    require_once './commons/helpers.php';
+
+    $id = isset($_GET['id']) ? $_GET['id'] : null;
+    $user = isset($_SESSION[AUTH]) ? $_SESSION[AUTH] : null;
+    if($user != null){
+        $user_id = $user['id'];
+    }
+    if($id == null){
+        //random id blog
+        $sqlQuery = "SELECT u.name as user_name ,b.*
+                    from blogs b
+                    inner join users u
+                        on u.id = b.user_id
+                    order by rand() limit 1";
+    }else{
+        $sqlQuery = "SELECT u.name as user_name ,b.*
+                    from blogs b
+                    inner join users u
+                        on u.id = b.user_id
+                    where b.id=$id";
+    }
+    //select blog
+    $blog = executeQuery($sqlQuery, false);
+    // dd($blog);
+
+    //Bài viết liên quan
+    $tag_blog = $blog['tag'];
+    $sqlQuery = "SELECT * from blogs where id!=$id order by rand() limit 3";
+    $related = executeQuery($sqlQuery, true);
+
+    //select comment
+    $sqlQuery = "SELECT u.name, u.avatar ,b.*
+                from blog_comments b
+                inner join users u
+                    on u.id=b.user_id
+                where blog_id=$id and reply_for is null";
+    $comments = executeQuery($sqlQuery, true);
+
+    if(isset($_POST['btn_submit']) && $user != null){
+        extract($_REQUEST);
+        $content = str_replace("'","\'", $content);
+        //Reply for
+        if(isset($_POST['reply_for'])){
+            $sqlInsert = "INSERT into blog_comments
+                            (blog_id, content, user_id, reply_for)
+                        values
+                            ($id, '$content', $user_id, $reply_for)";
+        }else{
+            $sqlInsert = "INSERT into blog_comments
+                            (blog_id, content, user_id)
+                        values
+                            ($id, '$content', $user_id)";
+        }
+        executeQuery($sqlInsert);
+        dd($sqlInsert);
+        //Chuyển trang
+        // header('location: '.$_SERVER['HTTP_REFERER']);
+        // die;
+    }
+?>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
     
@@ -63,32 +126,38 @@
             <div class="blog-page-area">
                 <div class="container">
                     <div class="row">
-                        <div class="col-xs-12 col-md-9">
+                        <div class="col-xs-12 col-md-12">
                             <div class="single-blog page-content blog-page blog-sidebar right-sidebar">
                                 <!-- blog post -->
                                 <article class="text-center">
                                     <div class="blog-entry-header">
                                         <div class="post-category">
-                                            <a href="#">Fashion</a>
-                                            <a href="#">WordPress</a>
+                                            <a href="#"><?php echo $blog['tag'] ?></a>
                                         </div>
-                                        <h1><a href="single-blog.html">Blog image post</a></h1>
+                                        <h1><a href="single-blog.html"><?php echo $blog['name'] ?></a></h1>
                                         <div class="post-meta">
-                                            <a href="#"  class="post-author"><i class="fa fa-user"></i>Posted by admin</a>
-                                            <a href="#" class="post-date"><i class="fa fa-calendar"></i> March 10, 2018 </a>
+                                            <a href="#"  class="post-author"><i class="fa fa-user"></i>Posted by <?php echo $blog['user_name'] ?></a>
+                                            <a href="#" class="post-date"><i class="fa fa-calendar"></i> <?php echo $blog['created_at'] ?> </a>
                                         </div>
                                     </div>
                                     <div class="post-thumbnail">
-                                        <a href="single-blog.html"><img src="images/blog/blog1.jpg" alt="bege blog images"></a>
+                                        <?php if (isset($blog['link'])): ?>
+                                            <?php echo $blog['link'] ?>
+                                        <?php endif ?>
+                                        <?php if (empty($blog['link'])): ?>
+                                            <a href="#"><img src="<?php echo $blog['image'] ?>"></a>
+                                        <?php endif ?>
                                     </div>
                                     <div class="postinfo-wrapper">
-                                        <p>Donec vitae hendrerit arcu, sit amet faucibus nisl. Cras pretium arcu ex. Aenean posuere libero eu augue condimentum rhoncus. Praesent ornare tortor ac ante egestas hendrerit. Aliquam et metus pharetra, bibendum massa nec, fermentum odio. Nunc id leo ultrices, mollis ligula in, finibus tortor. Mauris eu dui ut lectus fermentum eleifend. Pellentesque faucibus sem ante, non malesuada odio varius nec. Suspendisse potenti.</p>
-                                        <blockquote><p>Quisque semper nunc vitae erat pellentesque, ac placerat arcu consectetur. In venenatis elit ac ultrices convallis. Duis est nisi, tincidunt ac urna sed, cursus blandit lectus. In ullamcorper sit amet ligula ut eleifend. Proin dictum tempor ligula, ac feugiat metus. Sed finibus tortor eu scelerisque scelerisque.</p></blockquote>
-                                        <p>Aenean et tempor eros, vitae sollicitudin velit. Etiam varius enim nec quam tempor, sed efficitur ex ultrices. Phasellus pretium est vel dui vestibulum condimentum. Aenean nec suscipit nibh. Phasellus nec lacus id arcu facilisis elementum. Curabitur lobortis, elit ut elementum congue, erat ex bibendum odio, nec iaculis lacus sem non lorem. Duis suscipit metus ante, sed convallis quam posuere quis. Ut tincidunt eleifend odio, ac fringilla mi vehicula nec. Nunc vitae lacus eget lectus imperdiet tempus sed in dui. Nam molestie magna at risus consectetur, placerat suscipit justo dignissim. Sed vitae fringilla enim, nec ullamcorper arcu.</p>
-                                        <p>Suspendisse turpis ipsum, tempus in nulla eu, posuere pharetra nibh. In dignissim vitae lorem non mollis. Praesent pretium tellus in tortor viverra condimentum. Nullam dignissim facilisis nisl, accumsan placerat justo ultricies vel. Vivamus finibus mi a neque pretium, ut convallis dui lacinia. Morbi a rutrum velit. Curabitur sagittis quam quis consectetur mattis. Aenean sit amet quam vel turpis interdum sagittis et eget neque. Nunc ante quam, luctus et neque a, interdum iaculis metus. Aliquam vel ante mattis, placerat orci id, vehicula quam. Suspendisse quis eros cursus, viverra urna sed, commodo mauris. Cras diam arcu, fringilla a sem condimentum, viverra facilisis nunc. Curabitur vitae orci id nulla maximus maximus. Nunc pulvinar sollicitudin molestie.</p>
+                                        <?php echo $blog['content'] ?>
                                         <div class="single-post-tag">
-                                            <a class="comment-link" href="#">3 comments</a> / Tags: <a href="#" rel="tag">fashion</a>,
-                                        <a href="#" rel="tag">t-shirt</a>, <a href="#" rel="tag">white</a>
+                                            <!-- Đếm số comment bài viết -->
+                                            <?php 
+                                            $blog_id = $blog['id'];
+                                            $sqlQuery = "SELECT count(id) as count from blog_comments where blog_id=$blog_id";
+                                            $count = executeQuery($sqlQuery, false);
+                                             ?>
+                                            <a class="comment-link" href="#"><?php echo $count['count'] ?> comments</a> / Tags: <a href="#" rel="tag"><?php echo $blog['tag'] ?></a>,
                                         </div>
                                         <div class="social-sharing">
                                             <h3>Share this post</h3>
@@ -109,118 +178,106 @@
                                     <h3>Related posts</h3>
                                     <div class="row">
                                         <!-- related post -->
-                                        <div class="relatedthumb col-md-4 col-sm-6">
-                                            <div class="image">
-                                                <img src="images/blog/related1.jpg" alt="">
-                                            </div>
-                                            <h4><a rel="external" href="single-blog.html">Libero lorem</a></h4>
-                                            <span class="post-date"> September 4, 2017 </span>
-                                        </div>
-                                        <!-- related post end -->
-                                        <!-- related post -->
-                                        <div class="relatedthumb col-md-4 col-sm-6">
-                                            <div class="image">
-                                                <img src="images/blog/related2.jpg" alt="">
-                                            </div>
-                                            <h4><a rel="external" href="single-blog.html">Libero lorem</a></h4>
-                                            <span class="post-date"> September 4, 2017 </span>
-                                        </div>
-                                        <!-- related post end -->
-                                        <!-- related post -->
-                                        <div class="relatedthumb col-md-4 col-sm-6">
-                                            <div class="image">
-                                                <img src="images/blog/related3.jpg" alt="">
-                                            </div>
-                                            <h4><a rel="external" href="single-blog.html">Libero lorem</a></h4>
-                                            <span class="post-date"> September 4, 2017 </span>
-                                        </div>
+                                        <?php if ($related != null): ?>
+                                            <?php foreach ($related as $value): ?>
+                                                <div class="relatedthumb col-md-4 col-sm-6">
+                                                    <div class="image">
+                                                        <a href="single-blog.php?id=<?php echo $value['id'] ?>"><img src="<?php echo $value['image'] ?>"></a>
+                                                    </div>
+                                                    <h4><a rel="external" href="single-blog.php?id=<?php echo $value['id'] ?>"><?php echo $value['name'] ?></a></h4>
+                                                    <span class="post-date"> <?php echo $value['created_at'] ?> </span>
+                                                </div>
+                                            <?php endforeach ?>
+                                        <?php endif ?>
                                         <!-- related post end -->
                                     </div>
                                 </div>
                             </div>
                             <div class="comments-area">
-                                <h3>3 comments</h3>
-                                <ol class="commentlist">
-                                    <li>
-                                        <div class="single-comment">
-                                            <div class="comment-avatar">
-                                                <img src="images/blog/road-avatar.jpg" alt="comment image bege">
-                                            </div>
-                                            <div class="comment-info">
-                                                <a href="#">admin</a>
-                                                <div class="reply">
-                                                    <a href="#">Reply</a>
-                                                </div>
-                                                <span class="date">October 6, 2014 at 1:38 am</span>
-                                                <p>just a nice post</p>
-                                            </div>
-                                        </div>
-                                        <ol>
+                                <h3><?php echo $count['count'] ?> comments</h3>
+                                <!-- comment chính -->
+                                <?php if ($comments != null): ?>
+                                    
+                                    <?php foreach ($comments as $value): ?>
+                                        <ol class="commentlist">
                                             <li>
                                                 <div class="single-comment">
                                                     <div class="comment-avatar">
-                                                        <img src="images/blog/avatar.jpg" alt="comment image bege">
+                                                        <img style="width: 100px" src="<?php echo $value['avatar'] ?>" alt="comment image bege">
                                                     </div>
                                                     <div class="comment-info">
-                                                        <a href="#">admin</a>
+                                                        <a href="#"><?php echo $value['name'] ?></a>
                                                         <div class="reply">
                                                             <a href="#">Reply</a>
                                                         </div>
-                                                        <span class="date">October 6, 2014 at 1:38 am</span>
-                                                        <p>just a nice post</p>
+                                                        <span class="date"><?php echo $value['created_at'] ?></span>
+                                                        <p><?php echo $value['content'] ?></p>
                                                     </div>
                                                 </div>
+                                                <!-- recomment -->
+                                                    <?php
+                                                    //select recomment
+                                                    $main_comment = $value['id'];
+                                                    $sqlQuery = "SELECT u.name, u.avatar ,b.*
+                                                    from blog_comments b
+                                                    inner join users u
+                                                    on u.id=b.user_id
+                                                    where blog_id=$id and reply_for=$main_comment";
+                                                    $reply_comment = executeQuery($sqlQuery, true);
+                                                    // dd($reply_comment);
+                                                    ?>
+                                                    <?php if ($reply_comment != null): ?>
+                                                        <?php foreach ($reply_comment as $oki): ?>
+                                                            <ol>
+                                                                <li>
+                                                                    <div class="single-comment">
+                                                                        <div class="comment-avatar">
+                                                                            <img style="width: 100px" src="<?php echo $oki['avatar'] ?>" alt="comment image bege">
+                                                                        </div>
+                                                                        <div class="comment-info">
+                                                                            <a href="#"><?php echo $oki['name'] ?></a>
+                                                                            <span class="date"><?php echo $oki['created_at'] ?></span>
+                                                                            <p><?php echo $oki['content'] ?></p>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            </ol>
+                                                        <?php endforeach ?>
+                                                    <?php endif ?>
+
+                                                <!-- recomment end -->
                                             </li>
                                         </ol>
-                                    </li>
-                                </ol>
-                                <ol class="commentlist">
-                                    <li>
-                                        <div class="single-comment">
-                                            <div class="comment-avatar">
-                                                <img src="images/blog/road-avatar.jpg" alt="comment image bege">
-                                            </div>
-                                            <div class="comment-info">
-                                                <a href="#">admin</a>
-                                                <div class="reply">
-                                                    <a href="#">Reply</a>
-                                                </div>
-                                                <span class="date">October 6, 2014 at 1:38 am</span>
-                                                <p>just a nice post</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ol>
+                                    <?php endforeach ?>
+                                <?php endif ?>
+                                <!-- comment chính edn -->
                             </div>
                             <div class="comment-respond">
                                 <h3>Leave a Reply </h3>
                                 <small>Your email address will not be published. Required fields are marked *</small>
-                                <form action="#">
+                                <form method="post">
                                     <div class="text-filds">
-                                        <label for="comment">Comment</label>
-                                        <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required="required"></textarea>
-                                    </div>
-                                    <div class="comment-input">
                                         <p class="comment-form-author">
-                                            <label for="author">Name <span class="required">*</span></label> 
-                                            <input id="author" name="author" type="text" value="" size="30" maxlength="245" required="required">
+                                            <label for="author">Reply for</label> 
+                                            <select name="reply_for">
+                                                <option style="font-style: italic;">Null</option>
+                                                <?php if ($comments != null): ?>
+                                                    <?php foreach ($comments as $value): ?>
+                                                        <option value="<?php echo $value['id'] ?>">( *<?php echo $value['name'] ?> ) Nội dung comment: "<?php echo $value['content'] ?>"</option>
+                                                    <?php endforeach ?>
+                                                <?php endif ?>
+                                            </select>
                                         </p>
-                                        <p class="comment-form-email">
-                                            <label for="email">Email <span class="required">*</span></label> 
-                                            <input id="email" name="email" type="text" value="" size="30" maxlength="100" aria-describedby="email-notes" required="required">
-                                        </p>
-                                        <p class="comment-form-url">
-                                            <label for="url">Website</label> 
-                                            <input id="url" name="url" type="text" value="" size="30" maxlength="200">
-                                        </p>
+                                        <label for="comment">Comment</label>
+                                        <textarea id="comment" name="content" cols="45" rows="8" maxlength="65525" required="required"></textarea>
                                     </div>
                                     <div class="form-submit">
-                                        <input name="submit" type="submit" id="submit" class="submit" value="Post Comment">
+                                        <input name="btn_submit" type="submit" id="submit" class="submit" value="Post Comment">
                                     </div>
                                 </form>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-md-3">
+                        <!-- <div class="col-xs-12 col-md-3">
                             <div class="blog_sidebar">
                                 <div class="row_products_side">
                                     <div class="product_left_sidbar">
@@ -228,10 +285,12 @@
                                           <h5>Search </h5>
                                           <div class="search__sidbar">
                                              <div class="input_form">
-                                                <input type="text" id="search_input" name="s" value="Search..." class="input_text">
-                                                <button id="blogsearchsubmit" type="submit" class="button">
-                                                    <i class="fa fa-search"></i>
-                                                </button>
+                                                <form method="get">
+                                                    <input type="text" id="search_input" name="value_search_blog" placeholder="Search..." class="input_text">
+                                                    <button id="blogsearchsubmit" type="submit" class="button">
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                </form>
                                              </div>
                                           </div>
                                         </div>
@@ -288,7 +347,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

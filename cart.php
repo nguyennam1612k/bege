@@ -93,6 +93,7 @@ require_once './commons/helpers.php';
                                         </thead>
                                         <tbody>
                                             <?php if ($cart != null): ?>
+
                                                 <?php foreach ($cart as $key => $item): ?>
 
                                                     <tr>
@@ -122,6 +123,7 @@ require_once './commons/helpers.php';
                                         </tbody>
                                     </table>
                                 </div>
+                                
                                 <!-- Table Content Start -->
                                 <div class="row">
                                    <!-- Cart Button Start -->

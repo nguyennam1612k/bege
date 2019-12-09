@@ -7,9 +7,15 @@
 
     if(isset($_POST['btn_create'])){
         extract($_REQUEST);
+        $title = str_replace("'","\'", $title);
+        $start_time = date('Y-m-d h:i:s',strtotime($start_time));
+        $end_time   = date('Y-m-d h:i:s',strtotime($end_time));
+
         if($code == ""){
             $code = strtoupper(uniqid());
-        }else if(strtotime($start_time) <= strtotime($end_time)){
+        }
+
+        if(strtotime($start_time) > strtotime($end_time)){
             echo "<script>alert('Thời bắt đầu nhỏ hơn thời gian kết thúc')</script>";
         }else{
             //Kiểm tra code tồn tại không
@@ -22,13 +28,13 @@
                     $active = 0;
                 }
                 $sqlInsert = "INSERT into vouchers
-                                (title, code, start_time, end_time, discount, user_count, active)
+                                (title, code, start_time, end_time, discount, used_count, active)
                             values
                                 ('$title', '$code', '$start_time', '$end_time', $discount, $user_count, $active)";
                 executeQuery($sqlInsert);
                 dd($sqlInsert);
-                // header('location: coupon-list.php');
-                // die;
+                header('location: coupon-list.php');
+                die;
             }
         }
     }
@@ -131,7 +137,7 @@
                         </ul>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade active show" id="general" role="tabpanel" aria-labelledby="general-tab">
-                                <form class="needs-validation" novalidate="" method="post">
+                                <form class="needs-validation" method="post">
                                     <h4>General</h4>
                                     <div class="row">
                                         <div class="col-sm-12">
@@ -141,36 +147,36 @@
                                             </div>
                                             <div class="form-group row">
                                                 <label for="validationCustom1" class="col-xl-3 col-md-4"><span>*</span>Voucher Code</label>
-                                                <input class="form-control col-md-7" id="validationCustom1" type="text" required="" name="code" >
+                                                <input class="form-control col-md-7" id="validationCustom1" type="text" placeholder="Bỏ trống nếu tự động tạo code" name="code" >
                                                 <div class="valid-feedback">Please Provide a Valid Coupon Code.</div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-xl-3 col-md-4">Start Date</label>
-                                                <input class="datepicker-here form-control digits col-md-7" type="text" data-language="en" name="start_time">
+                                                <input class="datepicker-here form-control digits col-md-7" type="text" data-language="en" name="start_time" required="">
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-xl-3 col-md-4">End Date</label>
-                                                <input class="datepicker-here form-control digits col-md-7" type="text" data-language="en" name="end_time">
+                                                <input class="datepicker-here form-control digits col-md-7" type="text" data-language="en" name="end_time" required="">
                                             </div>  
                                             <div class="form-group row">
                                                 <label class="col-xl-3 col-md-4">Quantity</label>
-                                                <input class="form-control col-md-7" name="used_count" type="number" required="">
+                                                <input class="form-control col-md-7" min="1" name="user_count" type="number" required="">
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-xl-3 col-md-4">Discount Type</label>
+                                                <label class="col-xl-3 col-md-4">Discount</label>
                                                 <input class="form-control col-md-7" name="discount" type="number" required="">
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-xl-3 col-md-4">Status</label>
                                                 <div class="checkbox checkbox-primary col-md-7">
-                                                    <input id="checkbox-primary-2" name="status" value="1" type="checkbox" data-original-title="" title="">
+                                                    <input id="checkbox-primary-2" name="active" value="1" type="checkbox" data-original-title="" title="">
                                                     <label for="checkbox-primary-2">Enable the Coupon</label>
                                                 </div>
                                             </div>
 
                                         </div>
                                     </div>
-                                    <button type="button" class="btn btn-primary" name="btn_create">Save</button>
+                                    <input type="submit" value="Create" name="btn_create" class="btn btn-primary">
                                 </form>
                             </div>
                             <div class="tab-pane fade" id="restriction" role="tabpanel" aria-labelledby="restriction-tabs">

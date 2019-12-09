@@ -174,7 +174,7 @@
                                             <div class="tab-pane active" id="pro-details1">
                                                 <div class="product-popup">
                                                     <a href="<?php echo $single['feature_image'] ?>">
-                                                        <img src="<?php echo $single['feature_image'] ?>" alt="">
+                                                        <center><img style="width: 377px; height: 377px" src="<?php echo $single['feature_image'] ?>" alt=""></center>
                                                     </a>
                                                 </div>
                                             </div>
@@ -183,7 +183,7 @@
                                                 <div class="tab-pane" id="pro-details<?php echo $al['stt']+1 ?>">
                                                     <div class="product-popup">
                                                         <a href="<?php echo $al['url'] ?>">
-                                                            <img src="<?php echo $al['url'] ?>" alt="">
+                                                            <center><img style="width: 377px; height: 377px" src="<?php echo $al['url'] ?>" alt=""></center>
                                                         </a>
                                                     </div>
                                                 </div>

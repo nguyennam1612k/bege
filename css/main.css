@@ -4938,7 +4938,11 @@ nav.woocommerce-pagination ul.page-numbers li {
 }
 
 nav.woocommerce-pagination ul.page-numbers li span.current,
-nav.woocommerce-pagination ul.page-numbers li a:hover {
+nav.woocommerce-pagination ul.page-numbers li a span:hover {
+    background: #12a4dd;
+    color: #fff;
+}
+a.next.page-numbers:hover {
     background: #12a4dd;
     color: #fff;
 }
@@ -5952,6 +5956,7 @@ p.checkout-coupon button {
 .checkout-form-list label span.required {}
 
 .checkout-form-list input[type=text],
+.checkout-form-list input[type=number],
 .checkout-form-list input[type=password],
 .checkout-form-list input[type=email] {
     background: #fff none repeat scroll 0 0;
