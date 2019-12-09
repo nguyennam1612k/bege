@@ -152,7 +152,12 @@ require_once './commons/helpers.php';
                                                 </tbody>
                                             </table>
                                             <div class="wc-proceed-to-checkout">
-                                                <a href="checkout.php">Proceed to Checkout</a>
+                                                <?php if ($cart != null): ?>
+                                                    <a href="checkout.php">Proceed to Checkout</a>
+                                                <?php endif ?>
+                                                <?php if ($cart == null): ?>
+                                                    <a href="javascript:void(0)" class="disabled">Proceed to Checkout</a>
+                                                <?php endif ?>
                                             </div>
                                         </div>
                                     </div>

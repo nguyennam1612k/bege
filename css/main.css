@@ -7774,4 +7774,8 @@ a.ideas-btn:hover {
     margin-top: 30px;
 }
 
+.disabled {
+    cursor: not-allowed;
+}
+
 /*== My Account Page End ==*/

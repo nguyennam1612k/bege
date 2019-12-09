@@ -174,7 +174,12 @@
                                     <ul>
                                         <li><a href="admin/" style="color: red">Quản trị</a></li>
                                         <li><a href="my-account.php">Tài khoản</a></li>
-                                        <li><a href="checkout.php">Thanh toán</a></li>
+                                        <?php if ($cart != null): ?>
+                                            <li><a href="checkout.php">Thanh toán</a></li>
+                                        <?php endif ?>
+                                        <?php if ($cart == null): ?>
+                                            <li><a href="javascript:void(0)" class="disabled" >Thanh toán</a></li>
+                                        <?php endif ?>
                                         <li><a href="?action=logout">Đăng xuất</a></li>
                                     </ul>
                                     <?php
@@ -183,7 +188,12 @@
                                     <a href="#"><?= $user['name']?> <i class="ion-ios-arrow-down"></i></a>
                                     <ul>
                                         <li><a href="my-account.php">Tài khoản</a></li>
-                                        <li><a href="checkout.php">Thanh toán</a></li>
+                                        <?php if ($cart != null): ?>
+                                            <li><a href="checkout.php">Thanh toán</a></li>
+                                        <?php endif ?>
+                                        <?php if ($cart == null): ?>
+                                            <li><a href="javascript:void(0)" class="disabled" >Thanh toán</a></li>
+                                        <?php endif ?>
                                         <li><a href="?action=logout">Đăng xuất</a></li>
                                     </ul>
                                     <?php
@@ -309,7 +319,12 @@
                                     </li>
                                     <li>
                                         <div class="shop-cart-btn">
-                                            <a href="checkout.php">Checkout</a>
+                                            <?php if ($cart != null): ?>
+                                                <a href="checkout.php">Checkout</a>
+                                            <?php endif ?>
+                                            <?php if ($cart == null): ?>
+                                                <a href="javascript:void(0)" class="disabled">Checkout</a>
+                                            <?php endif ?>
                                             <a href="cart.php" class="pull-right">View Cart</a>
                                         </div>
                                     </li>
