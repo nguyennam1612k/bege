@@ -1,3 +1,48 @@
+<?php
+    require_once "../commons/db.php";
+    require_once "../commons/constants.php";
+    require_once "../commons/helpers.php";
+
+    require_once '../libs/Faker/autoload.php';
+    $faker = Faker\Factory::create('vi_VN');
+    //select cate
+    $sqlCate = "SELECT * from categories";
+    $cates = executeQuery($sqlCate, true);
+
+    //Thực hiện thêm sản phẩm
+    if(isset($_POST['btn_create'])){
+        extract($_REQUEST);
+        $sku = strtoupper(uniqid());
+        if(empty($detail)){
+            $detail = "";
+        }else{
+            $detail = str_replace("'","\'", $detail);
+        }
+
+        if(empty($parameter)){
+            $parameter = "";
+        }else{
+            $parameter = str_replace("'","\'", $parameter);
+        }
+
+        if($_FILES['new_feature']['name'] == ""){
+            echo "<script>alert('Chưa chọn ảnh')</script>";
+        }else if($price < $sale_price){
+            echo "<script>alert('Giảm giá không được cao hơn giá')</script>";
+        }else{
+            $feature_image = "images/products/".$_FILES['new_feature']['name'];
+            move_uploaded_file($_FILES['new_feature']['tmp_name'],'../'. $feature_image);
+
+            $sqlInsert =    "INSERT into products 
+                                (name, sku, price, sale_price, feature_image, detail, parameter, quantum, cate_id)
+                            values
+                                ('$name', '$sku', $price, $sale_price, '$feature_image', '$detail', '$parameter', $quantum, $cate_id)";
+            executeQuery($sqlInsert);
+            header('location: products.php');
+            die;
+        }
+    }
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,6 +74,9 @@
 
     <!-- App css-->
     <link rel="stylesheet" type="text/css" href="../assets/css/admin.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>tinymce.init({selector:'.textarea1'});</script>
 </head>
 <body>
 
@@ -81,79 +129,89 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-header">
-                                <h5>Add Product</h5>
+                                <h5>Update Product</h5>
                             </div>
                             <div class="card-body">
                                 <div class="row product-adding">
+                                <form method="post" enctype="multipart/form-data">
                                     <div class="col-xl-5">
                                         <div class="add-product">
-                                            <div class="row">
+                                            <div class="row"  style="width: 1200px">
                                                 <div class="col-xl-9 xl-50 col-sm-6 col-9">
-                                                    <img src="../assets/images/pro3/1.jpg" alt="" class="img-fluid image_zoom_1 blur-up lazyloaded">
+                                                    <img id="blah" src="" alt="" class="img-fluid image_zoom_1 blur-up lazyloaded">
                                                 </div>
-                                                <div class="col-xl-3 xl-50 col-sm-6 col-3">
-                                                    <ul class="file-upload-product">
-                                                        <li><div class="box-input-file"><input class="upload" type="file"><i class="fa fa-plus"></i></div></li>
-                                                        <li><div class="box-input-file"><input class="upload" type="file"><i class="fa fa-plus"></i></div></li>
-                                                        <li><div class="box-input-file"><input class="upload" type="file"><i class="fa fa-plus"></i></div></li>
-                                                        <li><div class="box-input-file"><input class="upload" type="file"><i class="fa fa-plus"></i></div></li>
-                                                        <li><div class="box-input-file"><input class="upload" type="file"><i class="fa fa-plus"></i></div></li>
-                                                        <li><div class="box-input-file"><input class="upload" type="file"><i class="fa fa-plus"></i></div></li>
-                                                    </ul>
+                                                <div class="col-xl-3 xl-50 col-sm-6 col-3" >
+                                                    <!-- <form enctype="multipart/form-data"> -->
+                                                        <ul class="file-upload-product">
+                                                            <li><div class="box-input-file"><input class="upload" type="file" name="new_feature" id="imgInp"><i style="color: red" class="fa fa-plus"></i></div></li>
+                                                            <li><div class="box-input-file"><input class="upload" type="file"><i class="fa fa-plus"></i></div></li>
+                                                            <li><div class="box-input-file"><input class="upload" type="file"><i class="fa fa-plus"></i></div></li>
+                                                            <li><div class="box-input-file"><input class="upload" type="file"><i class="fa fa-plus"></i></div></li>
+                                                            <li><div class="box-input-file"><input class="upload" type="file"><i class="fa fa-plus"></i></div></li>
+                                                            <li><div class="box-input-file"><input class="upload" type="file"><i class="fa fa-plus"></i></div></li>
+                                                        </ul>
+                                                    <!-- </form> -->
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-xl-7">
-                                        <form class="needs-validation add-product-form" novalidate="">
                                             <div class="form">
                                                 <div class="form-group mb-3 row">
-                                                    <label for="validationCustom01" class="col-xl-3 col-sm-4 mb-0">Title :</label>
-                                                    <input class="form-control col-xl-8 col-sm-7" id="validationCustom01" type="text" required="">
+                                                    <label for="validationCustom01" class="col-xl-3 col-sm-4 mb-0">Name :</label>
+                                                    <input class="form-control col-xl-8 col-sm-7" id="validationCustom01" type="text" required="" name="name">
                                                     <div class="valid-feedback">Looks good!</div>
                                                 </div>
                                                 <div class="form-group mb-3 row">
                                                     <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Price :</label>
-                                                    <input class="form-control col-xl-8 col-sm-7" id="validationCustom02" type="text" required="">
+                                                    <input class="form-control col-xl-8 col-sm-7" id="validationCustom02" type="number" required="" name="price">
                                                     <div class="valid-feedback">Looks good!</div>
                                                 </div>
                                                 <div class="form-group mb-3 row">
-                                                    <label for="validationCustomUsername" class="col-xl-3 col-sm-4 mb-0">Product Code :</label>
-                                                    <input class="form-control col-xl-8 col-sm-7" id="validationCustomUsername" type="text" required="">
-                                                    <div class="invalid-feedback offset-sm-4 offset-xl-3">Please choose Valid Code.</div>
+                                                    <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Sale price :</label>
+                                                    <input class="form-control col-xl-8 col-sm-7" id="validationCustom02" type="number" required="" name="sale_price" >
+                                                    <div class="valid-feedback">Looks good!</div>
                                                 </div>
                                             </div>
                                             <div class="form">
                                                 <div class="form-group row">
-                                                    <label for="exampleFormControlSelect1" class="col-xl-3 col-sm-4 mb-0">Select Size :</label>
-                                                    <select class="form-control digits col-xl-8 col-sm-7" id="exampleFormControlSelect1">
-                                                        <option>Small</option>
-                                                        <option>Medium</option>
-                                                        <option>Large</option>
-                                                        <option>Extra Large</option>
+                                                    <label for="exampleFormControlSelect1" class="col-xl-3 col-sm-4 mb-0">Select Cate :</label>
+                                                    <select class="form-control digits col-xl-8 col-sm-7" id="exampleFormControlSelect1" name="cate_id">
+                                                        <?php foreach ($cates as $value): ?>
+                                                            <option value="<?php echo $value['id'] ?>"><?php echo $value['title'] ?></option>
+                                                        <?php endforeach ?>
                                                     </select>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label class="col-xl-3 col-sm-4 mb-0">Total Products :</label>
-                                                    <fieldset class="qty-box col-xl-9 col-xl-8 col-sm-7 pl-0">
-                                                        <div class="input-group">
-                                                            <input class="touchspin" type="text" value="1">
+                                                    <fieldset  style="margin-left: -360px" class="qty-box col-xl-9 col-xl-8 col-sm-7 pl-0">
+                                                        <div class="input-group" style="margin-left: 0">
+                                                            <input class="touchspin" type="number" required="" name="quantum" value="0">
                                                         </div>
                                                     </fieldset>
                                                 </div>
-                                                <div class="form-group row">
-                                                    <label class="col-xl-3 col-sm-4">Add Description :</label>
+                                                <div class="form-group row" style="margin-top: 30px">
+                                                    <label class="col-xl-3 col-sm-4">Description :</label>
                                                     <div class="col-xl-8 col-sm-7 pl-0 description-sm">
-                                                        <textarea id="editor1" name="editor1" cols="10" rows="4"></textarea>
+                                                        <textarea name="detail" class="textarea1" rows="4">
+                                                            
+                                                        </textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-xl-3 col-sm-4" style="margin-top: 30px">Parameter :</label>
+                                                    <div class="col-xl-8 col-sm-7 pl-0 description-sm">
+                                                        <textarea name="parameter" class="textarea1" rows="4"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="offset-xl-3 offset-sm-4">
-                                                <button type="submit" class="btn btn-primary">Add</button>
+                                                <button type="submit" class="btn btn-primary" name="btn_create">Create</button>
                                                 <button type="button" class="btn btn-light">Discard</button>
                                             </div>
-                                        </form>
+                                        <!-- </form> -->
                                     </div>
+                                </form>
                                 </div>
                             </div>
                         </div>
@@ -226,7 +284,23 @@
 
 <!--script admin-->
 <script src="../assets/js/admin-script.js"></script>
+<script>
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
 
+        reader.onload = function(e) {
+          $('#blah').attr('src', e.target.result);
+      }
+
+      reader.readAsDataURL(input.files[0]);
+  }
+}
+
+$("#imgInp").change(function() {
+  readURL(this);
+});
+</script>
 </body>
 
 <!-- Mirrored from themes.pixelstrap.com/bigdeal/admin/add-product.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 04:30:33 GMT -->

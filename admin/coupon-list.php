@@ -1,6 +1,8 @@
 <?php
-    require_once '../commons/db.php';
-    // require_once '/commons/helpers.php';
+    require_once "../commons/db.php";
+    require_once "../commons/constants.php";
+    require_once "../commons/helpers.php";
+
     $sqlQuery = "SELECT * from vouchers order by id";
     $vouchers = executeQuery($sqlQuery, true);
 ?>
@@ -114,14 +116,7 @@
                                                     <td class="jsgrid-cell" style="width: 150px;"><?php echo $vou['title'] ?></td>
                                                     <td class="jsgrid-cell jsgrid-align-right" style="width: 100px;"><?php echo $vou['code'] ?></td>
                                                     <td class="jsgrid-cell jsgrid-align-right" style="width: 100px;">
-                                                        <?php 
-                                                            if($vou['discount_type'] == 1){
-                                                                echo $vou['discount_percent']."%";
-                                                            }else{
-                                                                $money_discount = number_format($vou['discount_cash'] ,0 ,'.' ,'.');
-                                                                echo $money_discount." VNĐ";
-                                                            }
-                                                        ?>
+                                                        <?php echo number_format($vou['discount'], 0, '', ',')  ?> vnđ
                                                     </td>
                                                     <td class="jsgrid-cell jsgrid-align-right" style="width: 100px;">
                                                         <?php

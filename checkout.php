@@ -178,58 +178,106 @@
                 <!-- checkout area -->
                 <div class="checkout-area">
                     <div class="container">
-                        <form action="#">
+                        <form action="add-order.php" method="post">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6">
                                     <div class="checkbox-form">
                                         <h3>Billing Details</h3>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="checkout-form-list">
-                                                    <label>Full Name <span class="required">*</span></label>
-                                                    <input type="text" placeholder="Your name">
+                                        <!-- nếu không đăng nhập -->
+                                            <?php if ($user == null): ?>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="checkout-form-list">
+                                                            <label>Full Name <span class="required">*</span></label>
+                                                            <input type="text" name="name" placeholder="Your name">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="checkout-form-list">
+                                                            <label>Address <span class="required">*</span></label>
+                                                            <input type="text" name="address" placeholder="Street address">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="checkout-form-list mtb-30">
+                                                            <input type="text" placeholder="Apartment, suite, unit etc. (optional)">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="checkout-form-list mb-30">
+                                                            <label>Email Address <span class="required">*</span></label>
+                                                            <input type="email" name="email" placeholder="Your email address">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="checkout-form-list mb-30">
+                                                            <label>Phone  <span class="required">*</span></label>
+                                                            <input type="text" name="phone_number" placeholder="Phone number contact">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="checkout-form-list create-acc mb-30">
+                                                            <input id="cbox" type="checkbox" role="button" data-toggle="collapse" data-parent="#cbox_info" href="#cbox_info" aria-expanded="true" aria-controls="collapseOne">
+                                                            <label for="cbox">Create an account?</label>
+                                                        </div>
+                                                        <div id="cbox_info" class="checkout-form-list create-accounts mb-25">
+                                                            <p class="mb-10">Create an account by entering the information below. If you are a returning customer please login at the top of the page.</p>
+                                                            <label>Account password  <span class="required">*</span></label>
+                                                            <input type="password" placeholder="password" style="height: 30px">
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="checkout-form-list">
-                                                    <label>Address <span class="required">*</span></label>
-                                                    <input type="text" placeholder="Street address">
+                                            <?php endif ?>
+                                            <!-- Nếu đăng nhập -->
+                                            <?php if ($user != null): ?>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="checkout-form-list">
+                                                            <label>Full Name <span class="required">*</span></label>
+                                                            <input type="text" name="name" placeholder="Your name" value="<?php echo $user['name'] ?>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="checkout-form-list">
+                                                            <label>Address <span class="required">*</span></label>
+                                                            <input type="text" name="address" placeholder="Street address" value="<?php echo $user['address'] ?>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="checkout-form-list mtb-30">
+                                                            <input type="text" name="address_extra" placeholder="Apartment, suite, unit etc. (optional)">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="checkout-form-list mb-30">
+                                                            <label>Email Address <span class="required">*</span></label>
+                                                            <input type="email" name="email" placeholder="Your email address" value="<?php echo $user['email'] ?>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="checkout-form-list mb-30">
+                                                            <label>Phone  <span class="required">*</span></label>
+                                                            <input type="text" name="phone_number" placeholder="Phone number contact" value="<?php echo $user['phone_number'] ?>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="checkout-form-list create-acc mb-30">
+                                                            <input id="cbox" type="checkbox" role="button" data-toggle="collapse" data-parent="#cbox_info" href="#cbox_info" aria-expanded="true" aria-controls="collapseOne">
+                                                            <label for="cbox">Create an account?</label>
+                                                        </div>
+                                                        <div id="cbox_info" class="checkout-form-list create-accounts mb-25">
+                                                            <p class="mb-10">Create an account by entering the information below. If you are a returning customer please login at the top of the page.</p>
+                                                            <label>Account password  <span class="required">*</span></label>
+                                                            <input type="password" placeholder="password" style="height: 30px">
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="checkout-form-list mtb-30">
-                                                    <input type="text" placeholder="Apartment, suite, unit etc. (optional)">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="checkout-form-list mb-30">
-                                                    <label>Email Address <span class="required">*</span></label>
-                                                    <input type="email" placeholder="Your email address">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="checkout-form-list mb-30">
-                                                    <label>Phone  <span class="required">*</span></label>
-                                                    <input type="text" placeholder="Phone number contact">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="checkout-form-list create-acc mb-30">
-                                                    <input id="cbox" type="checkbox" role="button" data-toggle="collapse" data-parent="#cbox_info" href="#cbox_info" aria-expanded="true" aria-controls="collapseOne">
-                                                    <label for="cbox">Create an account?</label>
-                                                </div>
-                                                <div id="cbox_info" class="checkout-form-list create-accounts mb-25">
-                                                    <p class="mb-10">Create an account by entering the information below. If you are a returning customer please login at the top of the page.</p>
-                                                    <label>Account password  <span class="required">*</span></label>
-                                                    <input type="password" placeholder="password" style="height: 30px">
-                                                </div>
-                                            </div>
-                                        </div>
+                                            <?php endif ?>
                                         <div class="different-address">
                                             <div class="order-notes">
                                                 <div class="checkout-form-list">
                                                     <label>Order Notes</label>
-                                                    <textarea id="checkout-mess" cols="30" rows="10" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+                                                    <textarea id="checkout-mess" name="message" cols="30" rows="10" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -323,7 +371,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="order-button-payment">
-                                                    <input type="button" value="Place order">
+                                                    <input type="submit" value="Place order">
                                                 </div>
                                             </div>
                                         </div>

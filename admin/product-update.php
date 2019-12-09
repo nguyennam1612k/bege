@@ -51,7 +51,7 @@
                                 id=$id";
             executeQuery($sqlUpdate);
             // dd($sqlUpdate);
-            // header('location: '. $_SERVER['HTTP_REFRESH']);
+            header('Refresh: 0');
         }else{
             echo "<script>alert('Giảm giá không được lớn hơn giá mặc định')</script>";
         }
@@ -92,6 +92,7 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/admin.css">
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>tinymce.init({selector:'.textarea1'});</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -155,10 +156,10 @@
                                                 <div class="col-xl-9 xl-50 col-sm-6 col-9">
                                                     <img src="../<?php echo $proUpdate['feature_image'] ?>" alt="" class="img-fluid image_zoom_1 blur-up lazyloaded">
                                                 </div>
-                                                <div class="col-xl-3 xl-50 col-sm-6 col-3">
+                                                <div class="col-xl-3 xl-50 col-sm-6 col-3" >
                                                     <!-- <form enctype="multipart/form-data"> -->
                                                         <ul class="file-upload-product">
-                                                            <li><div class="box-input-file"><input class="upload" type="file" name="new_feature"><i style="color: red" class="fa fa-plus"></i></div></li>
+                                                            <li><div class="box-input-file"><input class="upload" type="file" name="new_feature" id="imgInp"><i style="color: red" class="fa fa-plus"></i></div></li>
                                                             <li><div class="box-input-file"><input class="upload" type="file"><i class="fa fa-plus"></i></div></li>
                                                             <li><div class="box-input-file"><input class="upload" type="file"><i class="fa fa-plus"></i></div></li>
                                                             <li><div class="box-input-file"><input class="upload" type="file"><i class="fa fa-plus"></i></div></li>
@@ -167,27 +168,13 @@
                                                         </ul>
                                                     <!-- </form> -->
                                                 </div>
+                                                <div style="width: 300px; height: 200px; margin: -390px 0 0 700px">
+                                                    <img style="width: 400px;" id="blah" src="#" alt="New image" />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-xl-7">
-                                        <!-- <form class="needs-validation add-product-form" method="post" enctype="multipart/form-data"> -->
-                                            <!-- <div class="col-xl-5" style="float: left;">
-                                                <div class="add-product">
-                                                    <div class="row">
-                                                        <div class="col-xl-3 xl-50 col-sm-6 col-3">
-                                                            <ul class="file-upload-product">
-                                                                <li><div class="box-input-file"><input class="upload" type="file" name="new_feature"><i style="color: red" class="fa fa-plus"></i></div></li>
-                                                                <li><div class="box-input-file"><input class="upload" type="file"><i class="fa fa-plus"></i></div></li>
-                                                                <li><div class="box-input-file"><input class="upload" type="file"><i class="fa fa-plus"></i></div></li>
-                                                                <li><div class="box-input-file"><input class="upload" type="file"><i class="fa fa-plus"></i></div></li>
-                                                                <li><div class="box-input-file"><input class="upload" type="file"><i class="fa fa-plus"></i></div></li>
-                                                                <li><div class="box-input-file"><input class="upload" type="file"><i class="fa fa-plus"></i></div></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> -->
                                             <div class="form">
                                                 <div class="form-group mb-3 row">
                                                     <label for="validationCustom01" class="col-xl-3 col-sm-4 mb-0">Name :</label>
@@ -196,12 +183,12 @@
                                                 </div>
                                                 <div class="form-group mb-3 row">
                                                     <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Price :</label>
-                                                    <input class="form-control col-xl-8 col-sm-7" id="validationCustom02" type="text" required="" name="price" value="<?php echo $proUpdate['price'] ?>">
+                                                    <input class="form-control col-xl-8 col-sm-7" id="validationCustom02" type="number" required="" name="price" value="<?php echo $proUpdate['price'] ?>">
                                                     <div class="valid-feedback">Looks good!</div>
                                                 </div>
                                                 <div class="form-group mb-3 row">
                                                     <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Sale price :</label>
-                                                    <input class="form-control col-xl-8 col-sm-7" id="validationCustom02" type="text" required="" name="sale_price" value="<?php echo $proUpdate['sale_price'] ?>">
+                                                    <input class="form-control col-xl-8 col-sm-7" id="validationCustom02" type="number" required="" name="sale_price" value="<?php echo $proUpdate['sale_price'] ?>">
                                                     <div class="valid-feedback">Looks good!</div>
                                                 </div>
                                             </div>
@@ -316,7 +303,23 @@
 
 <!--script admin-->
 <script src="../assets/js/admin-script.js"></script>
+<script>
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
 
+        reader.onload = function(e) {
+          $('#blah').attr('src', e.target.result);
+      }
+
+      reader.readAsDataURL(input.files[0]);
+  }
+}
+
+$("#imgInp").change(function() {
+  readURL(this);
+});
+</script>
 </body>
 
 <!-- Mirrored from themes.pixelstrap.com/bigdeal/admin/add-product.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 04:30:33 GMT -->

@@ -4,7 +4,7 @@
     require_once "../commons/helpers.php";
 
     //select tổng sản phẩm , bình luận, lượt xem, tài khoản
-    $sqlQuery = "SELECT count(id) as count, sum(view) as sum from products";
+    $sqlQuery = "SELECT count(id) as count, sum(views) as sum from products";
     $countPro = executeQuery($sqlQuery, false);
 
     $sqlQuery = "SELECT count(id) as count from comments";

@@ -1,3 +1,39 @@
+<?php
+    require_once "../commons/db.php";
+    require_once "../commons/constants.php";
+    require_once "../commons/helpers.php";
+    require_once '../libs/Faker/autoload.php';
+    $faker = Faker\Factory::create('vi_VN');
+
+    if(isset($_POST['btn_create'])){
+        extract($_REQUEST);
+        if($code == ""){
+            $code = strtoupper(uniqid());
+        }else if(strtotime($start_time) <= strtotime($end_time)){
+            echo "<script>alert('Thời bắt đầu nhỏ hơn thời gian kết thúc')</script>";
+        }else{
+            //Kiểm tra code tồn tại không
+            $sqlQuery = "SELECT * from vouchers where code='$code'";
+            $check = executeQuery($sqlQuery, false);
+            if($check != null){
+                echo "<script>alert('Mã voucher đã tồn tại')</script>";
+            }else{
+                if(empty($active)){
+                    $active = 0;
+                }
+                $sqlInsert = "INSERT into vouchers
+                                (title, code, start_time, end_time, discount, user_count, active)
+                            values
+                                ('$title', '$code', '$start_time', '$end_time', $discount, $user_count, $active)";
+                executeQuery($sqlInsert);
+                dd($sqlInsert);
+                // header('location: coupon-list.php');
+                // die;
+            }
+        }
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -95,55 +131,46 @@
                         </ul>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade active show" id="general" role="tabpanel" aria-labelledby="general-tab">
-                                <form class="needs-validation" novalidate="">
+                                <form class="needs-validation" novalidate="" method="post">
                                     <h4>General</h4>
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group row">
-                                                <label for="validationCustom0" class="col-xl-3 col-md-4"><span>*</span> Coupan Title</label>
-                                                <input class="form-control col-md-7" id="validationCustom0" type="text" required="">
+                                                <label for="validationCustom0" class="col-xl-3 col-md-4"><span>*</span> Voucher Title</label>
+                                                <input class="form-control col-md-7" id="validationCustom0" type="text" required="" name="title">
                                             </div>
                                             <div class="form-group row">
-                                                <label for="validationCustom1" class="col-xl-3 col-md-4"><span>*</span>Coupan Code</label>
-                                                <input class="form-control col-md-7" id="validationCustom1" type="text" required="" >
+                                                <label for="validationCustom1" class="col-xl-3 col-md-4"><span>*</span>Voucher Code</label>
+                                                <input class="form-control col-md-7" id="validationCustom1" type="text" required="" name="code" >
                                                 <div class="valid-feedback">Please Provide a Valid Coupon Code.</div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-xl-3 col-md-4">Start Date</label>
-                                                <input class="datepicker-here form-control digits col-md-7" type="text" data-language="en">
+                                                <input class="datepicker-here form-control digits col-md-7" type="text" data-language="en" name="start_time">
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-xl-3 col-md-4">End Date</label>
-                                                <input class="datepicker-here form-control digits col-md-7" type="text" data-language="en">
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-xl-3 col-md-4">Free Shipping</label>
-                                                <div class="checkbox checkbox-primary col-md-7">
-                                                    <input id="checkbox-primary-1" type="checkbox" data-original-title="" title="">
-                                                    <label for="checkbox-primary-1">Allow Free Shipping</label>
-                                                </div>
-                                            </div>
+                                                <input class="datepicker-here form-control digits col-md-7" type="text" data-language="en" name="end_time">
+                                            </div>  
                                             <div class="form-group row">
                                                 <label class="col-xl-3 col-md-4">Quantity</label>
-                                                <input class="form-control col-md-7" type="number" required="">
+                                                <input class="form-control col-md-7" name="used_count" type="number" required="">
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-xl-3 col-md-4">Discount Type</label>
-                                                <select class="custom-select col-md-7" required="">
-                                                    <option value="">--Select--</option>
-                                                    <option value="1">Percent</option>
-                                                    <option value="2">Fixed</option>
-                                                </select>
+                                                <input class="form-control col-md-7" name="discount" type="number" required="">
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-xl-3 col-md-4">Status</label>
                                                 <div class="checkbox checkbox-primary col-md-7">
-                                                    <input id="checkbox-primary-2" type="checkbox" data-original-title="" title="">
+                                                    <input id="checkbox-primary-2" name="status" value="1" type="checkbox" data-original-title="" title="">
                                                     <label for="checkbox-primary-2">Enable the Coupon</label>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
+                                    <button type="button" class="btn btn-primary" name="btn_create">Save</button>
                                 </form>
                             </div>
                             <div class="tab-pane fade" id="restriction" role="tabpanel" aria-labelledby="restriction-tabs">
@@ -189,7 +216,7 @@
                             </div>
                         </div>
                         <div class="pull-right">
-                            <button type="button" class="btn btn-primary">Save</button>
+                            
                         </div>
                     </div>
                 </div>

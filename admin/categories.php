@@ -46,7 +46,7 @@
             //Lưu ảnh vào thư mục menu
             move_uploaded_file($_FILES['anh']['tmp_name'], "../".$anh);
             header("Refresh:0");
-            
+
         }
     }
     //update menu danh mục
@@ -56,13 +56,13 @@
         if($_FILES['new']['name'] == ""){
             $image = $cate_update['image'];
         }else{
-            $image = "images/product/menu/".$_FILES['new']['name'];
+            $image = "images/products/menu/".$_FILES['new']['name'];
         }
         //icon cũ
-        if(empty($new_icon)){
+        if($_FILES['new_icon']['name'] == ""){
             $icon = $cate_update['icon'];
         }else{
-            $icon = $_FILES['new_icon']['name'];
+            $icon = "images/icons/".$_FILES['new_icon']['name'];
         }
         //check
         
@@ -85,7 +85,8 @@
             //Chuyển trang
                 //Lưu ảnh vào thư mục menu
             if($_FILES['new']['name'] != ""){
-                move_uploaded_file($_FILES['new']['tmp_name'], "../images/product/menu/".$new);
+                move_uploaded_file($_FILES['new']['tmp_name'], "../".$image);
+                move_uploaded_file($_FILES['new_icon']['tmp_name'], "../".$icon);
             }
             header('location: '. BASE_URL . 'admin/categories.php');
             
@@ -95,6 +96,8 @@
     if($action == "delete"){
         $delete = "DELETE FROM categories WHERE id=$id";
         executeQuery($delete);
+        $deletePro = "DELETE from products where cate_id=$id";
+        executeQuery($deletePro);
         header("Refresh:0");
     }
  ?>
@@ -306,7 +309,7 @@
                                                        <tr class="jsgrid-row">
                                                             <td class="jsgrid-cell jsgrid-align-center" style="width: 50px;">
                                                                 <label for="icon-input">
-                                                                    <img  class="blur-up lazyloaded" src="../<?= $cate_update['icon'] ?>" alt="icon">
+                                                                    <img style="width: 40px" class="blur-up lazyloaded" src="../<?= $cate_update['icon'] ?>" alt="icon">
                                                                 </label>
                                                                 <input type="file" name="new_icon" id="icon-input" style="display: none;">
                                                             </td>
@@ -352,7 +355,7 @@
                                                             ?>
                                                             <tr class="jsgrid-row">
                                                                 <td class="jsgrid-cell jsgrid-align-center" style="width: 50px;">
-                                                                        <img  class="blur-up lazyloaded" src="../<?= $row['icon'] ?>" alt="icon">
+                                                                        <img style="width: 40px" class="blur-up lazyloaded" src="../<?= $row['icon'] ?>" alt="icon">
                                                                 </td>
                                                                 <td class="jsgrid-cell" style="width: 100px;">
                                                                     <?= $row['title']?>
