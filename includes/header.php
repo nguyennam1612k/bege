@@ -85,6 +85,9 @@
     }
     // $url = "<script>location.href.split("/").slice(-1)</script>";
     // echo $url;
+    if(isset($_COOKIE['mess_ac'])){
+        echo "<script>alert('".$_COOKIE['mess_ac']."')</script>";
+    }
     
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

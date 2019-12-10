@@ -20,16 +20,9 @@
 
     //select hóa đơn
     $sqlQuery = "SELECT 
-                    ROW_NUMBER() OVER (ORDER BY o.id) AS stt,
-                    s.name as name_status,
-                    p.name as name_payment,
-                    o.*
-                from orders o
-                    inner JOIN status_order_extra s
-                        ON s.id=o.status
-                    INNER JOIN payment_methods_extra p
-                        ON p.id=o.payment
-                limit 5";
+                    ROW_NUMBER() OVER (ORDER BY id) AS stt,
+                    orders.*
+                from orders";
     $orders = executeQuery($sqlQuery, true);
 ?>
 <!DOCTYPE html>
@@ -210,29 +203,29 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
                                             <?php if ($orders != null): ?>
                                                 <?php foreach ($orders as $value): ?>
-                                                    <td><?php echo $value['stt'] ?></td>
-                                                    <td class="digits"><?php echo number_format($value['total_price'], 0, '', ',') ?> vnđ</td>
-                                                    <td><?php echo $value['name'] ?></td>
-                                                    <td class="digits"><?php echo $value['name_payment'] ?></td>
-                                                    <?php
-                                                    if($value['status'] == 1){
-                                                        $classFont = "font-warning";
-                                                    }else if($value['status'] >= 2){
-                                                        $classFont = "font-primary";
-                                                    }else if($value['status'] == 5){
-                                                        $classFont = "font-danger";
-                                                    }
-                                                    ?>
-                                                    <td class="<?php echo $classFont ?>"><?php echo $value['name_status'] ?></td>
+                                                    <tr>
+                                                        <td><?php echo $value['stt'] ?></td>
+                                                        <td class="digits"><?php echo number_format($value['total_price'], 0, '', ',') ?> vnđ</td>
+                                                        <td><?php echo $value['name'] ?></td>
+                                                        <td class="digits"><?php echo $value['payment_method'] ?></td>
+                                                        <?php
+                                                        if($value['status'] == "Đã đặt hàng"){
+                                                            $classStatus = "font-warning";
+                                                        }else if($value['status'] == "Đã hủy"){
+                                                            $classStatus = "font-danger";
+                                                        }else{
+                                                            $classStatus = "font-primary";
+                                                        }
+                                                        ?>
+                                                        <td class="<?php echo $classStatus ?>"><?php echo $value['status'] ?></td>
+                                                    </tr>
                                                 <?php endforeach ?>
                                             <?php endif ?>
-                                        </tr>
                                         </tbody>
                                     </table>
-                                    <a href="invoice.php" class="btn btn-primary">Xem tất cả đơn hàng</a>
+                                    <a href="order.php" class="btn btn-primary">Xem tất cả đơn hàng</a>
                                 </div>
                             </div>
                         </div>
@@ -293,7 +286,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="digits"><?php echo $value['date_register'] ?></td>
+                                                <td class="digits"><?php echo $value['date_login'] ?></td>
                                             </tr>
                                         <?php endforeach ?>
                                         </tbody>

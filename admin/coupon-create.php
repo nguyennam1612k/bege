@@ -32,7 +32,7 @@
                             values
                                 ('$title', '$code', '$start_time', '$end_time', $discount, $user_count, $active)";
                 executeQuery($sqlInsert);
-                dd($sqlInsert);
+                // dd($sqlInsert);
                 header('location: coupon-list.php');
                 die;
             }

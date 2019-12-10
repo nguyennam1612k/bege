@@ -1,5 +1,5 @@
 <?php 
-require_once './db.php';
+require_once './commons/db.php';
 require_once 'commons/helpers.php';
 //https://github.com/fzaninotto/Faker
 require_once './libs/Faker/autoload.php';
@@ -82,12 +82,12 @@ $faker = Faker\Factory::create('vi_VN');
 
 
 // // insert dữ liệu mẫu cho bảng products (100 bản ghi)
-for ($i=1; $i < 26; $i++) {
+for ($i=1; $i < 12; $i++) {
 	$name = $faker->realText($maxNbChars = 10, $indexSize = 1);
 	// $name = $faker->name;
-	$name = "Laptop ".$name;
+	$name = "Màn hình ".$name;
 	$sku = strtoupper(uniqid());
-	$cate_id = 1;
+	$cate_id = 2;
 	$price = rand(10000000, 40000000);
 	$sale_price = $price - rand(500000, 8000000);
 	// $detail = $faker->realText($maxNbChars = 200, $indexSize = 2);
@@ -120,91 +120,38 @@ for ($i=1; $i < 26; $i++) {
 	<p>Chipset :	Intel core i3</p>
 	<p>Tốc độ Bus :	2400 MHz</p>
 	<p>Hỗ trợ RAM tối đa :	12 GB</p>
-	<b>RAM</b><br>
-	<p>Dung lượng RAM :	4 GB</p>
-	<p>Loại RAM :	DDR4</p>
-	<p>Tốc độ BUS RAM :	2400 MHz</p>
-	<p>Số lượng khe RAM :	1</p>
-	<b>Đĩa cứng</b><br>
-	<p>Loại ổ đĩa :	SSD</p>
-	<p>Dung lượng ổ đĩa :	512 GB</p>
-	<p>Khe cắm ổ SSD :	Không</p>
-	<b>Đồ họa</b><br>
-	<p>Chipset đồ họa :	Intel® HD graphics 620</p>
-	<p>Bộ nhớ đồ họa :	Shared</p>
-	<p>Kiểu thiết kế đồ họa :	Tích hợp</p>
-	<b>Màn hình</b><br>
-	<p>Kích thước màn hình :	15.6 inchs</p>
-	<p>Độ phân giải (W x H) :	1366 x 768 Pixels</p>
-	<p>Công nghệ màn hình :	Anti - Glare</p>
-	<p>Cảm ứng :	Không</p>
-	<b>Âm thanh</b><br>
-	<p>Kênh âm thanh :	Không</p>
-	<p>Thông tin thêm :	Sonic Master</p>
-	<b>Đĩa quang</b><br>
-	<p>Có sẵn đĩa quang :	Không</p>
-	<b>Tính năng mở rộng & cổng giao tiếp</b><br>
-	<p>Cổng giao tiếp :	2x USB 2.0 1x USB3.1 Type A (Gen1) 1x USB3.1 Type C (Gen 1)</p>
-	<p>Tính năng mở rộng :	Chiclet Keyboard with Num-Key</p>
-	<b>Giao tiếp mạng</b><br>
-	<p>LAN :	Không</p>
-	<p>Chuẩn Wi-Fi :	802.11 ac</p>
-	<p>Kết nối không dây khác :	Bluetooth 4.2</p>
-	<b>Card Reader</b><br>
-	<p>Đọc thẻ nhớ :	Micro SD</p>
-	<p>Khe đọc thẻ nhớ :	Micro SD</p>
-	<b>Webcam</b><br>
-	<p>Độ phân giải :	1.0 MP</p>
-	<p>Thông tin thêm :	VGA Webcam</p>
-	<b>Hệ điều hành, phầm mềm có sẵn</b><br>
-	<p>Hệ điều hành :	Windows 10 Home</p>
-	<p>Phần mềm có sẵn :	không</p>
-	<b>PIN/Battery</b><br>
-	<p>Loại pin :	2 Cells</p>
-	<p>Kiểu pin :	Lithium-Ion, Liền</p>
-	<b>Thông tin khác</b><br>
-	<p>Cảm biến vân tay :	Có</p>
-	<p>Đèn bàn phím :	Không</p>
-	<p>Bàn phím số :	Có</p>
-	<p>Phụ kiện kèm theo :	Sạc, Sách HDSD</p>
-	<b>Kích thước & trọng lượng</b><br>
-	<p>Kích Thước :	36.0(W) x 23.5(D) x 2.29 ~ 2.29 (H) cm</p>
-	<p>Trọng lượng :	1.90 KG (with 2 cell battery)</p>
-	<p>Chất liệu :	Nhựa</p>
 	<b>Bảo hành</b><br>
 	<p>Thời gian bảo hành :	24 Tháng</p>";
 	$parameter = str_replace("'","\'", $parameter);
-	$feature_image = "images/products/laptop_00".$i.".jpg";
+	$feature_image = "images/products/manhinh_00".$i.".jpg";
 	if($i >= 10){
 		$feature_image = str_replace("_00", "_0", $feature_image);
 	}
 	$view_count = rand(0, 999);
 	$especially = rand(0, 1);
 	$quantum = rand(50,300);
-	$sqlQuery = "INSERT into products 
+	$sqlProduct = "INSERT into products 
 					(name,
 					sku,
-					cate_id, 
 					price, 
 					sale_price,
+					feature_image,
+					especially,
 					detail,
 					parameter,
-					feature_image,
-					view_count,
 					quantum,
-					especially)
+					cate_id)
 			values ('$name',
 					'$sku',
-					$cate_id, 
 					$price, 
 					$sale_price,
+					'$feature_image',
+					$especially,
 					'$detail',
 					'$parameter',
-					'$feature_image',
-					$view_count,
 					$quantum,
-					$especially)";
-	executeQuery($sqlQuery);
+					$cate_id)";
+	// executeQuery($sqlProduct);
 	// dd($sqlQuery);
 }
 //Insert 25 bản voucher

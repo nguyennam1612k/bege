@@ -31,7 +31,7 @@
                             <span>Sản phẩm</span> <i class="fa fa-angle-right pull-right"></i>
                         </a>
                         <ul class="sidebar-submenu">
-                            <li><a href="products.php"><i class="fa fa-circle"></i>Danh sách sản phẩm</a></li>
+                            <li><a href="product.php"><i class="fa fa-circle"></i>Danh sách sản phẩm</a></li>
                             <li><a href="product-update.php"><i class="fa fa-circle"></i>Chỉnh sửa</a></li>
                             <li><a href="add-product.php"><i class="fa fa-circle"></i>Thêm sản phẩm</a></li>
                         </ul>
@@ -65,7 +65,7 @@
                     </li>
             <li><a class="sidebar-header" href="#"><i data-feather="user-plus"></i><span>Tài khoản</span><i class="fa fa-angle-right pull-right"></i></a>
                 <ul class="sidebar-submenu">
-                    <li><a href="user-list.php"><i class="fa fa-circle"></i>Danh sách tài khoản</a></li>
+                    <li><a href="users.php"><i class="fa fa-circle"></i>Danh sách tài khoản</a></li>
                     <li><a href="create-user.php"><i class="fa fa-circle"></i>Tạo tài khoản</a></li>
                 </ul>
             </li>

@@ -53,24 +53,23 @@
     	if(empty($message)){
     		$message = "";
     	}
-    	$payment = rand(1, 3);
 
         $user = isset($_SESSION[AUTH]) ? $_SESSION[AUTH] : null;
         $user_id = $user['id'];
-
+        // dd($payment_method);
     	//Viết câu lệnh sql
     	if($user != null){
     		$sqlInsert = "INSERT into orders
-    						(name, code,  email, phone_number, user_id, address, message, total_price, payment)
+    						(name, code,  email, phone_number, user_id, address, message, total_price, payment_method)
     					values
-    						('$name', '$code', '$email', '$phone_number', $user_id, '$address', '$message', $total_price, $payment)";
+    						('$name', '$code', '$email', '$phone_number', $user_id, '$address', '$message', $total_price, '$payment_method')";
     	}else{
     		$sqlInsert = "INSERT into orders
-    						(name, code, email, phone_number, address, message, total_price, payment)
+    						(name, code, email, phone_number, address, message, total_price, payment_method)
     					values
-    						('$name', '$code', '$email', '$phone_number', '$address', '$message', $total_price, $payment)";
+    						('$name', '$code', '$email', '$phone_number', '$address', '$message', $total_price, $'payment_method')";
     	}
-
+        // dd($sqlInsert);
         executeQuery($sqlInsert);
 
 
@@ -95,7 +94,9 @@
             executeQuery($sqlInsertOrderDetail);
         }		
 
-		//Chuyển trang
+        // dd($sqlInsertOrderDetail);
+
+		// Chuyển trang
 		unset($_SESSION[CART]);
 	    if($user == null){
 	    	header('location: '. BASE_URL .'cart.php');

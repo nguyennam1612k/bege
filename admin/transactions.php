@@ -1,3 +1,18 @@
+<?php
+    require_once "../commons/db.php";
+    require_once "../commons/constants.php";
+    require_once "../commons/helpers.php";
+
+    //select giao dịch ( những hóa đơn đã thanh toán )
+    //select hóa đơn
+    $sqlQuery = "SELECT 
+                    ROW_NUMBER() OVER (ORDER BY id) AS stt,
+                    orders.*
+                from orders
+                where status='Đã giao hàng'
+                limit 5";
+    $transactions = executeQuery($sqlQuery, true);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -85,9 +100,76 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h5>Transaction Details</h5>
+                                    <?php if ($transactions == null): ?>
+                                        <p style="color: #9C370F">Không có giao dịch nào thành công</p>
+                                    <?php endif ?>
                                 </div>
                                 <div class="card-body">
-                                    <div id="batchDelete" class="transactions"></div>
+                                    <div class="transactions jsgrid" style="position: relative; height: auto; width: 100%;">
+                                        <div class="jsgrid-grid-header jsgrid-header-scrollbar">
+                                            <table class="jsgrid-table">
+                                                <tr class="jsgrid-header-row">
+                                                    <th class="jsgrid-header-cell" style="width: 50px;">
+                                                    Order Id</th>
+                                                    <th class="jsgrid-header-cell jsgrid-align-right" style="width: 100px;">
+                                                    Transaction Id</th>
+                                                    <th class="jsgrid-header-cell" style="width: 100px;">
+                                                    Date</th>
+
+                                                    <th class="jsgrid-header-cell" style="width: 50px;">
+                                                    Payment Method
+                                                    </th>
+                                                    <th class="jsgrid-header-cell" style="width: 100px;">
+                                                    Delivery Status</th>
+                                                    <th class="jsgrid-header-cell" style="width: 100px;">
+                                                    Amount</th>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="jsgrid-grid-body">
+                                            <table class="jsgrid-table">
+                                                <tbody>
+                                                    <?php if ($transactions != null): ?>
+                                                        <?php foreach ($transactions as $value): ?>
+                                                            <tr class="jsgrid-row">
+                                                                <td class="jsgrid-cell" style="width: 50px;">#<?php echo $value['id'] ?></td><td class="jsgrid-cell jsgrid-align-right" style="width: 100px;">
+                                                                # <?php echo $value['code'] ?></td>
+                                                                <td class="jsgrid-cell" style="width: 100px;">
+                                                                <?php echo $value['created_date'] ?></td>
+                                                                <td class="jsgrid-cell" style="width: 50px;">
+                                                                <?php echo $value['payment_method'] ?></td>
+                                                                <td class="jsgrid-cell" style="width: 100px;">
+                                                                <?php echo $value['status'] ?></td>
+                                                                <td class="jsgrid-cell" style="width: 100px;">
+                                                                <?php echo number_format($value['total_price'] , 0, '', ',') ?> đ</td>
+                                                            </tr>
+                                                        <?php endforeach ?>
+                                                    <?php endif ?>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="jsgrid-pager-container">
+                                            <div class="jsgrid-pager">Pages: 
+                                                <span class="jsgrid-pager-nav-button jsgrid-pager-nav-inactive-button">
+                                                    <a href="javascript:void(0);">First</a>
+                                                </span>
+                                                <span class="jsgrid-pager-nav-button jsgrid-pager-nav-inactive-button">
+                                                    <a href="javascript:void(0);">Prev</a>
+                                                </span> 
+                                                <span class="jsgrid-pager-page jsgrid-pager-current-page">1</span> 
+                                                <span class="jsgrid-pager-nav-button jsgrid-pager-nav-inactive-button">
+                                                    <a href="javascript:void(0);">Next</a>
+                                                </span> 
+                                                <span class="jsgrid-pager-nav-button jsgrid-pager-nav-inactive-button">
+                                                    <a href="javascript:void(0);">Last</a>
+                                                </span> &nbsp;&nbsp; 1 of 1 
+                                            </div>
+                                        </div>
+                                        <!-- <div class="jsgrid-load-shader" style="display: none; position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; z-index: 1000;">
+                                        </div>
+                                        <div class="jsgrid-load-panel" style="display: none; position: absolute; top: 50%; left: 50%; z-index: 1000;">Please, wait...</div> -->
+                                    </div>
                                 </div>
                             </div>
                         </div>

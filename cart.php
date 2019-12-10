@@ -5,9 +5,7 @@ require_once './commons/helpers.php';
 
 // $cart = isset($_SESSION[CART]) ? $_SESSION[CART] : [];
 
-if(isset($_COOKIE['mess_ac'])){
-    echo "<script>alert('".$_COOKIE['mess_ac']."')</script>";
-}
+
 ?>
 <!DOCTYPE html>
 <html class="no-js" lang="en">

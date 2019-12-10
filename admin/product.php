@@ -3,12 +3,31 @@
     require_once "../commons/constants.php";
     require_once "../commons/helpers.php";
 
-    //select hóa đơn
-    $sqlQuery = "SELECT 
-                    ROW_NUMBER() OVER (ORDER BY id) AS stt,
-                    orders.*
-                from orders";
-    $orders = executeQuery($sqlQuery, true);
+    //action & id
+    $action = isset($_GET['action']) ? $_GET['action'] : null;
+    
+
+    //select cate
+    $sqlCate = "SELECT * from categories";
+    $title = executeQuery($sqlCate, true);
+    // $select = "SELECT * from categories";
+    // $menu = executeQuery($select, true);
+    // dd($title);
+    //check cate id
+    $cate_id = isset($_GET['cate_id']) ? $_GET['cate_id'] : null;
+    //select products
+    if($cate_id == null){
+        $sqlQuery = "SELECT * from products";
+    }else{
+        $sqlQuery = "SELECT * from products where cate_id=$cate_id";
+    }
+    $products = executeQuery($sqlQuery, true);
+
+    if($action == "delete" && $id != null){
+        $sqlDelete = "DELETE from products where id=$id";
+        executeQuery($sqlDelete);
+        header('Refresh: 0');
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,6 +62,7 @@
 
     <!-- App css-->
     <link rel="stylesheet" type="text/css" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
 </head>
 <body>
 
@@ -72,16 +92,16 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="page-header-left">
-                                <h3>Orders
+                                <h3>Products
                                     <small>Bigdeal Admin panel</small>
                                 </h3>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <ol class="breadcrumb pull-right">
-                                <li class="breadcrumb-item"><a href="index.html"><i data-feather="home"></i></a></li>
-                                <li class="breadcrumb-item">Sales</li>
-                                <li class="breadcrumb-item active">Orders</li>
+                                <li class="breadcrumb-item"><a href="<?php echo BASE_URL.'admin/' ?>"><i data-feather="home"></i></a></li>
+                                <li class="breadcrumb-item">Product</li>
+                                <li class="breadcrumb-item active">List</li>
                             </ol>
                         </div>
                     </div>
@@ -95,53 +115,51 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-header">
-                                <h5>Manage Order</h5>
+                                <h5>List Products</h5>
                             </div>
                             <div class="card-body order-datatable">
                                 <table class="display" id="basic-1">
                                     <thead>
                                     <tr>
-                                        <th>ID hóa đơn</th>
-                                        <th>Sản phẩm</th>
-                                        <th>Họ tên</th>
-                                        <th>Phương thức</th>
-                                        <th>Trạng thái</th>
-                                        <th>Thời gian</th>
-                                        <th>Tổng giá</th>
+                                        <th>ID product</th>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Sale price</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($orders as $value): ?>
-                                            <?php
-                                            $id=$value['id'];
-                                            $sqlQuery = "SELECT image from order_detail where order_id=$id";
-                                            $productOrder = executeQuery($sqlQuery, true);
-                                            ?>
+                                        <?php foreach ($products as $value): ?>
                                             <tr>
-                                                <td>#<?php echo $id ?></td>
+                                                <td>#<?php echo $value['id'] ?></td>
                                                 <td>
                                                     <div class="d-flex">
-                                                        <?php foreach ($productOrder as $key): ?>
-                                                            <img src="../<?php echo $key['image'] ?>" alt="" class="img-fluid img-30 mr-2 blur-up lazyloaded">
-                                                        <?php endforeach ?>
+                                                        <img src="../<?php echo $value['feature_image'] ?>" alt="" class="img-fluid img-60 mr-2 blur-up lazyloaded">
                                                     </div>
                                                 </td>
                                                 <td><span><?php echo $value['name'] ?></span></td>
-                                                <td><?php echo $value['payment_method'] ?></td>
+                                                <td><?php echo number_format($value['price'], 0, '', ',') ?> vnđ</td>
+                                                <td><?php echo number_format($value['sale_price'], 0, '', ',') ?> vnđ</td>
                                                 <?php
-                                                if( $value['status'] == "Chờ xử lý"){
+                                                if( $value['quantum'] - $value['sold'] > 0){
                                                     $classStatus = "badge badge-warning";
-                                                }else if( $value['status'] == "Đang vận chuyển"){
-                                                    $classStatus = "badge badge-primary";
-                                                }else if( $value['status'] == "Đã giao hàng"){
-                                                    $classStatus = "badge badge-success";
-                                                }else if( $value['status'] == "Đã hủy"){
+                                                    $nameStatus = "Còn hàng";
+                                                }else{
                                                     $classStatus = "badge badge-danger";
+                                                    $nameStatus = "Hết hàng";
                                                 }
                                                 ?>
-                                                <td><span class="<?php echo $classStatus ?>"><?php echo $value['status'] ?></span></td>
-                                                <td><?php echo $value['created_date'] ?></td>
-                                                <td><?php echo number_format($value['total_price'], 0, '', ',') ?> đ</td>
+                                                <td><span class="<?php echo $classStatus ?>"><?php echo $nameStatus ?></span></td>
+                                                <td style="text-align: center;">
+                                                    <a href="product-update.php?id=<?php echo $value['id'] ?>">
+                                                    <i class="fas fa-pen-square" title="update"></i>
+                                                    </a>
+                                                    <a onclick="return confirm('Bạn chắc chứ ?')" href="?action=delete&id=<?php echo $value['id'] ?>">
+                                                    <i class="far fa-trash-alt" title="delete"></i>
+                                                    </a>
+                                                </td>
                                             </tr>
                                         <?php endforeach ?>
                                     </tbody>

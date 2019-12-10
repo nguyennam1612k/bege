@@ -92,6 +92,7 @@
         $_SESSION[AUTH]['avatar'] = $avatar;
     }
 
+    
 ?>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -251,26 +252,20 @@
                                                                             where order_id=$order_id";
                                                                 $imagePro = executeQuery($sqlQuery, true);
                                                                 ?>
-                                                                <?php foreach ($imagePro as $ima): ?>
-                                                                    <a href="<?php echo $ima['image'] ?>"><img style="width: 50px" src="<?php echo $ima['image'] ?>" alt=""></a>
-                                                                <?php endforeach ?>
+                                                                <?php if ($imagePro != null): ?>
+                                                                    <?php foreach ($imagePro as $ima): ?>
+                                                                        <a href="<?php echo $ima['image'] ?>"><img style="width: 50px" src="<?php echo $ima['image'] ?>" alt=""></a>
+                                                                    <?php endforeach ?>
+                                                                <?php endif ?>
                                                             </td>
                                                             <td>
                                                                 <?php echo $value['created_date'] ?>
                                                             </td>
-                                                            <td>
-                                                                <?php
-                                                                $status = $value['status'];
-                                                                $sqlQuery = "SELECT name from status_order_extra where id=$status";
-                                                                $status_order = executeQuery($sqlQuery, false);
-                                                                ?>
-                                                                <?php echo $status_order['name'] ?>
-                                                                    
-                                                            </td>
+                                                            <td><?php echo $value['status'] ?></td>
                                                             <td><?php echo number_format($value['total_price'], 0, '', ','); ?> vnđ</td>
                                                             <td>
                                                                 <?php
-                                                                if($value['status'] == 1){
+                                                                if($value['status'] == "Chờ xử lý"){
                                                                     ?>
                                                                     <form action="update-order.php" method="post" style="margin-top: 5px">
                                                                         <input type="hidden" name="id" value="<?php echo $value['id'] ?>">

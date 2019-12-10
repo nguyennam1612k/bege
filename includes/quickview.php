@@ -108,10 +108,7 @@
                                             <?php $detail = substr( $value['detail'],  0, 230) ?>
                                         <p><?php echo $detail ?></p>
                                         <div class="box-quantity d-flex">
-                                            <form action="#">
-                                                <input class="quantity mr-40" min="1" value="1" type="number">
-                                            </form>
-                                            <a class="add-cart" href="add-cart.php?id=<?php echo $value['id'] ?>">add to cart</a>
+                                            <a style="margin-left: 50px" class="add-cart" href="add-cart.php?id=<?php echo $value['id'] ?>">add to cart</a>
                                         </div>
                                         <div class="wishlist-compear-area">
                                             <?php if ($user == null): ?>
