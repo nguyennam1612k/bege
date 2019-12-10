@@ -226,9 +226,9 @@
                                                 <thead class="thead-light">
                                                 <tr>
                                                     <th>Order</th>
+                                                    <th>Products</th>
                                                     <th>Date</th>
                                                     <th>Status</th>
-                                                    <th>Payment Method</th>
                                                     <th>Total</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -243,6 +243,19 @@
                                                         <tr>
                                                             <td><?php echo $value['stt'] ?></td>
                                                             <td>
+                                                                <!-- select ra những sản phẩm trong order này -->
+                                                                <?php
+                                                                $order_id = $value['id'];
+                                                                $sqlQuery = "SELECT image
+                                                                                from order_detail
+                                                                            where order_id=$order_id";
+                                                                $imagePro = executeQuery($sqlQuery, true);
+                                                                ?>
+                                                                <?php foreach ($imagePro as $ima): ?>
+                                                                    <a href="<?php echo $ima['image'] ?>"><img style="width: 50px" src="<?php echo $ima['image'] ?>" alt=""></a>
+                                                                <?php endforeach ?>
+                                                            </td>
+                                                            <td>
                                                                 <?php echo $value['created_date'] ?>
                                                             </td>
                                                             <td>
@@ -254,15 +267,6 @@
                                                                 <?php echo $status_order['name'] ?>
                                                                     
                                                             </td>
-                                                            <td>
-                                                                <?php
-                                                                $method_pay = $value['payment'];
-                                                                $sqlQuery = "SELECT name from payment_methods_extra
-                                                                            where id=$method_pay";
-                                                                $payment_method = executeQuery($sqlQuery, false);
-                                                                ?>
-                                                                <?php echo $payment_method['name'] ?>
-                                                            </td>
                                                             <td><?php echo number_format($value['total_price'], 0, '', ','); ?> vnđ</td>
                                                             <td>
                                                                 <?php
@@ -270,7 +274,7 @@
                                                                     ?>
                                                                     <form action="update-order.php" method="post" style="margin-top: 5px">
                                                                         <input type="hidden" name="id" value="<?php echo $value['id'] ?>">
-                                                                        <button class="btn">Hủy</button>
+                                                                        <button class="btn" onclick="return confirm('Bạn có chắc hủy đơn hàng ?')">Hủy</button>
                                                                     </form>
                                                                     <?php
                                                                 }else{

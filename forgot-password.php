@@ -64,13 +64,13 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
-                            <form class="password-forgot clearfix" action="http://preview.hasthemes.com/bege-v4/bege/mail.php">
+                            <form class="password-forgot clearfix" action="sendmail.php" method="post">
                                 <fieldset>
                                     <legend>Your Personal Details</legend>
                                     <div class="form-group d-md-flex">
                                         <label class="control-label col-md-2" for="email"><span class="require">*</span>Enter you email address here...</label>
                                         <div class="col-md-10">
-                                            <input type="email" class="form-control" id="email" placeholder="Enter you email address here...">
+                                            <input type="email" name="email" class="form-control" id="email" placeholder="Enter you email address here...">
                                         </div>
                                     </div>
                                 </fieldset>

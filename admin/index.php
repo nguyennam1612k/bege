@@ -16,6 +16,21 @@
     //SELECT khách hàng
     $sqlQuery = "SELECT * from users limit 5";
     $users = executeQuery($sqlQuery, true);
+
+
+    //select hóa đơn
+    $sqlQuery = "SELECT 
+                    ROW_NUMBER() OVER (ORDER BY o.id) AS stt,
+                    s.name as name_status,
+                    p.name as name_payment,
+                    o.*
+                from orders o
+                    inner JOIN status_order_extra s
+                        ON s.id=o.status
+                    INNER JOIN payment_methods_extra p
+                        ON p.id=o.payment
+                limit 5";
+    $orders = executeQuery($sqlQuery, true);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -190,92 +205,34 @@
                                             <th scope="col">ID Đơn hàng</th>
                                             <th scope="col">Tổng số thanh toán</th>
                                             <th scope="col">Họ tên</th>
+                                            <th scope="col">Phương thức thanh toán</th>
                                             <th scope="col">Trạng thái</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td>1</td>
-                                            <td class="digits">$120.00</td>
-                                            <td class="font-danger">Bank Transfers</td>
-                                            <td class="digits">On Way</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td class="digits">$90.00</td>
-                                            <td class="font-secondary">Ewallets</td>
-                                            <td class="digits">Delivered</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td class="digits">$240.00</td>
-                                            <td class="font-warning">Cash</td>
-                                            <td class="digits">Delivered</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td class="digits">$120.00</td>
-                                            <td class="font-danger">Direct Deposit</td>
-                                            <td class="digits">$6523</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td class="digits">$50.00</td>
-                                            <td class="font-primary">Bank Transfers</td>
-                                            <td class="digits">Delivered</td>
+                                            <?php if ($orders != null): ?>
+                                                <?php foreach ($orders as $value): ?>
+                                                    <td><?php echo $value['stt'] ?></td>
+                                                    <td class="digits"><?php echo number_format($value['total_price'], 0, '', ',') ?> vnđ</td>
+                                                    <td><?php echo $value['name'] ?></td>
+                                                    <td class="digits"><?php echo $value['name_payment'] ?></td>
+                                                    <?php
+                                                    if($value['status'] == 1){
+                                                        $classFont = "font-warning";
+                                                    }else if($value['status'] >= 2){
+                                                        $classFont = "font-primary";
+                                                    }else if($value['status'] == 5){
+                                                        $classFont = "font-danger";
+                                                    }
+                                                    ?>
+                                                    <td class="<?php echo $classFont ?>"><?php echo $value['name_status'] ?></td>
+                                                <?php endforeach ?>
+                                            <?php endif ?>
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <a href="order.php" class="btn btn-primary">Xem tất cả đơn hàng</a>
-                                </div>
-                                <div class="code-box-copy">
-                                    <button class="code-box-copy__btn btn-clipboard" data-clipboard-target="#example-head1" title="" data-original-title="Copy"><i class="icofont icofont-copy-alt"></i></button>
-                                    <pre class=" language-html"><code class=" language-html" id="example-head1">
-                                        <div class="user-status table-responsive latest-order-table">
-                                            <table class="table table-bordernone">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Order ID</th>
-                                                        <th scope="col">Order Total</th>
-                                                        <th scope="col">Payment Method</th>
-                                                        <th scope="col">Status</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td class="digits">$120.00</td>
-                                                        <td class="font-secondary">Bank Transfers</td>
-                                                        <td class="digits">Delivered</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td class="digits">$90.00</td>
-                                                        <td class="font-secondary">Ewallets</td>
-                                                        <td class="digits">Delivered</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td class="digits">$240.00</td>
-                                                        <td class="font-secondary">Cash</td>
-                                                        <td class="digits">Delivered</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>4</td>
-                                                        <td class="digits">$120.00</td>
-                                                        <td class="font-primary">Direct Deposit</td>
-                                                        <td class="digits">Delivered</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>5</td>
-                                                        <td class="digits">$50.00</td>
-                                                        <td class="font-primary">Bank Transfers</td>
-                                                        <td class="digits">Delivered</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </code></pre>
+                                    <a href="invoice.php" class="btn btn-primary">Xem tất cả đơn hàng</a>
                                 </div>
                             </div>
                         </div>

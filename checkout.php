@@ -40,13 +40,7 @@
                     $sqlUpdateUser = "UPDATE users set onlines=onlines+1 where id=$id_u";
                     executeQuery($sqlUpdateUser);
 
-                    if($user['role'] == 1){
-                        header('location: '. BASE_URL . 'admin/');
-                        die;
-                    }else{
-                        header('location: '. BASE_URL . 'my-account.php');
-                        die;
-                    }
+                    header('Refresh: 0');
                 }
             }else{
                 echo "<script>alert('Tài khoản hoặc mật khẩu không đúng')</script>";
@@ -198,11 +192,6 @@
                                                             <input type="text" required="" name="address" placeholder="Street address">
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-12">
-                                                        <div class="checkout-form-list mtb-30">
-                                                            <input type="text" name="address_extra" placeholder="Apartment, suite, unit etc. (optional)">
-                                                        </div>
-                                                    </div>
                                                     <div class="col-md-6">
                                                         <div class="checkout-form-list mb-30">
                                                             <label>Email Address <span class="required">*</span></label>
@@ -217,13 +206,14 @@
                                                     </div>
                                                     <div class="col-md-12">
                                                         <div class="checkout-form-list create-acc mb-30">
-                                                            <input id="cbox" type="checkbox" role="button" data-toggle="collapse" data-parent="#cbox_info" href="#cbox_info" aria-expanded="true" aria-controls="collapseOne">
+                                                            <input id="cbox" type="checkbox" role="button" data-toggle="collapse" data-parent="#cbox_info" href="#cbox_info" aria-expanded="true" aria-controls="collapseOne" name="cbox_create_account" value="1">
                                                             <label for="cbox">Create an account?</label>
                                                         </div>
                                                         <div id="cbox_info" class="checkout-form-list create-accounts mb-25">
                                                             <p class="mb-10">Create an account by entering the information below. If you are a returning customer please login at the top of the page.</p>
                                                             <label>Account password  <span class="required">*</span></label>
-                                                            <input type="password" placeholder="password" style="height: 30px">
+                                                            <input type="text" name="username" placeholder="username" style="height: 30px">
+                                                            <input type="text" name="password" placeholder="password" style="height: 30px">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -241,11 +231,6 @@
                                                         <div class="checkout-form-list">
                                                             <label>Address <span class="required">*</span></label>
                                                             <input type="text" required="" name="address" placeholder="Street address" value="<?php echo $user['address'] ?>">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="checkout-form-list mtb-30">
-                                                            <input type="text" name="address_extra" placeholder="Apartment, suite, unit etc. (optional)">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">

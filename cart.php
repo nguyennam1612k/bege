@@ -5,7 +5,9 @@ require_once './commons/helpers.php';
 
 // $cart = isset($_SESSION[CART]) ? $_SESSION[CART] : [];
 
-// dd($cart);
+if(isset($_COOKIE['mess_ac'])){
+    echo "<script>alert('".$_COOKIE['mess_ac']."')</script>";
+}
 ?>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -65,6 +67,9 @@ require_once './commons/helpers.php';
                             <h1 class="entry-title">Cart</h1>
                             <?php if ($cart == null): ?>
                                 <p style="color: #E05E07; font-size: 20px; text-align: center; margin-top: 30px">Giỏ hàng của bạn đang trống</p>
+                            <?php endif ?>
+                            <?php if (isset($_COOKIE['mess_or'])): ?>
+                                <p style="text-align: center; font-size: 16px; color: #B5301E"><?php echo $_COOKIE['mess_or'] ?></p>
                             <?php endif ?>
                         </div>
                     </div>

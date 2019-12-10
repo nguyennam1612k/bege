@@ -7,7 +7,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 // Load Composer's autoloader
 // require 'vendor/autoload.php';
-
+$emailTo = $_POST['email'];
 // Instantiation and passing `true` enables exceptions
 $mail = new PHPMailer(true);
 
@@ -26,7 +26,7 @@ try {
     //Recipients
     $mail->setFrom('namnv1612k@gmail.com', 'Nguyễn Văn Nam');
     // $mail->addAddress('vinhnguyenba217@gmail.net', 'Vinh Pokemon');     // Add a recipient
-    $mail->addAddress('namnvph08169@fpt.edu.vn', 'NamNV');               // Name is optional
+    $mail->addAddress($emailTo, 'NamNV');               // Name is optional
     $mail->addReplyTo('quoc26102000@gmail.com', 'Quốc LB');
     // $mail->addCC('cc@example.com');
     // $mail->addBCC('bcc@example.com');

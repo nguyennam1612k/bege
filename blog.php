@@ -3,6 +3,29 @@
     require_once './commons/constants.php';
     require_once './commons/helpers.php';
 
+    //đếm tag bài viết
+    $sqlQuery = "SELECT DISTINCT tag FROM blogs";
+    $newBlog = executeQuery($sqlQuery, true);
+
+    $search_blog = null;
+
+    $tag = isset($_GET['tag']) ? $_GET['tag'] : null;
+        if($tag != null){
+            $sqlQuery = "SELECT * from blogs where tag='$tag'";
+            $search_blog = executeQuery($sqlQuery, true);
+        }
+    //tìm kiếm bài viết
+    if(isset($_POST['btn_search'])){
+        $value_search_blog = $_POST['value_search_blog'];
+        if($value_search_blog == ""){
+            echo "<script>alert('Nhập từ khóa tìm kiếm')</script>";
+        }else{
+            $sqlQuery = "SELECT * from blogs
+                            where name like '%$value_search_blog%'
+                                or tag like '%$value_search_blog%'";
+            $search_blog = executeQuery($sqlQuery, true);
+        }
+    }
     //PHÂN TRANG
     $page=1;//khởi tạo trang ban đầu
     $limit=5;//số bản ghi trên 1 trang (2 bản ghi trên 1 trang)
@@ -119,7 +142,7 @@
                                             </div>
                                         </div>
                                         <div class="post-thumbnail">
-                                            <a href="javascript:void(0)"><img src="<?php echo $value['image'] ?>"></a>
+                                            <a href="single-blog.php?id=<?php echo $value['id'] ?>"><img src="<?php echo $value['image'] ?>"></a>
                                         </div>
                                         <div class="postinfo-wrapper">
                                             <p><?php echo substr($value['content'], 0, 200) ?> ...</p>
@@ -175,40 +198,42 @@
                                           <h5>Search </h5>
                                           <div class="search__sidbar">
                                              <div class="input_form">
-                                                <input type="text" id="search_input" name="s" value="Search..." class="input_text">
-                                                <button id="blogsearchsubmit" type="submit" class="button">
-                                                    <i class="fa fa-search"></i>
-                                                </button>
+                                                <form method="post">
+                                                    <input type="text" id="search_input" name="value_search_blog" placeholder="Search..." class="input_text">
+                                                    <button id="blogsearchsubmit" type="submit" class="button" name="btn_search">
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                </form>
                                              </div>
                                           </div>
                                         </div>
-                                        <div class="product-filter  mb-30">
-                                          <h5>Blog Archives </h5>
-                                            <div class="blog_Archives__sidbar">
-                                                <ul>
-                                                    <li>
-                                                        <a href="#">March 2015</a>&nbsp;(1)</li>
-                                                    <li>
-                                                        <a href="#">December 2014</a>&nbsp;(3)</li>
-                                                    <li>
-                                                        <a href="#">November 2014</a>&nbsp;(4)</li>
-                                                    <li>
-                                                        <a href="#">September 2014</a>&nbsp;(1)</li>
-                                                    <li>
-                                                        <a href="#">August 2014</a>&nbsp;(1)</li>
-                                                </ul>
-                                          </div>
-                                        </div>
+                                        
+                                        <?php if ($search_blog != null): ?>
+                                            <div class="product-filter  mb-30">
+                                                <h5>Blog Search </h5>
+                                                <div class="blog_Archives__sidbar">
+                                                    <ul>
+                                                        <?php foreach ($search_blog as $value): ?>
+                                                            <li><a href="single-blog.php?id=<?php echo $value['id'] ?>"><?php echo $value['name'] ?></a>&nbsp;</li>
+                                                        <?php endforeach ?>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        <?php endif ?>
+
                                         <div class="product-filter  mb-30">
                                             <h5>Recent Posts</h5>
                                             <div class="blog_Archives__sidbar">
                                                 <ul>
-                                                    <li> <a href="#">Blog image post</a>&nbsp;(1)</li>
-                                                    <li> <a href="#">Post with Gallery</a>&nbsp;(3)</li>
-                                                    <li><a href="#">Post with Audio</a>&nbsp;(4)</li>
-                                                    <li><a href="#">Post with Video</a>&nbsp;(1)</li>
-                                                    <li><a href="#">Post with Text</a>&nbsp;(1)</li>
-                                                    
+                                                    <?php foreach ($newBlog as $value): ?>
+                                                        <?php
+                                                        //đếm số bài viết có tag
+                                                        $tag = $value['tag'];
+                                                        $sqlQuery = "SELECT count(id) as count from blogs where tag='$tag'";
+                                                        $count = executeQuery($sqlQuery, false);
+                                                        ?>
+                                                        <li><a href="?tag=<?php echo $value['tag'] ?>">Post with <?php echo $value['tag'] ?></a>&nbsp;(<?php echo $count['count'] ?>)</li>
+                                                    <?php endforeach ?>
                                                 </ul>
                                           </div>
                                         </div>
@@ -219,18 +244,19 @@
                                         </div>
                                         <div class="product-filter mb-30">
                                             <h5>product tags</h5>
-                                                <div class="blog-tags">
-                                                    <a href="#">brand</a>
-                                                    <a href="#">black</a>
-                                                    <a href="#">white</a>
-                                                    <a href="#">chire</a>
-                                                    <a href="#">table</a>
-                                                    <a href="#">Lorem</a>
-                                                    <a href="#">ipsum</a>
-                                                    <a href="#">dolor</a>
-                                                    <a href="#">sit</a>
-                                                    <a href="#">amet</a>
-                                                </div>
+                                            <div class="blog-tags">
+                                                <a href="shop.php?tag=sản phẩm mới">sản phẩm mới</a>
+                                                <a href="shop.php?tag=khuyến mại">khuyến mại</a>
+                                                <a href="shop.php?tag=thời trang">thời trang</a>
+                                                <a href="shop.php?tag=yêu thích">yêu thích</a>
+                                                <a href="shop.php?tag=giảm giá">giảm giá</a>
+                                                <a href="shop.php?tag=bộ xử lý">bộ xử lý</a>
+                                                <a href="shop.php?tag=đẹp">đẹp</a>
+                                                <a href="shop.php?tag=free ship">free ship</a>
+                                                <a href="shop.php?tag=màu sắc">màu sắc</a>
+                                                <a href="shop.php?tag=số lượng">số lượng</a>
+                                                <a href="shop.php?tag=chip 1022">chip 1022</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
