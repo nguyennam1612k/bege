@@ -110,7 +110,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="row product-adding">
-                                <form method="post" enctype="multipart/form-data">
+                                <!-- <form method="post" enctype="multipart/form-data"> -->
                                     <div class="col-xl-5">
                                         <div class="add-product">
                                             <div class="row"  style="width: 1200px; margin-bottom: 100px">
@@ -168,7 +168,7 @@
                                             </div>
                                         <!-- </form> -->
                                     </div>
-                                </form>
+                                <!-- </form> -->
                                 </div>
                             </div>
                         </div>

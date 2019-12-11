@@ -14,7 +14,7 @@
     $countUser = executeQuery($sqlQuery, false);
 
     //SELECT khách hàng
-    $sqlQuery = "SELECT * from users limit 5";
+    $sqlQuery = "SELECT * from users order by date_login desc limit 5";
     $users = executeQuery($sqlQuery, true);
 
 
