@@ -141,8 +141,8 @@
                                                 }
                                                 ?>
                                                 <td><span class="<?php echo $classStatus ?>"><?php echo $valueStatus ?>
-                                                <td><?php echo number_format($value['points'], 0, '', ',') ?> điểm</td>
-                                                <td><?php echo $value['date_login'] ?></td>
+                                                <td><?php echo number_format($value['points'], 0, '', ',') ?> điểm</td>>
+                                                <td><?php echo nicetime($value['date_login']) ?></td>
                                                 <?php
                                                 if( $value['role'] == 0){
                                                     $classRole = "badge badge-warning";

@@ -286,7 +286,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="digits"><?php echo $value['date_login'] ?></td>
+                                                <td class="digits"><?php echo nicetime($value['date_login']) ?></td>
                                             </tr>
                                         <?php endforeach ?>
                                         </tbody>

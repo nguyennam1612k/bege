@@ -151,7 +151,7 @@ for ($i=1; $i < 19; $i++) {
 					'$parameter',
 					$quantum,
 					$cate_id)";
-	executeQuery($sqlProduct);
+	// executeQuery($sqlProduct);
 	// dd($sqlQuery);
 }
 //Insert 25 bản voucher
@@ -181,5 +181,19 @@ for ($i=1; $i < 26; $i++) {
 					$active)";
 	// executeQuery($sqlQuery);
 	// dd($sqlQuery);
+}
+
+//Tạo 25 bản ghi vedor
+for ($i=1; $i < 26; $i++) { 
+	# code...
+	$name = $faker->name;
+	$store_name = $faker->realText($maxNbChars = 10, $indexSize = 1);
+	$sqlQuery = "INSERT into vendors
+					(name,
+					store_name)
+				values
+					('$name',
+					'$store_name')";
+	// executeQuery($sqlQuery);
 }
  ?>

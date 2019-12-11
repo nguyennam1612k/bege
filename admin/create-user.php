@@ -1,3 +1,55 @@
+<?php
+    require_once "../commons/db.php";
+    require_once "../commons/constants.php";
+    require_once "../commons/helpers.php";
+
+    //convert name
+    function convert_name($str) {
+        $str = preg_replace("/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/", 'a', $str);
+        $str = preg_replace("/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/", 'e', $str);
+        $str = preg_replace("/(ì|í|ị|ỉ|ĩ)/", 'i', $str);
+        $str = preg_replace("/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/", 'o', $str);
+        $str = preg_replace("/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/", 'u', $str);
+        $str = preg_replace("/(ỳ|ý|ỵ|ỷ|ỹ)/", 'y', $str);
+        $str = preg_replace("/(đ)/", 'd', $str);
+        $str = preg_replace("/(À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ)/", 'A', $str);
+        $str = preg_replace("/(È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ)/", 'E', $str);
+        $str = preg_replace("/(Ì|Í|Ị|Ỉ|Ĩ)/", 'I', $str);
+        $str = preg_replace("/(Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ)/", 'O', $str);
+        $str = preg_replace("/(Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ)/", 'U', $str);
+        $str = preg_replace("/(Ỳ|Ý|Ỵ|Ỷ|Ỹ)/", 'Y', $str);
+        $str = preg_replace("/(Đ)/", 'D', $str);
+        $str = preg_replace("/(\“|\”|\‘|\’|\,|\!|\&|\;|\@|\#|\%|\~|\`|\=|\_|\'|\]|\[|\}|\{|\)|\(|\+|\^)/", '-', $str);
+        $str = preg_replace("/( )/", '-', $str);
+        return $str;
+    }
+
+    if(isset($_POST['btn_create'])){
+        extract($_REQUEST);
+
+        //chuyển username thành viết thường không dấu
+        $username = strtolower(convert_name($username));
+        
+        //Kiểm tra tài khoản tồn tại
+        $sqlQuery = "SELECT * from users where username='$username'";
+        $check = executeQuery($sqlQuery, false);
+        if($check != null){
+            echo "<script>alert('Tài khoản đã tồn tại')</script>";
+        }else if($password != $confirm_password){
+            echo "<script>alert('Xác thực mật khẩu không trùng khớp')</script>";
+        }else{
+            //Chuyển đổi mật khẩu
+            $password = password_hash($password, PASSWORD_DEFAULT);
+            $sqlInsert =     "INSERT into users
+                                (username, name, email, phone_number, password, role)
+                            values
+                                ('$username', '$name', '$email', '$phone_number', '$password', 1)";
+            executeQuery($sqlInsert);
+            echo "<script>confirm('Tạo tài khoản thành công !')</script>";
+            header('location: users.php');
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -90,28 +142,33 @@
                                 </ul>
                                 <div class="tab-content" id="myTabContent">
                                     <div class="tab-pane fade active show" id="account" role="tabpanel" aria-labelledby="account-tab">
-                                        <form class="needs-validation user-add" novalidate="">
+                                        <form class="needs-validation user-add" method="post">
                                             <h4>Account Details</h4>
                                             <div class="form-group row">
-                                                <label for="validationCustom0" class="col-xl-3 col-md-4"><span>*</span> First Name</label>
-                                                <input class="form-control col-xl-8 col-md-7" id="validationCustom0" type="text" required="">
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="validationCustom1" class="col-xl-3 col-md-4"><span>*</span> Last Name</label>
-                                                <input class="form-control col-xl-8 col-md-7" id="validationCustom1" type="text" required="">
+                                                <label for="validationCustom0" class="col-xl-3 col-md-4"><span>*</span> Full Name</label>
+                                                <input class="form-control col-xl-8 col-md-7" id="validationCustom0" type="text" required="" name="name">
                                             </div>
                                             <div class="form-group row">
                                                 <label for="validationCustom2" class="col-xl-3 col-md-4"><span>*</span> Email</label>
-                                                <input class="form-control col-xl-8 col-md-7" id="validationCustom2" type="text" required="">
+                                                <input class="form-control col-xl-8 col-md-7" id="validationCustom2" type="text" required="" name="email">
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="validationCustom2" class="col-xl-3 col-md-4"><span>*</span> Phone</label>
+                                                <input class="form-control col-xl-8 col-md-7" id="validationCustom2" type="text" required="" name="phone_number">
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="validationCustom1" class="col-xl-3 col-md-4"><span>*</span> Username</label>
+                                                <input class="form-control col-xl-8 col-md-7" id="validationCustom1" type="text" required="" name="username">
                                             </div>
                                             <div class="form-group row">
                                                 <label for="validationCustom3" class="col-xl-3 col-md-4"><span>*</span> Password</label>
-                                                <input class="form-control col-xl-8 col-md-7" id="validationCustom3" type="password" required="">
+                                                <input class="form-control col-xl-8 col-md-7" id="validationCustom3" type="password" required="" name="password">
                                             </div>
                                             <div class="form-group row">
                                                 <label for="validationCustom4" class="col-xl-3 col-md-4"><span>*</span> Confirm Password</label>
-                                                <input class="form-control col-xl-8 col-md-7" id="validationCustom4" type="password" required="">
+                                                <input class="form-control col-xl-8 col-md-7" id="validationCustom4" type="password" required="" name="confirm_password">
                                             </div>
+                                            <button type="submit" class="btn btn-primary" name="btn_create">Save</button>
                                         </form>
                                     </div>
                                     <div class="tab-pane fade" id="permission" role="tabpanel" aria-labelledby="permission-tabs">
@@ -264,7 +321,7 @@
                                     </div>
                                 </div>
                                 <div class="pull-right">
-                                    <button type="button" class="btn btn-primary">Save</button>
+                                    <!-- <button type="button" class="btn btn-primary">Save</button> -->
                                 </div>
                             </div>
                         </div>

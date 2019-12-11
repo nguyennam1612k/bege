@@ -110,7 +110,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="row product-adding">
-                                <!-- <form method="post" enctype="multipart/form-data"> -->
+                                <form method="post" enctype="multipart/form-data">
                                     <div class="col-xl-5">
                                         <div class="add-product">
                                             <div class="row"  style="width: 1200px; margin-bottom: 100px">
@@ -153,13 +153,11 @@
                                             <div class="form">
                                                 <div class="form-group row">
                                                     <label for="exampleFormControlSelect1" class="col-xl-3 col-sm-4 mb-0">Status :</label>
-                                                    <form method="post">
-                                                        <select class="form-control digits col-xl-8 col-sm-7" id="exampleFormControlSelect1" name="status">
-                                                            <option value="2 - đang vận chuyển">Đang vận chuyển</option>
-                                                            <option value="3 - đã giao hàng">Đã giao hàng</option>
-                                                            <option value="0 - đã hủy">Hủy đơn hàng</option>
-                                                        </select>
-                                                    </form>
+                                                    <select class="form-control digits col-xl-8 col-sm-7" id="exampleFormControlSelect1" name="status">
+                                                        <option value="2 - đang vận chuyển">Đang vận chuyển</option>
+                                                        <option value="3 - đã giao hàng">Đã giao hàng</option>
+                                                        <option value="0 - đã hủy">Hủy đơn hàng</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="offset-xl-3 offset-sm-4">
@@ -168,7 +166,7 @@
                                             </div>
                                         <!-- </form> -->
                                     </div>
-                                <!-- </form> -->
+                                </form>
                                 </div>
                             </div>
                         </div>

@@ -210,7 +210,7 @@
                                                         <div class="reply">
                                                             <a href="#">Reply</a>
                                                         </div>
-                                                        <span class="date"><?php echo $value['created_at'] ?></span>
+                                                        <span class="date"><?php echo nicetime($value['created_at']) ?></span>
                                                         <p><?php echo $value['content'] ?></p>
                                                     </div>
                                                 </div>
@@ -236,7 +236,7 @@
                                                                         </div>
                                                                         <div class="comment-info">
                                                                             <a href="#"><?php echo $oki['name'] ?></a>
-                                                                            <span class="date"><?php echo $oki['created_at'] ?></span>
+                                                                            <span class="date"><?php echo nicetime($oki['created_at']) ?></span>
                                                                             <p><?php echo $oki['content'] ?></p>
                                                                         </div>
                                                                     </div>

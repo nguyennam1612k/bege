@@ -93,11 +93,11 @@
                                         <form class="needs-validation user-add">
                                             <h4>Account</h4>
                                             <div class="form-group row">
-                                                <label for="validationCustom0" class="col-xl-3 col-md-4"><span>*</span> First Name</label>
+                                                <label for="validationCustom0" class="col-xl-3 col-md-4"><span>*</span> Họ tên</label>
                                                 <input class="form-control col-xl-8 col-md-7" id="validationCustom0" type="text" required="">
                                             </div>
                                             <div class="form-group row">
-                                                <label for="validationCustom1" class="col-xl-3 col-md-4"><span>*</span> Last Name</label>
+                                                <label for="validationCustom1" class="col-xl-3 col-md-4"><span>*</span> Tên cửa hàng</label>
                                                 <input class="form-control col-xl-8 col-md-7" id="validationCustom1" type="text" required="">
                                             </div>
                                             <div class="form-group row">
@@ -105,11 +105,15 @@
                                                 <input class="form-control col-xl-8 col-md-7" id="validationCustom2" type="text" required="">
                                             </div>
                                             <div class="form-group row">
-                                                <label for="validationCustom3" class="col-xl-3 col-md-4"><span>*</span> Password</label>
+                                                <label for="validationCustom1" class="col-xl-3 col-md-4"><span>*</span> Tên tài khoản</label>
+                                                <input class="form-control col-xl-8 col-md-7" id="validationCustom1" type="text" required="">
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="validationCustom3" class="col-xl-3 col-md-4"><span>*</span> Mật khẩu</label>
                                                 <input class="form-control col-xl-8 col-md-7" id="validationCustom3" type="password" required="">
                                             </div>
                                             <div class="form-group row">
-                                                <label for="validationCustom4" class="col-xl-3 col-md-4"><span>*</span> Confirm Password</label>
+                                                <label for="validationCustom4" class="col-xl-3 col-md-4"><span>*</span> Xác thực mật khẩu</label>
                                                 <input class="form-control col-xl-8 col-md-7" id="validationCustom4" type="password" required="">
                                             </div>
                                         </form>

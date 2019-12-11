@@ -141,7 +141,7 @@
                                                 }
                                                 ?>
                                                 <td><span class="<?php echo $classStatus ?>"><?php echo $value['status'] ?></span></td>
-                                                <td><?php echo $value['created_date'] ?></td>
+                                                <td><?php echo nicetime($value['created_date']) ?></td>
                                                 <td><?php echo number_format($value['total_price'], 0, '', ',') ?> đ</td>
                                                 <td><a href="update-order.php?id=<?php echo $value['id'] ?>">Xử lý</a></td>
                                             </tr>

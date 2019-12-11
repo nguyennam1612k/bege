@@ -361,7 +361,7 @@
                                                                 ?>
                                                             </div>
                                                             <span class="date"><strong><?php echo $cmt['name'] ?></strong>
-                                                                <span style="float: right;"><?php echo $cmt['created_at'] ?></span>
+                                                                <span style="float: right;"><?php echo nicetime($cmt['created_at']) ?></span>
                                                                 <!--  October 6, 2014 at 1:38 am -->
                                                             </span>
                                                             <p><?php echo $cmt['content'] ?></p>
