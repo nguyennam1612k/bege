@@ -82,12 +82,12 @@ $faker = Faker\Factory::create('vi_VN');
 
 
 // // insert dữ liệu mẫu cho bảng products (100 bản ghi)
-for ($i=1; $i < 12; $i++) {
+for ($i=1; $i < 19; $i++) {
 	$name = $faker->realText($maxNbChars = 10, $indexSize = 1);
 	// $name = $faker->name;
-	$name = "Màn hình ".$name;
+	$name = "Tay cầm ".$name;
 	$sku = strtoupper(uniqid());
-	$cate_id = 2;
+	$cate_id = 6;
 	$price = rand(10000000, 40000000);
 	$sale_price = $price - rand(500000, 8000000);
 	// $detail = $faker->realText($maxNbChars = 200, $indexSize = 2);
@@ -123,7 +123,7 @@ for ($i=1; $i < 12; $i++) {
 	<b>Bảo hành</b><br>
 	<p>Thời gian bảo hành :	24 Tháng</p>";
 	$parameter = str_replace("'","\'", $parameter);
-	$feature_image = "images/products/manhinh_00".$i.".jpg";
+	$feature_image = "images/products/taycam_00".$i.".jpg";
 	if($i >= 10){
 		$feature_image = str_replace("_00", "_0", $feature_image);
 	}
@@ -151,7 +151,7 @@ for ($i=1; $i < 12; $i++) {
 					'$parameter',
 					$quantum,
 					$cate_id)";
-	// executeQuery($sqlProduct);
+	executeQuery($sqlProduct);
 	// dd($sqlQuery);
 }
 //Insert 25 bản voucher

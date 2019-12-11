@@ -151,7 +151,9 @@
                                                 <?php if ($value['price'] - $value['sale_price'] >= 1000000): ?>
                                                     <span class="onsale">Sale!</span>
                                                 <?php endif ?>
-                                                <img src="<?php echo $value['feature_image'] ?>" alt="">
+                                                <center>
+                                                    <img style="max-width: 200px" src="<?php echo $value['feature_image'] ?>" alt="">
+                                                </center>
                                             </a>
                                             <div class="quickviewbtn">
                                                 <a href="#" data-toggle="modal" data-target="#<?php echo $value['id'] ?>" data-original-title="Quick View"><i class="ion-eye"></i></a>
