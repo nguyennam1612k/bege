@@ -115,7 +115,7 @@
     <meta name="author" content="pixelstrap">
     <link rel="icon" href="http://themes.pixelstrap.com/bigdeal/assets/images/favicon/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="http://themes.pixelstrap.com/bigdeal/assets/images/favicon/favicon.ico" type="image/x-icon">
-    <title>Bigdeal - Menu Danh mục</title>
+    <title>Bigdeal - Danh mục</title>
 
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
@@ -187,7 +187,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="page-header-left">
-                                <h3>Menu Danh mục
+                                <h3>Danh mục
                                     <small>Bảng quản trị Shop</small>
                                 </h3>
                             </div>
@@ -195,8 +195,8 @@
                         <div class="col-lg-6">
                             <ol class="breadcrumb pull-right">
                                 <li class="breadcrumb-item"><a href="index.html"><i data-feather="home"></i></a></li>
-                                <li class="breadcrumb-item">Danh mục</li>
-                                <li class="breadcrumb-item active">Menu</li>
+                                <li class="breadcrumb-item">Categories</li>
+                                <li class="breadcrumb-item active">List</li>
                             </ol>
                         </div>
                     </div>
@@ -213,13 +213,13 @@
                             if($action == "update"){
                                 ?>
                                 <div class="card-header">
-                                    <h5>Cập nhật Menu</h5>
+                                    <h5>Cập nhật Danh mục</h5>
                                 </div>
                                 <?php
                             }else{
                                 ?>
                                 <div class="card-header">
-                                    <h5>Danh sách Menu</h5>
+                                    <h5>Danh sách Danh mục</h5>
                                 </div>
                                 <?php
                             }
@@ -228,12 +228,12 @@
                                 
                                 <!-- Hộp thoại thêm danh mục -->
                                 <div class="btn-popup pull-right">
-                                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-original-title="test" data-target="#exampleModal">Thêm Menu</button>
+                                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-original-title="test" data-target="#exampleModal">Thêm Danh mục</button>
                                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title f-w-600" id="exampleModalLabel">Thêm Menu danh mục</h5>
+                                                    <h5 class="modal-title f-w-600" id="exampleModalLabel">Thêm danh mục</h5>
                                                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                                                 </div>
                                                 <div class="modal-body">

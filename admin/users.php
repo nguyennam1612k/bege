@@ -114,6 +114,7 @@
                                         <th>Avatar</th>
                                         <th>Name</th>
                                         <th>Email</th>
+                                        <th>Status</th>
                                         <th>Points</th>
                                         <th>Last Login</th>
                                         <th>Role</th>
@@ -130,18 +131,28 @@
                                                 </td>
                                                 <td><?php echo $value['name'] ?></td>
                                                 <td><span><?php echo $value['email'] ?></span></td>
+                                                <?php 
+                                                if($value['status'] == 1){
+                                                    $valueStatus = "Mở";
+                                                    $classStatus = "badge badge-warning";
+                                                }else{
+                                                    $valueStatus = "Khóa";
+                                                    $classStatus = "badge badge-danger";
+                                                }
+                                                ?>
+                                                <td><span class="<?php echo $classStatus ?>"><?php echo $valueStatus ?>
                                                 <td><?php echo number_format($value['points'], 0, '', ',') ?> điểm</td>
                                                 <td><?php echo $value['date_login'] ?></td>
                                                 <?php
                                                 if( $value['role'] == 0){
-                                                    $classStatus = "badge badge-warning";
+                                                    $classRole = "badge badge-warning";
                                                     $nameStatus = "Khách hàng";
                                                 }else{
-                                                    $classStatus = "badge badge-danger";
+                                                    $classRole = "badge badge-danger";
                                                     $nameStatus = "Quản trị viên";
                                                 }
                                                 ?>
-                                                <td><span class="<?php echo $classStatus ?>"><?php echo $nameStatus ?></span></td>
+                                                <td><span class="<?php echo $classRole ?>"><?php echo $nameStatus ?></span></td>
                                                 <td style="text-align: center;">
                                                     <?php if($value['id'] == $user['id'] || $value['role'] == 0): ?>
                                                         <a href="user-update.php?id=<?php echo $value['id'] ?>">

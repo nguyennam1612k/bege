@@ -101,13 +101,14 @@
                                 <table class="display" id="basic-1">
                                     <thead>
                                     <tr>
-                                        <th>ID hóa đơn</th>
+                                        <th>Mã hóa đơn</th>
                                         <th>Sản phẩm</th>
                                         <th>Họ tên</th>
                                         <th>Phương thức</th>
                                         <th>Trạng thái</th>
                                         <th>Thời gian</th>
                                         <th>Tổng giá</th>
+                                        <th>Xử lý</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -118,7 +119,7 @@
                                             $productOrder = executeQuery($sqlQuery, true);
                                             ?>
                                             <tr>
-                                                <td>#<?php echo $id ?></td>
+                                                <td>#<?php echo $value['code'] ?></td>
                                                 <td>
                                                     <div class="d-flex">
                                                         <?php foreach ($productOrder as $key): ?>
@@ -129,19 +130,20 @@
                                                 <td><span><?php echo $value['name'] ?></span></td>
                                                 <td><?php echo $value['payment_method'] ?></td>
                                                 <?php
-                                                if( $value['status'] == "Chờ xử lý"){
+                                                if( $value['status'] == "1 - chờ xử lý"){
                                                     $classStatus = "badge badge-warning";
-                                                }else if( $value['status'] == "Đang vận chuyển"){
+                                                }else if( $value['status'] == "2 - đang vận chuyển"){
                                                     $classStatus = "badge badge-primary";
-                                                }else if( $value['status'] == "Đã giao hàng"){
+                                                }else if( $value['status'] == "3 - đã giao hàng"){
                                                     $classStatus = "badge badge-success";
-                                                }else if( $value['status'] == "Đã hủy"){
+                                                }else if( $value['status'] == "0 - đã hủy"){
                                                     $classStatus = "badge badge-danger";
                                                 }
                                                 ?>
                                                 <td><span class="<?php echo $classStatus ?>"><?php echo $value['status'] ?></span></td>
                                                 <td><?php echo $value['created_date'] ?></td>
                                                 <td><?php echo number_format($value['total_price'], 0, '', ',') ?> đ</td>
+                                                <td><a href="update-order.php?id=<?php echo $value['id'] ?>">Xử lý</a></td>
                                             </tr>
                                         <?php endforeach ?>
                                     </tbody>

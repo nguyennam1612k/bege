@@ -211,9 +211,9 @@
                                                         <td><?php echo $value['name'] ?></td>
                                                         <td class="digits"><?php echo $value['payment_method'] ?></td>
                                                         <?php
-                                                        if($value['status'] == "Đã đặt hàng"){
+                                                        if($value['status'] == "1 - chờ xử lý"){
                                                             $classStatus = "font-warning";
-                                                        }else if($value['status'] == "Đã hủy"){
+                                                        }else if($value['status'] == "0 - đã hủy"){
                                                             $classStatus = "font-danger";
                                                         }else{
                                                             $classStatus = "font-primary";

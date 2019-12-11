@@ -121,7 +121,7 @@
                                 <table class="display" id="basic-1">
                                     <thead>
                                     <tr>
-                                        <th>ID product</th>
+                                        <th>Code product</th>
                                         <th>Image</th>
                                         <th>Name</th>
                                         <th>Price</th>
@@ -133,7 +133,7 @@
                                     <tbody>
                                         <?php foreach ($products as $value): ?>
                                             <tr>
-                                                <td>#<?php echo $value['id'] ?></td>
+                                                <td>#<?php echo $value['sku'] ?></td>
                                                 <td>
                                                     <div class="d-flex">
                                                         <img src="../<?php echo $value['feature_image'] ?>" alt="" class="img-fluid img-60 mr-2 blur-up lazyloaded">
