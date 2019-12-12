@@ -100,7 +100,7 @@
                         <h5>Media File List</h5>
                     </div>
                     <div class="card-body">
-                        <div id="batchDelete" class="category-table media-table"></div>
+                        <div id="batchDelete" class="media-table"></div>
                     </div>
                 </div>
             </div>
