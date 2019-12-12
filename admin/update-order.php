@@ -154,6 +154,7 @@
                                                 <div class="form-group row">
                                                     <label for="exampleFormControlSelect1" class="col-xl-3 col-sm-4 mb-0">Status :</label>
                                                     <select class="form-control digits col-xl-8 col-sm-7" id="exampleFormControlSelect1" name="status">
+                                                        <!-- <option value="1 - chờ xử lý">Đang chờ xử lý</option> -->
                                                         <option value="2 - đang vận chuyển">Đang vận chuyển</option>
                                                         <option value="3 - đã giao hàng">Đã giao hàng</option>
                                                         <option value="0 - đã hủy">Hủy đơn hàng</option>

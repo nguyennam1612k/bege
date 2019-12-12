@@ -7,34 +7,6 @@
     $cart = isset($_SESSION[CART]) ? $_SESSION[CART] : null;
     $totalPrice = 0;
 
-
-    //PHÂN TRANG
-    $page=1;//khởi tạo trang ban đầu
-    $limit=16;//số bản ghi trên 1 trang (2 bản ghi trên 1 trang)
-    
-    $arrs_list = "SELECT count(id) as count from products";
-    $count = executeQuery($arrs_list);
-
-    $total_record = $count['count'];//tính tổng số bản ghi có trong bảng khoahoc
-    
-    $total_page = $total_record/$limit;//tính tổng số trang sẽ chia
-
-    //xem trang có vượt giới hạn không:
-    if(isset($_GET["page"])){
-        $page=$_GET["page"];//nếu biến $_GET["page"] tồn tại thì trang hiện tại là trang $_GET["page"]
-    }
-    if($page<1){
-        $page=1;
-    }  //nếu trang hiện tại nhỏ hơn 1 thì gán bằng 1
-    if($page>$total_page){
-        $page=$total_page;
-    } //nếu trang hiện tại vượt quá số trang được chia thì sẽ bằng trang cuối cùng
-
-    //tính start (vị trí bản ghi sẽ bắt đầu lấy):
-    $start=($page-1)*$limit;
-    //PHÂN TRANG END
-
-
     if($cart != null){
         foreach ($cart as $key => $value) {
             $itemTotal = $value['sale_price']*$value['quantity'];
@@ -50,18 +22,6 @@
                         where categories.show_menu=1");
     $show_cate = executeQuery(show_cate, true);
 
-    //Tìm kiếm sản phẩm
-    $value_search = isset($_POST['value_search']) ? $_POST['value_search'] : null;
-    $sort         = isset($_POST['sort']) ? $_POST['sort'] : null;
-
-    if($value_search != null && $sort != null){
-        if($sort == "all"){
-            $sqlQuery = "SELECT * from products where name like '%$value_search%' limit $start,$limit";
-        }else{
-            $sqlQuery = "SELECT * from products where name like '%$value_search%' and cate_id=$sort limit $start,$limit";
-        }
-        $searchs = executeQuery($sqlQuery, true);
-    }
 
     //Lấy action id get
     $action = isset($_GET['action']) ? $_GET['action'] : null;
@@ -75,7 +35,6 @@
 
     //Xóa phần tử trong cart
     if($action == "deleteCart" && $cart != null){
-        $id = $_GET['id'];
         foreach ($cart as $key => $value) {
             if($cart[$key]['id'] == $id){
                 unset($_SESSION[CART][$key]);
@@ -83,8 +42,7 @@
             }
         }
     }
-    // $url = "<script>location.href.split("/").slice(-1)</script>";
-    // echo $url;
+
     if(isset($_COOKIE['mess_ac'])){
         echo "<script>alert('".$_COOKIE['mess_ac']."')</script>";
     }
@@ -287,7 +245,7 @@
                 <div class="col-xl-6 col-md-12">
                     <!-- header-search -->
                     <div class="header-search clearfix">
-                        <form action="shop.php" method="post">
+                        <form action="search.php" method="post">
                             <div class="category-select pull-right">
                                 <!-- Tìm kiếm theo danh mục cha -->
                                 <select class="nice-select-menu" name="sort">

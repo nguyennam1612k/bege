@@ -3,7 +3,6 @@
     require_once "commons/constants.php";
     require_once "commons/helpers.php";
 
-    
     //PHÂN TRANG
     $page=1;//khởi tạo trang ban đầu
     $limit=16;//số bản ghi trên 1 trang (2 bản ghi trên 1 trang)
@@ -30,12 +29,24 @@
     $start=($page-1)*$limit;
     //PHÂN TRANG END
 
-    $sqlQuery = "SELECT * from products limit $start,$limit";
-    $products = executeQuery($sqlQuery, true);
+    //Tìm kiếm sản phẩm
+    $value_search = isset($_POST['value_search']) ? $_POST['value_search'] : null;
+    $sort         = isset($_POST['sort']) ? $_POST['sort'] : null;
 
-    //đếm số sản phẩm phù hợp
-    $sqlDem = "SELECT count(id) as count from products";
-    $reality = executeQuery($sqlDem, false);
+    if($value_search != null && $sort != null){
+        if($sort == "all"){
+            $sqlQuery = "SELECT * from products where name like '%$value_search%' limit $start,$limit";
+            //sql đếm số sản phẩm
+            $sqlDem = "SELECT count(id) as count from products where name like '%$value_search%'";
+        }else{
+            $sqlQuery = "SELECT * from products where name like '%$value_search%' and cate_id=$sort limit $start,$limit";
+            //sql đếm số sản phẩm
+            $sqlDem = "SELECT count(id) as count from products where name like '%$value_search%' and cate_id=$sort";
+        }
+        $searchs = executeQuery($sqlQuery, true);
+        //sql đếm số sản phẩm
+        $reality = executeQuery($sqlDem, false);
+    }
     $reality = isset($reality) ? $reality : null;
 
 ?>
@@ -98,12 +109,25 @@
                         <div class="col-xs-12 col-md-9 shop-content">
                             <div class="product-toolbar">
                                 <div class="topbar-title">
-                                    <h1>SHOP</h1>
-                                    ( Hiện thị tất cả sản phẩm )
+                                    <?php if ($searchs != null): ?>
+                                        <h1>Sản phẩm theo tìm kiếm</h1>
+                                        ( Từ khóa: <b>#<?php echo $value_search; ?></b> )
+                                    <?php endif ?>
+                                    <?php if ($searchs == null): ?>
+                                        <h1>Tham khảo sản phẩm khác</h1>
+                                        ( Không tìm thấy: <b>#<?php echo $value_search;?></b> )
+                                    <?php endif ?>
                                 </div>
                                 <?php
+                                //Nếu không tìm ra sản phẩm phù hợp sẽ select random products thay thế
+                                $searchs = isset($searchs) ? $searchs : null;
+                                if($searchs == null){
+                                    $sqlQuery = "SELECT * from products limit $start,$limit";
+                                    $searchs = executeQuery($sqlQuery, true);
+                                }
+
                                 //đếm số lượng sản phẩm select
-                                $countAb = $reality['count']; 
+                                $reality = $reality['count'];
                                 ?>
                                 <div class="product-toolbar-inner">
                                     <div class="product-view-mode">
@@ -112,7 +136,7 @@
                                             <li><a data-toggle="tab" href="#list"><i class="ion-navicon"></i></a></li>
                                         </ul>
                                     </div>
-                                    <p class="woocommerce-result-count">Hiện thị 1–12 trong <?php echo $countAb ?> kết quả</p>
+                                    <p class="woocommerce-result-count">Hiện thị 1–16 trong <?php echo $reality ?> kết quả</p>
                                     <div class="woocommerce-ordering">
                                         <form method="get" class="woocommerce-ordering hidden-xs">
                                             <div class="orderby-wrapper">
@@ -132,16 +156,14 @@
                                 <div class="shop-page-product-area tab-content">
                                     <div id="grid" class="tab-pane fade in show active">
                                         <div class="row">
-                                            <?php foreach ($products as $value): ?>
+                                            <?php foreach ($searchs as $value): ?>
                                                 <div class="col-sm-6 col-md-4 col-xl-3">
                                                     <div class="single-product-area">
                                                         <div class="product-wrapper gridview">
                                                             <div class="list-col4">
                                                                 <div class="product-image">
                                                                     <a href="single-product.php?product_id=<?php echo $value['id'] ?>">
-                                                                        <center>
                                                                         <img src="<?php echo $value['feature_image'] ?>" alt="">
-                                                                        </center>
                                                                     </a>
                                                                     <div class="quickviewbtn">
                                                                         <a href="#" data-toggle="modal" data-target="#<?php echo $value['id'] ?>"  data-original-title="Quick View"><i class="ion-eye"></i></a>
@@ -290,29 +312,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <nav class="woocommerce-pagination">
-                                <ul class="page-numbers">
-
-                                    <?php
-                                    $url_page = isset($_GET['page']) ? $_GET['page'] : 1;
-                                    for($tik = 1; $tik <= $total_page; $tik++){
-
-                                        if($url_page == $tik){
-                                            $classPage = "current";
-                                        }else{
-                                            $classPage = "";
-                                        }
-
-                                        ?>
-                                        <li><a class="page-numbers" href="?page=<?php echo $tik ?>"><span class="<?php echo $classPage ?>"><?php echo $tik ?></span></a></li>
-
-                                        <?php
-                                    }
-                                    ?>
-
-                                    <li><a class="next page-numbers" href="?page=<?php echo $page+1 ?>">→</a></li>
-                                </ul>
-                            </nav>
                         </div>
                     </div>
                 </div> 

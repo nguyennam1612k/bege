@@ -240,7 +240,7 @@
                                     <?php $detail = explode('&nbsp', $single['detail'], 2) ?>
                                     <p><?php echo $detail[0] ?> ....</p>
                                     <div class="box-quantity d-flex">
-                                        <a style="margin-left: 90px" class="add-cart" href="add-cart.php?id=<?php echo $single['id'] ?>">add to cart</a>
+                                        <a class="add-cart" href="add-cart.php?id=<?php echo $single['id'] ?>">add to cart</a>
                                     </div>
                                     <div class="wishlist-compear-area">
 

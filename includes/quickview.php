@@ -108,7 +108,7 @@
                                             <?php $detail = substr( $value['detail'],  0, 230) ?>
                                         <p><?php echo $detail ?></p>
                                         <div class="box-quantity d-flex">
-                                            <a style="margin-left: 50px" class="add-cart" href="add-cart.php?id=<?php echo $value['id'] ?>">add to cart</a>
+                                            <a class="add-cart" href="add-cart.php?id=<?php echo $value['id'] ?>">add to cart</a>
                                         </div>
                                         <div class="wishlist-compear-area">
                                             <?php if ($user == null): ?>

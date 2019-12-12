@@ -34,17 +34,19 @@
         </div>
         <div class="widget-content">
             <ul class="product-categories">
-                <?php foreach ($categories as $value): ?>
-                    <?php
-                    $cate_id = $value['id'];
-                    $sqlQuery = "SELECT count(id) as cou from products where cate_id = $cate_id";
-                    $countPro = executeQuery($sqlQuery, false);
-                    ?>
-                    <li class="cat-item">
-                        <a href="?cate_id=<?php echo $value['id'] ?>"><?php echo $value['title'] ?></a>
-                        <span class="count">(<?php echo $countPro['cou'] ?>)</span>
-                    </li>
-                <?php endforeach ?>
+                <form action="shop.php" method="post">
+                    <?php foreach ($categories as $value): ?>
+                        <?php
+                        $cate_id = $value['id'];
+                        $sqlQuery = "SELECT count(id) as cou from products where cate_id = $cate_id";
+                        $countPro = executeQuery($sqlQuery, false);
+                        ?>
+                        <li class="cat-item">
+                            <a href="search.php?cate_id=<?php echo $value['id'] ?>"><?php echo $value['title'] ?></a>
+                            <span class="count">(<?php echo $countPro['cou'] ?>)</span>
+                        </li>
+                    <?php endforeach ?>
+                </form>
             </ul>
         </div>
         <div class="product-filter mb-30">
