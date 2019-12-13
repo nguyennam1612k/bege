@@ -16,7 +16,7 @@
     if($action == "delete" && $id != null){
         $sqlDelete = "DELETE from users where id=$id";
         executeQuery($sqlDelete);
-        header('Refresh: 0');
+        header('location: users.php');
     }
 ?>
 <!DOCTYPE html>
@@ -33,7 +33,7 @@
     <meta name="author" content="pixelstrap">
     <link rel="icon" href="http://themes.pixelstrap.com/bigdeal/assets/images/favicon/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="http://themes.pixelstrap.com/bigdeal/assets/images/favicon/favicon.ico" type="image/x-icon">
-    <title>Bigdeal - Premium Admin Template</title>
+    <title>Quản trị - Tài khoản</title>
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -82,16 +82,16 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="page-header-left">
-                                <h3>Users
-                                    <small>Bigdeal Admin panel</small>
+                                <h3>Tài khoản
+                                    <small>bảng quản trị Shop</small>
                                 </h3>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <ol class="breadcrumb pull-right">
                                 <li class="breadcrumb-item"><a href="<?php echo BASE_URL.'admin/' ?>"><i data-feather="home"></i></a></li>
-                                <li class="breadcrumb-item">User</li>
-                                <li class="breadcrumb-item active">List</li>
+                                <li class="breadcrumb-item">Tài khoản</li>
+                                <li class="breadcrumb-item active">Danh sách</li>
                             </ol>
                         </div>
                     </div>
@@ -105,24 +105,24 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-header">
-                                <h5>List Users</h5>
+                                <h5>Danh sách tài khoản</h5>
                             </div>
                             <div class="card-body order-datatable">
                                 <table class="display" id="basic-1">
                                     <thead>
                                     <tr>
-                                        <th>Avatar</th>
-                                        <th>Name</th>
+                                        <th>Ảnh</th>
+                                        <th>Họ tên</th>
                                         <th>Email</th>
-                                        <th>Status</th>
-                                        <th>Points</th>
-                                        <th>Last Login</th>
-                                        <th>Role</th>
-                                        <th>Action</th>
+                                        <th>Trạng thái</th>
+                                        <th>Điểm</th>
+                                        <th>Ngày đăng ký</th>
+                                        <th>Quyền</th>
+                                        <th>Hành động</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($users as $value): ?>
+                                        <?php foreach ($users as $value): ?><i style="display: none"
                                             <tr>
                                                 <td>
                                                     <div class="d-flex">
@@ -142,7 +142,7 @@
                                                 ?>
                                                 <td><span class="<?php echo $classStatus ?>"><?php echo $valueStatus ?>
                                                 <td><?php echo number_format($value['points'], 0, '', ',') ?> điểm</td>>
-                                                <td><?php echo nicetime($value['date_login']) ?></td>
+                                                <td><?php echo nicetime($value['date_register']) ?></td>
                                                 <?php
                                                 if( $value['role'] == 0){
                                                     $classRole = "badge badge-warning";

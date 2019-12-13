@@ -5,7 +5,7 @@
 <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Bege || About Us</title>
+        <title>Bege || Giới thiệu</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -40,8 +40,8 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <nav class="woocommerce-breadcrumb">
-                                <a href="index.html">Home</a>
-                                <span class="separator">/</span> About
+                                <a href="index.html">Trang chủ</a>
+                                <span class="separator">/</span> Giới thiệu
                             </nav>
                         </div>
                     </div>
@@ -156,7 +156,7 @@
                         <div class="row">
                             <div class="col-md-12 col-lg-6 col-xs-12">
                                 <div class="skrill_here">
-                                    <h3>CHÚNG TÔI CÓ KỸ NĂNG BÁN HÀNG TRỰC TUYẾN</h3>
+                                    <h3>CHÚNG TÔI LUÔN ĐÁP ỨNG NHU CẦU</h3>
                                     <div class="ht-single-about">
                                         <div class="skill-bar">
                                             <div class="skill-bar-item">

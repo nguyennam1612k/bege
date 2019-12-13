@@ -57,7 +57,7 @@
     <meta name="author" content="pixelstrap">
     <link rel="icon" href="http://themes.pixelstrap.com/bigdeal/assets/images/favicon/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="http://themes.pixelstrap.com/bigdeal/assets/images/favicon/favicon.ico" type="image/x-icon">
-    <title>Bigdeal - Premium Admin Template</title>
+    <title>Quản trị - Thêm sản phẩm</title>
 
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
@@ -106,16 +106,16 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="page-header-left">
-                                <h3>Add Products
-                                    <small>Bigdeal Admin panel</small>
+                                <h3>Thêm sản phẩm
+                                    <small>Bảng quản trị Shop</small>
                                 </h3>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <ol class="breadcrumb pull-right">
                                 <li class="breadcrumb-item"><a href="index.html"><i data-feather="home"></i></a></li>
-                                <li class="breadcrumb-item">Physical</li>
-                                <li class="breadcrumb-item active">Add Product</li>
+                                <li class="breadcrumb-item">Sản phẩm</li>
+                                <li class="breadcrumb-item active">Thêm</li>
                             </ol>
                         </div>
                     </div>
@@ -129,7 +129,7 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-header">
-                                <h5>Update Product</h5>
+                                <h5>Thêm sản phẩm</h5>
                             </div>
                             <div class="card-body">
                                 <div class="row product-adding">
@@ -158,24 +158,24 @@
                                     <div class="col-xl-7">
                                             <div class="form">
                                                 <div class="form-group mb-3 row">
-                                                    <label for="validationCustom01" class="col-xl-3 col-sm-4 mb-0">Name :</label>
+                                                    <label for="validationCustom01" class="col-xl-3 col-sm-4 mb-0">Tên sản phẩm :</label>
                                                     <input class="form-control col-xl-8 col-sm-7" id="validationCustom01" type="text" required="" name="name">
                                                     <div class="valid-feedback">Looks good!</div>
                                                 </div>
                                                 <div class="form-group mb-3 row">
-                                                    <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Price :</label>
+                                                    <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Giá :</label>
                                                     <input class="form-control col-xl-8 col-sm-7" id="validationCustom02" type="number" required="" name="price">
                                                     <div class="valid-feedback">Looks good!</div>
                                                 </div>
                                                 <div class="form-group mb-3 row">
-                                                    <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Sale price :</label>
+                                                    <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Giảm giá :</label>
                                                     <input class="form-control col-xl-8 col-sm-7" id="validationCustom02" type="number" required="" name="sale_price" >
                                                     <div class="valid-feedback">Looks good!</div>
                                                 </div>
                                             </div>
                                             <div class="form">
                                                 <div class="form-group row">
-                                                    <label for="exampleFormControlSelect1" class="col-xl-3 col-sm-4 mb-0">Select Cate :</label>
+                                                    <label for="exampleFormControlSelect1" class="col-xl-3 col-sm-4 mb-0">Chọn danh mục :</label>
                                                     <select class="form-control digits col-xl-8 col-sm-7" id="exampleFormControlSelect1" name="cate_id">
                                                         <?php foreach ($cates as $value): ?>
                                                             <option value="<?php echo $value['id'] ?>"><?php echo $value['title'] ?></option>
@@ -183,7 +183,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-xl-3 col-sm-4 mb-0">Total Products :</label>
+                                                    <label class="col-xl-3 col-sm-4 mb-0">Số lượng :</label>
                                                     <fieldset  style="margin-left: -360px" class="qty-box col-xl-9 col-xl-8 col-sm-7 pl-0">
                                                         <div class="input-group" style="margin-left: 0">
                                                             <input class="touchspin" type="number" required="" name="quantum" value="0">
@@ -191,7 +191,7 @@
                                                     </fieldset>
                                                 </div>
                                                 <div class="form-group row" style="margin-top: 30px">
-                                                    <label class="col-xl-3 col-sm-4">Description :</label>
+                                                    <label class="col-xl-3 col-sm-4">Mô tả :</label>
                                                     <div class="col-xl-8 col-sm-7 pl-0 description-sm">
                                                         <textarea name="detail" class="textarea1" rows="4">
                                                             
@@ -199,15 +199,15 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-xl-3 col-sm-4" style="margin-top: 30px">Parameter :</label>
+                                                    <label class="col-xl-3 col-sm-4" style="margin-top: 30px">Thông số :</label>
                                                     <div class="col-xl-8 col-sm-7 pl-0 description-sm">
                                                         <textarea name="parameter" class="textarea1" rows="4"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="offset-xl-3 offset-sm-4">
-                                                <button type="submit" class="btn btn-primary" name="btn_create">Create</button>
-                                                <button type="button" class="btn btn-light">Discard</button>
+                                                <button type="submit" class="btn btn-primary" name="btn_create">Tạo</button>
+                                                <button type="button" class="btn btn-light" onclick="javascript:history.back(-1)">Hủy bỏ</button>
                                             </div>
                                         <!-- </form> -->
                                     </div>

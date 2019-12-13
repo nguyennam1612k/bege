@@ -204,7 +204,7 @@
                                             }
                                         ?>
 
-                                        <?php if ($tik > 1): ?>
+                                        <?php if ($user != null && $tik > 1): ?>
                                             <li><a class="next page-numbers" href="?page=<?php echo $page+1 ?>">→</a></li>
                                         <?php endif ?>
                                     </ul>

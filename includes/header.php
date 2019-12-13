@@ -64,7 +64,7 @@
                                 <ul>
                                     <li><a href="index.php">trang chủ</a></li>
                                     <li><a href="shop.php">cửa hàng</a></li>
-                                    <li><a href="blog.php">bài viết</a></li>
+                                    <li><a href="blog.php">tin tức</a></li>
                                     <li><a href="about-us.php">giới thiệu</a></li>
                                     <li><a href="contact-us.php">liên hệ</a></li>
                                     <!-- <li><a href="#">Menu <i class="fa fa-angle-down"></i></a>

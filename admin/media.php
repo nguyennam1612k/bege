@@ -1,3 +1,32 @@
+<?php
+    require_once "../commons/db.php";
+    require_once "../commons/constants.php";
+    require_once "../commons/helpers.php";
+
+    //Hiện thị danh sách slide
+    $sqlQuery = "SELECT * from slides";
+    $slides = executeQuery($sqlQuery, true);
+    // dd($slides);
+    //Thực hiện tạo slide
+    if(isset($_POST['btn_create'])){
+        extract($_REQUEST);
+        if(empty($status)){
+            $status = 0;
+        }
+        $image = "images/slider/".$_FILES['image']['name'];
+        move_uploaded_file($_FILES['image']['tmp_name'],'../'. $image);
+        //Viết câu lệnh sql insert
+        $sqlInsert = "  INSERT into slide
+                            (title, content, image, url, sort_order, status)
+                        values
+                            ('$title', '$content', '$image', '$url', $sort_order, $status)";
+        executeQuery($sqlInsert);
+        header('Refresh: 0');
+    }
+
+    //
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,6 +64,7 @@
 
     <!-- App css-->
     <link rel="stylesheet" type="text/css" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
 </head>
 <body>
 
@@ -64,15 +94,15 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="page-header-left">
-                                <h3>Media
-                                    <small>Bigdeal Admin panel</small>
+                                <h3>Slide
+                                    <small>Bảng quản trị Shop</small>
                                 </h3>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <ol class="breadcrumb pull-right">
                                 <li class="breadcrumb-item"><a href="index.html"><i data-feather="home"></i></a></li>
-                                <li class="breadcrumb-item active">Media </li>
+                                <li class="breadcrumb-item active">Slide </li>
                             </ol>
                         </div>
                     </div>
@@ -87,20 +117,100 @@
                         <h5>Dropzone Media</h5>
                     </div>
                     <div class="card-body">
-                        <form class="dropzone digits" id="singleFileUpload" action="http://themes.pixelstrap.com/upload.php">
-                            <div class="dz-message needsclick"><i class="fa fa-cloud-upload"></i>
-                                <h4 class="mb-0 f-w-600">Drop files here or click to upload.</h4>
+                        <form class="dropzone digits" method="post" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group row">
+                                        <label for="validationCustom0" class="col-xl-3 col-md-4">Tiêu đề</label>
+                                        <input class="form-control col-md-7" id="validationCustom0" type="text" required="" name="title">
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="validationCustom1" class="col-xl-3 col-md-4">Nội dung</label>
+                                        <input class="form-control col-md-7" id="validationCustom1" type="text" placeholder="Nội dung" required="" name="content" >
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-xl-3 col-md-4" for="image_input">Hình ảnh</label>
+                                        <input class="datepicker-here form-control digits col-md-7" type="file" data-language="en" name="image" id="image_input" required="">
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-xl-3 col-md-4">Đường link</label>
+                                        <input class="datepicker-here form-control digits col-md-7" type="text" data-language="en" name="link" required="">
+                                    </div>  
+                                    <div class="form-group row">
+                                        <label class="col-xl-3 col-md-4">Thứ tự hiện thị</label>
+                                        <input class="form-control col-md-7" value="1" min="1" name="sort_order" type="number" required="">
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-xl-3 col-md-4">Trạng thái</label>
+                                        <div class="checkbox checkbox-primary col-md-7">
+                                            <input id="checkbox-primary-2" name="status" value="1" type="checkbox" data-original-title="" title="">
+                                            <label for="checkbox-primary-2">Hiện thị</label>
+                                        </div>
+                                    </div>
+                                    <div class="offset-xl-3 offset-sm-4">
+                                        <button type="submit" class="btn btn-primary" name="btn_create">Tạo</button>
+                                        <button type="button" class="btn btn-light" onclick="javascript:history.back(-1)">Hủy bỏ</button>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
                 </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <h5>Media File List</h5>
-                    </div>
-                    <div class="card-body">
-                        <div id="batchDelete" class="media-table"></div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Slides</h5>
+                            </div>
+                            <div class="card-body order-datatable">
+                                <table class="display" id="basic-1">
+                                    <thead>
+                                        <tr>
+                                            <th>Tiêu đề</th>
+                                            <th>Nội dung</th>
+                                            <th>Ảnh</th>
+                                            <th>Url</th>
+                                            <th>Thứ tự hiện thị</th>
+                                            <th>Trạng thái</th>
+                                            <th>Xử lý</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($slides as $value): ?>
+                                            <tr>
+                                                <td>#<?php echo $value['title'] ?></td>
+                                                <td><span><?php echo $value['content'] ?></span></td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                        <img src="../<?php echo $value['image'] ?>" alt="" class="img-fluid img-60 mr-2 blur-up lazyloaded">
+                                                    </div>
+                                                </td>
+                                                <td><?php echo $value['url'] ?></td>
+                                                <td><?php echo $value['sort_order'] ?></td>
+                                                <?php
+                                                if( $value['status'] == 1){
+                                                    $classStatus = "badge badge-warning";
+                                                    $nameStatus = "Hiện thị";
+                                                }else{
+                                                    $classStatus = "badge badge-danger";
+                                                    $nameStatus = "Không hiện thi";
+                                                }
+                                                ?>
+                                                <td><span class="<?php echo $classStatus ?>"><?php echo $nameStatus ?></span></td>
+                                                <td style="text-align: center;">
+                                                    <a href="product-update.php?id=<?php echo $value['id'] ?>">
+                                                        <i class="fas fa-pen-square" title="update"></i>
+                                                    </a>
+                                                    <a onclick="return confirm('Bạn chắc chứ ?')" href="?action=delete&id=<?php echo $value['id'] ?>">
+                                                        <i class="far fa-trash-alt" title="delete"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -141,14 +251,9 @@
 <!-- Sidebar jquery-->
 <script src="../assets/js/sidebar-menu.js"></script>
 
-<!-- Dropzone js-->
-<script src="../assets/js/dropzone/dropzone.js"></script>
-<script src="../assets/js/dropzone/dropzone-script.js"></script>
-
-<!-- Jsgrid js-->
-<script src="../assets/js/jsgrid/jsgrid.min.js"></script>
-<script src="../assets/js/jsgrid/griddata-media.js"></script>
-<script src="../assets/js/jsgrid/jsgrid-media.js"></script>
+<!-- Datatable js-->
+<script src="../assets/js/datatables/jquery.dataTables.min.js"></script>
+<script src="../assets/js/datatables/custom-basic.js"></script>
 
 <!--Customizer admin-->
 <script src="../assets/js/admin-customizer.js"></script>
@@ -164,5 +269,5 @@
 
 </body>
 
-<!-- Mirrored from themes.pixelstrap.com/bigdeal/admin/media.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 04:33:05 GMT -->
+<!-- Mirrored from themes.pixelstrap.com/bigdeal/admin/order.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 04:33:01 GMT -->
 </html>

@@ -54,7 +54,7 @@
     <meta name="author" content="pixelstrap">
     <link rel="icon" href="http://themes.pixelstrap.com/bigdeal/assets/images/favicon/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="http://themes.pixelstrap.com/bigdeal/assets/images/favicon/favicon.ico" type="image/x-icon">
-    <title>Bigdeal - Premium Admin Template</title>
+    <title>Quản trị - Tạo mã giảm giá</title>
 
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
@@ -106,16 +106,16 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="page-header-left">
-                                <h3>Create Coupon
-                                    <small>Bigdeal Admin panel</small>
+                                <h3>Tạo mã giảm giá
+                                    <small>Bảng quản trị Shop</small>
                                 </h3>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <ol class="breadcrumb pull-right">
                                 <li class="breadcrumb-item"><a href="index.html"><i data-feather="home"></i></a></li>
-                                <li class="breadcrumb-item">Coupons </li>
-                                <li class="breadcrumb-item active">Create Coupon</li>
+                                <li class="breadcrumb-item">Voucher </li>
+                                <li class="breadcrumb-item active">Tạo voucher</li>
                             </ol>
                         </div>
                     </div>
@@ -127,102 +127,53 @@
             <div class="container-fluid">
                 <div class="card tab2-card">
                     <div class="card-header">
-                        <h5>Discount Coupon Details</h5>
+                        <h5>Chi tiết mã giảm giá</h5>
                     </div>
                     <div class="card-body">
-                        <ul class="nav nav-tabs tab-coupon" id="myTab" role="tablist">
-                            <li class="nav-item"><a class="nav-link active show" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true" data-original-title="" title="">General</a></li>
-                            <li class="nav-item"><a class="nav-link" id="restriction-tabs" data-toggle="tab" href="#restriction" role="tab" aria-controls="restriction" aria-selected="false" data-original-title="" title="">Restriction</a></li>
-                            <li class="nav-item"><a class="nav-link" id="usage-tab" data-toggle="tab" href="#usage" role="tab" aria-controls="usage" aria-selected="false" data-original-title="" title="">Usage</a></li>
-                        </ul>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade active show" id="general" role="tabpanel" aria-labelledby="general-tab">
                                 <form class="needs-validation" method="post">
-                                    <h4>General</h4>
+                                    <h4>Thông tin</h4>
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group row">
-                                                <label for="validationCustom0" class="col-xl-3 col-md-4"><span>*</span> Voucher Title</label>
+                                                <label for="validationCustom0" class="col-xl-3 col-md-4"><span>*</span> Tiêu đề</label>
                                                 <input class="form-control col-md-7" id="validationCustom0" type="text" required="" name="title">
                                             </div>
                                             <div class="form-group row">
-                                                <label for="validationCustom1" class="col-xl-3 col-md-4"><span>*</span>Voucher Code</label>
+                                                <label for="validationCustom1" class="col-xl-3 col-md-4"><span>*</span>Mã giảm giá</label>
                                                 <input class="form-control col-md-7" id="validationCustom1" type="text" placeholder="Bỏ trống nếu tự động tạo code" name="code" >
                                                 <div class="valid-feedback">Please Provide a Valid Coupon Code.</div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-xl-3 col-md-4">Start Date</label>
+                                                <label class="col-xl-3 col-md-4">Thời gian bắt đầu</label>
                                                 <input class="datepicker-here form-control digits col-md-7" type="text" data-language="en" name="start_time" required="">
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-xl-3 col-md-4">End Date</label>
+                                                <label class="col-xl-3 col-md-4">Thời gian kết thúc</label>
                                                 <input class="datepicker-here form-control digits col-md-7" type="text" data-language="en" name="end_time" required="">
                                             </div>  
                                             <div class="form-group row">
-                                                <label class="col-xl-3 col-md-4">Quantity</label>
+                                                <label class="col-xl-3 col-md-4">Số lượng</label>
                                                 <input class="form-control col-md-7" min="1" name="user_count" type="number" required="">
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-xl-3 col-md-4">Discount</label>
+                                                <label class="col-xl-3 col-md-4">Giảm giá</label>
                                                 <input class="form-control col-md-7" name="discount" type="number" required="">
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-xl-3 col-md-4">Status</label>
+                                                <label class="col-xl-3 col-md-4">Trạng thái</label>
                                                 <div class="checkbox checkbox-primary col-md-7">
                                                     <input id="checkbox-primary-2" name="active" value="1" type="checkbox" data-original-title="" title="">
-                                                    <label for="checkbox-primary-2">Enable the Coupon</label>
+                                                    <label for="checkbox-primary-2">Kích hoạt mã giảm giá</label>
                                                 </div>
                                             </div>
 
                                         </div>
                                     </div>
-                                    <input type="submit" value="Create" name="btn_create" class="btn btn-primary">
+                                    <input type="submit" value="Tạo" name="btn_create" class="btn btn-primary">
                                 </form>
                             </div>
-                            <div class="tab-pane fade" id="restriction" role="tabpanel" aria-labelledby="restriction-tabs">
-                                <form class="needs-validation" novalidate="">
-                                    <h4>Restriction</h4>
-                                    <div class="form-group row">
-                                        <label for="validationCustom3" class="col-xl-3 col-md-4">Products</label>
-                                        <input class="form-control col-md-7" id="validationCustom3" type="text" required="" >
-                                        <div class="valid-feedback">Please Provide a Product Name.</div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-xl-3 col-md-4">Category</label>
-                                        <select class="custom-select col-md-7" required="">
-                                            <option value="">--Select--</option>
-                                            <option value="1">Electronics</option>
-                                            <option value="2">Clothes</option>
-                                            <option value="2">Shoes</option>
-                                            <option value="2">Digital</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="validationCustom4" class="col-xl-3 col-md-4">Minimum Spend</label>
-                                        <input class="form-control col-md-7" id="validationCustom4" type="number" >
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="validationCustom5" class="col-xl-3 col-md-4">Maximum Spend</label>
-                                        <input class="form-control col-md-7" id="validationCustom5" type="number" >
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="tab-pane fade" id="usage" role="tabpanel" aria-labelledby="usage-tab">
-                                <form class="needs-validation" novalidate="">
-                                    <h4>Usage Limits</h4>
-                                    <div class="form-group row">
-                                        <label for="validationCustom6" class="col-xl-3 col-md-4">Per Limit</label>
-                                        <input class="form-control col-md-7" id="validationCustom6" type="number" >
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="validationCustom7" class="col-xl-3 col-md-4">Per Customer</label>
-                                        <input class="form-control col-md-7" id="validationCustom7" type="number" >
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="pull-right">
-                            
                         </div>
                     </div>
                 </div>

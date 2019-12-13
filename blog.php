@@ -68,7 +68,7 @@
 <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Bege || Blog Page</title>
+        <title>Bege || Tin tức</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -103,8 +103,8 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <nav class="woocommerce-breadcrumb">
-                                <a href="index.html">Home</a>
-                                <span class="separator">/</span> Blog
+                                <a href="index.html">Trang chủ</a>
+                                <span class="separator">/</span> Tin tức
                             </nav>
                         </div>
                     </div>
@@ -116,7 +116,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h1 class="entry-title">Blog</h1>
+                            <h1 class="entry-title">Tin tức</h1>
                         </div>
                     </div>
                 </div>
@@ -137,7 +137,7 @@
                                             </div>
                                             <h1><a href="single-blog.php?id=<?php echo $value['id'] ?>"><?php echo $value['name'] ?></a></h1>
                                             <div class="post-meta">
-                                                <a href="#"  class="post-author"><i class="fa fa-user"></i>Posted by <?php echo $value['user_name'] ?></a>
+                                                <a href="#"  class="post-author"><i class="fa fa-user"></i>Đăng bởi <?php echo $value['user_name'] ?></a>
                                                 <a href="#" class="post-date"><i class="fa fa-calendar"></i><?php echo $value['created_at'] ?></a>
                                             </div>
                                         </div>
@@ -146,9 +146,9 @@
                                         </div>
                                         <div class="postinfo-wrapper">
                                             <p><?php echo substr($value['content'], 0, 200) ?> ...</p>
-                                            <a class="readmore button" href="single-blog.php?id=<?php echo $value['id'] ?>">Read more</a>
+                                            <a class="readmore button" href="single-blog.php?id=<?php echo $value['id'] ?>">Đọc thêm</a>
                                             <div class="social-sharing">
-                                                <h3>Share this post</h3>
+                                                <h3>Chia sẻ</h3>
                                                 <div class="social-sharie">
                                                     <ul class="social-icons">
                                                         <li><a class="facebook social-icon" href="#"><i class="fa fa-facebook"></i></a></li>
@@ -195,11 +195,11 @@
                                 <div class="row_products_side">
                                     <div class="product_left_sidbar">
                                         <div class="product-filter  mb-30">
-                                          <h5>Search </h5>
+                                          <h5>Tìm kiếm </h5>
                                           <div class="search__sidbar">
                                              <div class="input_form">
                                                 <form method="post">
-                                                    <input type="text" id="search_input" name="value_search_blog" placeholder="Search..." class="input_text">
+                                                    <input type="text" id="search_input" name="value_search_blog" placeholder="Nhập từ khóa ..." class="input_text">
                                                     <button id="blogsearchsubmit" type="submit" class="button" name="btn_search">
                                                         <i class="fa fa-search"></i>
                                                     </button>
@@ -222,7 +222,7 @@
                                         <?php endif ?>
 
                                         <div class="product-filter  mb-30">
-                                            <h5>Recent Posts</h5>
+                                            <h5>BÀI VIẾT GẦN ĐÂY</h5>
                                             <div class="blog_Archives__sidbar">
                                                 <ul>
                                                     <?php foreach ($newBlog as $value): ?>
@@ -243,7 +243,7 @@
                                             </a>
                                         </div>
                                         <div class="product-filter mb-30">
-                                            <h5>product tags</h5>
+                                            <h5>THẺ SẢN PHẨM</h5>
                                             <div class="blog-tags">
                                                 <a href="shop.php?tag=sản phẩm mới">sản phẩm mới</a>
                                                 <a href="shop.php?tag=khuyến mại">khuyến mại</a>

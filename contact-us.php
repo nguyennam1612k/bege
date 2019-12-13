@@ -5,7 +5,7 @@
 <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Bege || Contact Us</title>
+        <title>Bege || Liên hệ</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -40,8 +40,8 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <nav class="woocommerce-breadcrumb">
-                                <a href="index.html">Home</a>
-                                <span class="separator">/</span> About
+                                <a href="index.html">Trang chủ</a>
+                                <span class="separator">/</span> Liên hệ
                             </nav>
                         </div>
                     </div>
@@ -65,14 +65,14 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-6 col-xs-12">
                                 <div class="contact-form-inner">
-                                    <h2>TELL US YOUR PROJECT</h2>
+                                    <h2>CHO CHÚNG TÔI BIẾT DỰ ÁN CỦA BẠN</h2>
                                     <form action="http://preview.hasthemes.com/bege-v4/bege/mail.php" method="get">
                                         <div class="row">
                                             <div class="col">
-                                                <input type="text" class="form-control" placeholder="First name*" required>
+                                                <input type="text" class="form-control" placeholder="Họ tên*" required>
                                             </div>
                                             <div class="col">
-                                                <input type="text" class="form-control" placeholder="Last name*" required>
+                                                <input type="text" class="form-control" placeholder="Số điện thoại*" required>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -80,39 +80,38 @@
                                                 <input type="text" class="form-control" placeholder="Email*" required>
                                             </div>
                                             <div class="col">
-                                                <input type="text" class="form-control" placeholder="Subject*" required>
+                                                <input type="text" class="form-control" placeholder="Chủ đề*" required>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col">
                                                 <textarea name="your-message" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea wpcf7-validates-as-required" aria-required="true"
-                                                    aria-invalid="false" placeholder="Message *" required></textarea>
+                                                    aria-invalid="false" placeholder="Tin nhắn *" required></textarea>
                                             </div>
                                         </div>
                                         <div class="contact-submit">
-                                            <input type="submit" value="Send Email" class="wpcf7-form-control wpcf7-submit button">
+                                            <input type="submit" value="Gửi Email" class="wpcf7-form-control wpcf7-submit button">
                                         </div>
                                     </form>
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-12 col-lg-6 col-xs-12">
                                 <div class="contact-address-area">
-                                    <h2>CONTACT US</h2>
-                                    <p>Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est
-                                        notare quam littera gothica, quam nunc putamus parum claram anteposuerit litterarum formas human.</p>
+                                    <h2>LIÊN HỆ VỚI CHÚNG TÔI</h2>
+                                    <p>Nếu bạn sẵn sàng, hãy đến trực tiếp công ty của chúng tôi. Trực tiếp thảo luận về dự án của bạn.</p>
                                     <ul>
                                         <li>
-                                            <i class="fa fa-fax">&nbsp;</i> Address : No 40 Baria Sreet 133/2 NewYork City</li>
+                                            <i class="fa fa-fax">&nbsp;</i> Địa chỉ : Số 2 Phạm Hùng, Cầu Giấy, Hà Nội</li>
                                         <li>
-                                            <i class="fa fa-phone">&nbsp;</i> Info@roadthemes.com</li>
+                                            <i class="fa fa-phone">&nbsp;</i> namnvph08169@gmail.com</li>
                                         <li>
                                             <i class="fa fa-envelope-o"></i>&nbsp;</i> 0(1234) 567 890</li>
                                     </ul>
                                     <h3>
-                                        <strong>Working hours</strong>
+                                        <strong>Giờ làm việc</strong>
                                     </h3>
                                     <p>
-                                        <strong>Monday – Saturday</strong>: &nbsp;08AM – 22PM</p>
+                                        <strong>Thức hai - Thứ sáu</strong>: &nbsp;08AM – 22PM</p>
                                 </div>
                             </div>
                         </div>

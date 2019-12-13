@@ -9,6 +9,7 @@
     //thực hiện thêm order
     if(isset($_POST['btn_order'])){
     	extract($_REQUEST);
+        $points = $total_price/1000;
         $code = strtoupper(uniqid());
         //Thực hiện tạo tài khoản nếu click create acount
         $check_create_account = isset($_POST['cbox_create_account']) ? $_POST['cbox_create_account'] : null;
@@ -34,6 +35,10 @@
                 setcookie('mess_ac', 'Tạo tài khoản thành công', time()+3);
                 $sqlQueryUser = "SELECT * from users where username='$username'";
                 $user = executeQuery($sqlQueryUser, false);
+
+                //Cộng điểm points
+                $sqlUpdatePoints = "UPDATE users set points=points+$points where id=$id";
+                executeQuery($sqlUpdatePoints);
                 $_SESSION[AUTH] = [
                     "id" => $user['id'],
                     "username" => $user['username'],
@@ -63,6 +68,10 @@
     						(name, code,  email, phone_number, user_id, address, message, total_price, payment_method)
     					values
     						('$name', '$code', '$email', '$phone_number', $user_id, '$address', '$message', $total_price, '$payment_method')";
+            //Cộng điểm points
+            $sqlUpdatePoints = "UPDATE users set points=$points where id=$user_id";
+            executeQuery($sqlUpdatePoints);
+            $_SESSION[AUTH]['points'] = $_SESSION[AUTH]['points'] + $points;
     	}else{
     		$sqlInsert = "INSERT into orders
     						(name, code, email, phone_number, address, message, total_price, payment_method)

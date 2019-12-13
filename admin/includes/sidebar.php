@@ -38,11 +38,7 @@
                     </li>
                 </ul>
             </li>
-            <li><a class="sidebar-header" href="#"><i data-feather="dollar-sign"></i><span>Bán hàng</span><i class="fa fa-angle-right pull-right"></i></a>
-                <ul class="sidebar-submenu">
-                    <li><a href="order.php"><i class="fa fa-circle"></i>Đơn đặt hàng</a></li>
-                    <li><a href="transactions.php"><i class="fa fa-circle"></i>Giao dịch</a></li>
-                </ul>
+            <li><a class="sidebar-header" href="order.php"><i data-feather="dollar-sign"></i><span>Bán hàng</span></a>
             </li>
             <li><a class="sidebar-header" href="#"><i data-feather="tag"></i><span>Voucher giảm giá</span><i class="fa fa-angle-right pull-right"></i></a>
                 <ul class="sidebar-submenu">
@@ -50,13 +46,7 @@
                     <li><a href="coupon-create.php"><i class="fa fa-circle"></i>Tạo voucher</a></li>
                 </ul>
             </li>
-            <li><a class="sidebar-header" href="media.php"><i data-feather="camera"></i><span>Slide</span></a></li>
-            <li><a class="sidebar-header" href="#"><i data-feather="align-left"></i><span>Menus</span><i class="fa fa-angle-right pull-right"></i></a>
-                <ul class="sidebar-submenu">
-                    <li><a href="menu-list.php"><i class="fa fa-circle"></i>Danh sách Menu</a></li>
-                    <li><a href="create-menu.php"><i class="fa fa-circle"></i>Tạo Menu</a></li>
-                </ul>
-            </li>
+            <li><a class="sidebar-header" href="slide.php"><i data-feather="camera"></i><span>Slide</span></a></li>
             <li><a class="sidebar-header" href="#"><i data-feather="users"></i><span>Nhà cung cấp</span><i class="fa fa-angle-right pull-right"></i></a>
                         <ul class="sidebar-submenu">
                             <li><a href="list-vendor.php"><i class="fa fa-circle"></i>Danh sách nhà cung cấp</a></li>
@@ -75,7 +65,7 @@
                     <li><a href="profile.php"><i class="fa fa-circle"></i>Thông tin tài khoản</a></li>
                 </ul>
             </li>
-            <li><a class="sidebar-header" href="invoice.php"><i data-feather="archive"></i><span>Biên lai</span></a>
+            <li><a class="sidebar-header" href="invoice.php"><i data-feather="archive"></i><span>Giao dịch</span></a>
             </li>
             <li><a class="sidebar-header" href="?action=logout"><i data-feather="log-in"></i><span>Đăng xuất</span></a>
             </li>

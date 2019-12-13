@@ -14,9 +14,8 @@
     $countUser = executeQuery($sqlQuery, false);
 
     //SELECT khách hàng
-    $sqlQuery = "SELECT * from users order by date_login desc limit 5";
+    $sqlQuery = "SELECT * from users order by onlines desc limit 5";
     $users = executeQuery($sqlQuery, true);
-
 
     //select hóa đơn
     $sqlQuery = "SELECT 
@@ -273,7 +272,7 @@
                                         <thead>
                                         <tr>
                                             <th scope="col">Họ tên</th>
-                                            <th scope="col">Đăng nhập lần cuối</th>
+                                            <th scope="col">Ngày đăng ký</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -286,7 +285,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="digits"><?php echo nicetime($value['date_login']) ?></td>
+                                                <td class="digits"><?php echo nicetime($value['date_register']) ?></td>
                                             </tr>
                                         <?php endforeach ?>
                                         </tbody>

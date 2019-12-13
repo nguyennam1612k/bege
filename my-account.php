@@ -193,7 +193,8 @@
                                                     href="?action=logout" class="logout"> Đăng xuất</a>)</p>
                                         </div>
 
-                                        <p class="mb-0" style="width: 60%;">Từ bảng điều khiển tài khoản của bạn. bạn có thể dễ dàng kiểm tra và xem các đơn đặt hàng gần đây, quản lý địa chỉ giao hàng và thanh toán cũng như chỉnh sửa mật khẩu và chi tiết tài khoản của bạn.</p>
+                                        <p class="mb-0" style="width: 70%;">Từ bảng điều khiển tài khoản của bạn. bạn có thể dễ dàng kiểm tra và xem các đơn đặt hàng gần đây, quản lý địa chỉ giao hàng và thanh toán cũng như chỉnh sửa mật khẩu và chi tiết tài khoản của bạn.</p><br>
+                                        <p>Point: <?php echo $user['points'] ?> <i class="fa fa-star"></i></p>
                                         <form method="post" enctype="multipart/form-data">
                                             <div style="text-align: center ;float: right; width: 15%;height: 200px; margin-top: -100px; display: block;">
                                                 <label for="img" onclick="myFunction()">

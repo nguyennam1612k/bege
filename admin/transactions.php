@@ -9,7 +9,7 @@
                     ROW_NUMBER() OVER (ORDER BY id) AS stt,
                     orders.*
                 from orders
-                where status='Đã giao hàng'
+                where status='3 - đã giao hàng'
                 limit 5";
     $transactions = executeQuery($sqlQuery, true);
 ?>
@@ -27,7 +27,7 @@
     <meta name="author" content="pixelstrap">
     <link rel="icon" href="http://themes.pixelstrap.com/bigdeal/assets/images/favicon/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="http://themes.pixelstrap.com/bigdeal/assets/images/favicon/favicon.ico" type="image/x-icon">
-    <title>Bigdeal - Premium Admin Template</title>
+    <title>Quản trị - Giao dịch</title>
 
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
@@ -76,16 +76,16 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="page-header-left">
-                                    <h3>Transactions
-                                        <small>Bigdeal Admin panel</small>
+                                    <h3>Giao dịch
+                                        <small>Bảng quản trị Shop</small>
                                     </h3>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <ol class="breadcrumb pull-right">
                                     <li class="breadcrumb-item"><a href="index.html"><i data-feather="home"></i></a></li>
-                                    <li class="breadcrumb-item">Sales</li>
-                                    <li class="breadcrumb-item active">Transactions</li>
+                                    <li class="breadcrumb-item">Giao dịch</li>
+                                    <li class="breadcrumb-item active">Chi tiết</li>
                                 </ol>
                             </div>
                         </div>
@@ -99,7 +99,7 @@
                         <div class="col-sm-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Transaction Details</h5>
+                                    <h5>Chi tiết giao dịch</h5>
                                     <?php if ($transactions == null): ?>
                                         <p style="color: #9C370F">Không có giao dịch nào thành công</p>
                                     <?php endif ?>
@@ -110,19 +110,19 @@
                                             <table class="jsgrid-table">
                                                 <tr class="jsgrid-header-row">
                                                     <th class="jsgrid-header-cell" style="width: 50px;">
-                                                    Order Id</th>
+                                                    ID</th>
                                                     <th class="jsgrid-header-cell jsgrid-align-right" style="width: 100px;">
-                                                    Transaction Id</th>
+                                                    Mã giao dịch</th>
                                                     <th class="jsgrid-header-cell" style="width: 100px;">
                                                     Date</th>
 
-                                                    <th class="jsgrid-header-cell" style="width: 50px;">
-                                                    Payment Method
+                                                    <th class="jsgrid-header-cell" style="width: 70px;">
+                                                    Thanh toán bằng
                                                     </th>
                                                     <th class="jsgrid-header-cell" style="width: 100px;">
-                                                    Delivery Status</th>
+                                                    Trạng thái</th>
                                                     <th class="jsgrid-header-cell" style="width: 100px;">
-                                                    Amount</th>
+                                                    Số tiền</th>
                                                 </tr>
                                             </table>
                                         </div>
@@ -136,7 +136,7 @@
                                                                 # <?php echo $value['code'] ?></td>
                                                                 <td class="jsgrid-cell" style="width: 100px;">
                                                                 <?php echo $value['created_date'] ?></td>
-                                                                <td class="jsgrid-cell" style="width: 50px;">
+                                                                <td class="jsgrid-cell" style="width: 70px;">
                                                                 <?php echo $value['payment_method'] ?></td>
                                                                 <td class="jsgrid-cell" style="width: 100px;">
                                                                 <?php echo $value['status'] ?></td>
