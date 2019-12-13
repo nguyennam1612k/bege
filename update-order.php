@@ -6,7 +6,7 @@
 	//Thực hiện hủy đơn hàng khi chưa xác nhận
     $id = isset($_POST['id']) ? $_POST['id'] : null;
     if($id != null){
-        $sqlUpdate = "UPDATE orders set status=5 where id=$id";
+        $sqlUpdate = "UPDATE orders set status='0 - đã hủy' where id=$id";
         executeQuery($sqlUpdate);
         // dd($sqlUpdate);
         //Chuyển trang

@@ -64,10 +64,11 @@
                                 <ul>
                                     <li><a href="index.php">trang chủ</a></li>
                                     <li><a href="shop.php">cửa hàng</a></li>
-                                    <li><a href="blog.php">blog</a></li>
+                                    <li><a href="blog.php">bài viết</a></li>
+                                    <li><a href="about-us.php">giới thiệu</a></li>
                                     <li><a href="contact-us.php">liên hệ</a></li>
-                                    <li><a href="#">Menu <i class="fa fa-angle-down"></i></a>
-                                        <!-- Hiện thị danh mục cha và danh mục con -->
+                                    <!-- <li><a href="#">Menu <i class="fa fa-angle-down"></i></a>
+                                        Hiện thị danh mục cha và danh mục con
                                         <ul class="megamenu-3-column">
                                             <li><a href="#">Pages</a>
                                                 <ul>
@@ -101,7 +102,7 @@
                                                 </ul>
                                             </li>
                                         </ul>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </nav>
                         </div>
@@ -201,30 +202,6 @@
                             }
                             ?>                                
                             </div>
-                            <div class="switcher">
-                                <!-- language-menu -->
-                                <div class="language">
-                                    <a href="#">
-                                        <img src="images/icons/en.png" alt="language-selector">English
-                                        <i class="ion-ios-arrow-down"></i>
-                                    </a>
-                                    <ul>
-                                        <li>
-                                            <a href="#">
-                                                <img src="images/icons/fr.png" alt="French">
-                                                <span>French</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <!-- currency-menu -->
-                                <div class="currency">
-                                    <a href="#">$ USD<i class="ion-ios-arrow-down"></i></a>
-                                    <ul>
-                                        <li><a href="#">€ EUR</a></li>
-                                    </ul>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -257,7 +234,7 @@
                             </div>
                             <div class="header-search-form">
                                 <input type="text" name="value_search" placeholder="Tìm kiếm sản phẩm ..." required="Nhập từ khóa tìm kiếm">
-                                <input type="submit" name="submit" value="Search">
+                                <input type="submit" name="submit" value="Tìm kiếm">
                             </div>
                         </form>
                     </div>
@@ -277,7 +254,7 @@
                                         } ?></sup>
                                     </span>
                                     <span class="cart-text">
-                                        <span class="cart-text-title">My cart <br> <strong>
+                                        <span class="cart-text-title">Giỏ hàng <br> <strong>
                                             <?php echo number_format($totalPrice, 0, '', ','); ?> đ</strong> </span>
                                     </span>
                                 </a>
@@ -295,7 +272,7 @@
                                                         <span class="price">
                                                             <?php $itemTotal = $value['sale_price']*$value['quantity']; ?>
                                                             <?php echo number_format($value['sale_price'], 0, '', ','); ?> vnđ</span>
-                                                        <span class="quantaty">Qty: <?php echo $value['quantity'] ?></span>
+                                                        <span class="quantaty">Số lượng: <?php echo $value['quantity'] ?></span>
                                                         <span class="cart-remove"><a href="?action=deleteCart&id=<?php echo $value['id'] ?>"><i class="fa fa-times"></i></a></span>
                                                     </div>
                                                 </div>
@@ -306,18 +283,18 @@
                                     <li>
                                         <!-- shop-cart-total -->
                                         <div class="shop-cart-total">
-                                            <p>Subtotal: <span class="pull-right"><?php echo number_format($totalPrice, 0, '', ','); ?> đ</span></p>
+                                            <p>Tổng phụ: <span class="pull-right"><?php echo number_format($totalPrice, 0, '', ','); ?> đ</span></p>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="shop-cart-btn">
                                             <?php if ($cart != null): ?>
-                                                <a href="checkout.php">Checkout</a>
+                                                <a href="checkout.php">Thanh toán</a>
                                             <?php endif ?>
                                             <?php if ($cart == null): ?>
-                                                <a href="javascript:void(0)" class="disabled">Checkout</a>
+                                                <a href="javascript:void(0)" class="disabled">Thanh toán</a>
                                             <?php endif ?>
-                                            <a href="cart.php" class="pull-right">View Cart</a>
+                                            <a href="cart.php" class="pull-right">Chi tiết</a>
                                         </div>
                                     </li>
                                 </ul>

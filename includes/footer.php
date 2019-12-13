@@ -7,13 +7,13 @@
                     <div class="newsletter-text">
                         <div class="icon"><i class="icon ion-email"></i></div>
                         <h3>đăng ký thông báo mới</h3>
-                        <h4>.. và nhận Points khi mua sắm.</h4>
+                        <h4>.. và nhận Points sau khi mua sắm.</h4>
                     </div>
                     <div class="newsletter">
                         <div class="newsletter-box">
                             <form action="#">
                                 <input class="subscribe" placeholder="địa chỉ Email của bạn" name="email" id="subscribe" type="email">
-                                <button type="submit" class="submit">Subscribe!</button>
+                                <button type="submit" class="submit">Đăng ký!</button>
                             </form>
                         </div>
                     </div>
@@ -145,9 +145,6 @@
             <div class="row">
                 <div class="col-sm-12 col-lg-6 col-md-6">
                     <p>Copyright © 2018 Bege . All Rights Reserved.</p>
-                </div>
-                <div class="col-sm-12 col-lg-6 col-md-6 pull-right">
-                    <img src="images/icons/payment-icon.png" alt="payment icon">
                 </div>
             </div>
         </div>

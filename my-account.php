@@ -195,12 +195,12 @@
 
                                         <p class="mb-0" style="width: 60%;">Từ bảng điều khiển tài khoản của bạn. bạn có thể dễ dàng kiểm tra và xem các đơn đặt hàng gần đây, quản lý địa chỉ giao hàng và thanh toán cũng như chỉnh sửa mật khẩu và chi tiết tài khoản của bạn.</p>
                                         <form method="post" enctype="multipart/form-data">
-                                            <div style="text-align: center ;float: right; width: 35%;height: 200px; margin-top: -120px">
+                                            <div style="text-align: center ;float: right; width: 15%;height: 200px; margin-top: -100px; display: block;">
                                                 <label for="img" onclick="myFunction()">
-                                                    <img style="width: 100px" src="<?php echo $user['avatar'] ?>" alt="">
+                                                    <img style="width: 100px;" src="<?php echo $user['avatar'] ?>" alt="">
                                                 </label>
                                                 <input type="file" id="img" name="avatar_update" style="display: none;">
-                                                <button style="display: none; margin-left: 120px;" class="btn" id="show_btn" name="btn_update_avatar">Update</button>
+                                                <button style="display: none; margin: 0 50px 0 50px" class="btn" id="show_btn" name="btn_update_avatar">Update</button>
                                                 <script>
                                                     function myFunction() {
                                                         var x = document.getElementById("show_btn");
@@ -265,7 +265,7 @@
                                                             <td><?php echo number_format($value['total_price'], 0, '', ','); ?> vnđ</td>
                                                             <td>
                                                                 <?php
-                                                                if($value['status'] == "Chờ xử lý"){
+                                                                if($value['status'] == "1 - chờ xử lý"){
                                                                     ?>
                                                                     <form action="update-order.php" method="post" style="margin-top: 5px">
                                                                         <input type="hidden" name="id" value="<?php echo $value['id'] ?>">

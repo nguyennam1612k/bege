@@ -241,6 +241,7 @@ Version: 1.0.0
     height: 52px;
     line-height: 52px;
     min-width: 130px;
+    max-width: 200px;
 }
 
 .header-search-form {

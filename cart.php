@@ -14,7 +14,7 @@ require_once './commons/helpers.php';
 <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Bege || Shoping cart</title>
+        <title>Bege || Giỏ hàng</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -49,8 +49,8 @@ require_once './commons/helpers.php';
                     <div class="row">
                         <div class="col-sm-12">
                             <nav class="woocommerce-breadcrumb">
-                                <a href="index.html">Home</a>
-                                <span class="separator">/</span> Cart
+                                <a href="index.html">Trang chủ</a>
+                                <span class="separator">/</span> Giỏ hàng
                             </nav>
                         </div>
                     </div>
@@ -62,7 +62,7 @@ require_once './commons/helpers.php';
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h1 class="entry-title">Cart</h1>
+                            <h1 class="entry-title">Giỏ hàng</h1>
                             <?php if ($cart == null): ?>
                                 <p style="color: #E05E07; font-size: 20px; text-align: center; margin-top: 30px">Giỏ hàng của bạn đang trống</p>
                             <?php endif ?>
@@ -86,12 +86,12 @@ require_once './commons/helpers.php';
                                     <table>
                                         <thead>
                                             <tr>
-                                                <th class="product-thumbnail">Image</th>
-                                                <th class="product-name">Product</th>
-                                                <th class="product-price">Price</th>
-                                                <th class="product-quantity">Quantity</th>
-                                                <th class="product-subtotal">Total</th>
-                                                <th class="product-remove">Remove</th>
+                                                <th class="product-thumbnail">Ảnh sản phẩm</th>
+                                                <th class="product-name">Sản phẩm</th>
+                                                <th class="product-price">Giá</th>
+                                                <th class="product-quantity">Số lượng</th>
+                                                <th class="product-subtotal">Tổng thành</th>
+                                                <th class="product-remove">Xóa</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -132,24 +132,24 @@ require_once './commons/helpers.php';
                                    <!-- Cart Button Start -->
                                     <div class="col-md-8 col-sm-7 col-xs-12">
                                         <div class="buttons-cart">
-                                            <input type="submit" value="Update Cart">
-                                            <a href="shop.php">Continue Shopping</a>
+                                            <input type="submit" value="Cập nhật">
+                                            <a href="shop.php">Tiếp tục mua sắm</a>
                                         </div>
                                     </div>
                                     <!-- Cart Button Start -->
                                     <!-- Cart Totals Start -->
                                     <div class="col-md-4 col-sm-5 col-xs-12">
                                         <div class="cart_totals">
-                                            <h2>Cart Totals</h2>
+                                            <h2>Tổng giá giỏ hàng</h2>
                                             <br>
                                             <table>
                                                 <tbody>
                                                     <tr class="cart-subtotal">
-                                                        <th>Subtotal</th>
+                                                        <th>Tổng phụ</th>
                                                         <td><span class="amount"><?php echo number_format($totalPrice, 0, '', ','); ?> vnđ </span></td>
                                                     </tr>
                                                     <tr class="order-total">
-                                                        <th>Total</th>
+                                                        <th>Toàn bộ</th>
                                                         <td>
                                                             <strong><span class="amount"><?php echo number_format($totalPrice, 0, '', ','); ?> vnđ </span></strong>
                                                         </td>
@@ -158,10 +158,10 @@ require_once './commons/helpers.php';
                                             </table>
                                             <div class="wc-proceed-to-checkout">
                                                 <?php if ($cart != null): ?>
-                                                    <a href="checkout.php">Proceed to Checkout</a>
+                                                    <a href="checkout.php">Chuyển đến thanh toán</a>
                                                 <?php endif ?>
                                                 <?php if ($cart == null): ?>
-                                                    <a href="javascript:void(0)" class="disabled">Proceed to Checkout</a>
+                                                    <a href="javascript:void(0)" class="disabled">Chuyển đến thanh toán</a>
                                                 <?php endif ?>
                                             </div>
                                         </div>

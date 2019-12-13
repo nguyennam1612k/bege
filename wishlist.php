@@ -8,20 +8,56 @@
     $user_id = $user['id'];
     
     if($user != null){
-        $sqlQuery = "SELECT count(w.id) as count from products p inner join wish_lists w on w.product_id=p.id where user_id=$user_id";
+        $sqlQuery = "SELECT count(w.id) as count
+                        from products p 
+                        inner join wish_lists w 
+                            on w.product_id=p.id 
+                        where user_id=$user_id";
         $count_w = executeQuery($sqlQuery, false);
         $countW = isset($count_w['count']) ? $count_w['count'] : 0;
+
+
+        //PHÂN TRANG
+        $page=1;//khởi tạo trang ban đầu
+        $limit=5;//số bản ghi trên 1 trang (2 bản ghi trên 1 trang)
+
+        $total_record = $countW;//tính tổng số bản ghi có trong bảng khoahoc
+        
+        $total_pageW = $total_record/$limit;//tính tổng số trang sẽ chia
+
+        //xem trang có vượt giới hạn không:
+        if(isset($_GET["page"])){
+            $page=$_GET["page"];//nếu biến $_GET["page"] tồn tại thì trang hiện tại là trang $_GET["page"]
+        }
+        if($page<1){
+            $page=1;
+        }else if(is_int($page) == false){
+            $page = 1;
+          //nếu trang hiện tại nhỏ hơn 1 thì gán bằng 1
+        }
+        if($page>$total_pageW){
+            $page=$total_pageW;
+        } //nếu trang hiện tại vượt quá số trang được chia thì sẽ bằng trang cuối cùng
+        if(is_float($page) == true){
+            $page = 1;
+        }
+        //tính start (vị trí bản ghi sẽ bắt đầu lấy):
+        $start=($page-1)*$limit;
+        //PHÂN TRANG END
+
 
         $sqlQuery = "SELECT w.*, p.name,p.feature_image, p.sale_price, p.quantum, p.sold
                     from products p
                     inner join wish_lists w
                     on w.product_id=p.id
-                    where user_id=$user_id";
+                    where user_id=$user_id
+                    limit $start, $limit";
         $wishlists = executeQuery($sqlQuery, true);
     }else{
         $wishlists = null;
     }
 
+    // dd($sqlQuery);
     //Xóa wish list
     $action = isset($_GET['action']) ? $_GET['action'] : null;
     if($action == "removeWish"){
@@ -40,7 +76,7 @@
 <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Bege || Wishlist</title>
+        <title>Bege || Yêu thích</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -75,8 +111,8 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <nav class="woocommerce-breadcrumb">
-                                <a href="index.html">Home</a>
-                                <span class="separator">/</span> Wishlist
+                                <a href="index.html">Trang chủ</a>
+                                <span class="separator">/</span> Danh sách yêu thích
                             </nav>
                         </div>
                     </div>
@@ -88,7 +124,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h1 class="entry-title">Wishlist</h1>
+                            <h1 class="entry-title">Danh sách yêu thích</h1>
                             <?php if ($user == null): ?>
                                 <center style="font-size: 20px; color: #C4820F; margin-top: 40px">Bạn cần đăng nhập để sử dụng chức năng này</center>
                             <?php endif ?>
@@ -112,12 +148,12 @@
                                     <table>
                                         <thead>
                                             <tr>
-                                                <th class="product-remove">Remove</th>
-                                                <th class="product-thumbnail">Image</th>
-                                                <th class="product-name">Product</th>
-                                                <th class="product-price" width="20%">Unit Price</th>
-                                                <th class="product-quantity">Stock Status</th>
-                                                <th class="product-subtotal">add to cart</th>
+                                                <th class="product-remove">Xóa</th>
+                                                <th class="product-thumbnail">Ảnh sản phẩm</th>
+                                                <th class="product-name">Sản phẩm</th>
+                                                <th class="product-price" width="20%">Đơn giá</th>
+                                                <th class="product-quantity">Trạng thái sản phẩm</th>
+                                                <th class="product-subtotal">Thêm vào giỏ hàng</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -151,22 +187,26 @@
 
                                         <?php
                                         $url_page = isset($_GET['page']) ? $_GET['page'] : 1;
-                                        for($tik = 1; $tik <= $total_page; $tik++){
+                                            if($user != null){
+                                                for($tik = 1; $tik <= $total_pageW; $tik++){
 
-                                            if($url_page == $tik){
-                                                $classPage = "current";
-                                            }else{
-                                                $classPage = "";
+                                                if($url_page == $tik){
+                                                    $classPage = "current";
+                                                }else{
+                                                    $classPage = "";
+                                                }
+
+                                                ?>
+                                                <li><a class="page-numbers" href="?page=<?php echo $tik ?>"><span class="<?php echo $classPage ?>"><?php echo $tik ?></span></a></li>
+
+                                                <?php
                                             }
-
-                                            ?>
-                                            <li><a class="page-numbers" href="?page=<?php echo $tik ?>"><span class="<?php echo $classPage ?>"><?php echo $tik ?></span></a></li>
-
-                                            <?php
-                                        }
+                                            }
                                         ?>
 
-                                        <li><a class="next page-numbers" href="?page=<?php echo $page+1 ?>">→</a></li>
+                                        <?php if ($tik > 1): ?>
+                                            <li><a class="next page-numbers" href="?page=<?php echo $page+1 ?>">→</a></li>
+                                        <?php endif ?>
                                     </ul>
                                 </nav>
                                 <!-- Table Content Start -->

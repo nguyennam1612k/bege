@@ -28,14 +28,14 @@
     }
     //PHÂN TRANG
     $page=1;//khởi tạo trang ban đầu
-    $limit=5;//số bản ghi trên 1 trang (2 bản ghi trên 1 trang)
+    $limit=3;//số bản ghi trên 1 trang (2 bản ghi trên 1 trang)
     
-    $arrs_list = "SELECT count(id) as count from products";
+    $arrs_list = "SELECT count(id) as count from blogs";
     $count = executeQuery($arrs_list);
 
     $total_record = $count['count'];//tính tổng số bản ghi có trong bảng khoahoc
     
-    $total_page = $total_record/$limit;//tính tổng số trang sẽ chia
+    $total_pageb = $total_record/$limit;//tính tổng số trang sẽ chia
 
     //xem trang có vượt giới hạn không:
     if(isset($_GET["page"])){
@@ -44,8 +44,8 @@
     if($page<1){
         $page=1;
     }  //nếu trang hiện tại nhỏ hơn 1 thì gán bằng 1
-    if($page>$total_page){
-        $page=$total_page;
+    if($page>$total_pageb){
+        $page=$total_pageb;
     } //nếu trang hiện tại vượt quá số trang được chia thì sẽ bằng trang cuối cùng
 
     //tính start (vị trí bản ghi sẽ bắt đầu lấy):
@@ -170,7 +170,7 @@
 
                                         <?php
                                         $url_page = isset($_GET['page']) ? $_GET['page'] : 1;
-                                        for($tik = 1; $tik <= $total_page; $tik++){
+                                        for($tik = 1; $tik <= $total_pageb; $tik++){
 
                                             if($url_page == $tik){
                                                 $classPage = "current";

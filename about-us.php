@@ -55,20 +55,19 @@
                         <div class="row">
                             <div class="col-md-12 col-lg-6 col-xs-12">
                                 <div class="banner_h2__left_image">
-                                    <img alt="" src="images/banner/about-us-img1.jpg">
+                                    <img alt="" src="images/banner/ban-hang-online-hieu-qua-hon-min.jpg">
                                 </div>
                             </div>
 
                             <div class="col-md-12 col-lg-6  col-xs-12">
                                 <div class="banner_h2_Right_text">
                                     <div class="wpb_wrapper">
-                                        <h3>WE CREATE <br> HTML TEMPLATES.</h3>
-                                        <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla
-                                        facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore
-                                        te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim
-                                        placerat facer possim assum. Typi non habent claritatem insitam, est usus legentis in iis qui facit eorum claritatem.</p>
+                                        <h3>WEBSITE<br> THƯƠNG MẠI ĐIỆN TỬ.</h3>
+                                        <p>Thương mại điện tử, hay còn gọi là e-commerce, e-comm hay EC, là sự mua bán sản phẩm hay dịch vụ trên các hệ thống điện tử như Internet và các mạng máy tính.[1][2] Thương mại điện tử dựa trên một số công nghệ như chuyển tiền điện tử, quản lý chuỗi dây chuyền cung ứng, tiếp thị Internet, quá trình giao dịch trực tuyến, trao đổi dữ liệu điện tử (EDI), các hệ thống quản lý hàng tồn kho, và các hệ thống tự động thu thập dữ liệu. Thương mại điện tử hiện đại thường sử dụng mạng World Wide Web là một điểm ít nhất phải có trong chu trình giao dịch, mặc dù nó có thể bao gồm một phạm vi lớn hơn về mặt công nghệ như email, các thiết bị di động như là điện thoại.
+
+                                        Thương mại điện tử thông thường được xem ở các khía cạnh của kinh doanh điện tử (e-business). Nó cũng bao gồm việc trao đổi dữ liệu tạo điều kiện thuận lợi cho các nguồn tài chính và các khía cạnh thanh toán của việc giao dịch kinh doanh.[2]</p>
                                         <p class="text-center">
-                                            <a href="#"> view work </a>
+                                            <a href="#"> Xem thêm </a>
                                         </p>
                                     </div>
                                 </div>
@@ -93,7 +92,7 @@
                                         <h1>
                                             <span class="counter">2169</span>
                                         </h1>
-                                        <h5>HAPPY CUSTOMERS</h5>
+                                        <h5>Người dùng</h5>
                                     </div>
                                 </div>
                             </div>
@@ -109,7 +108,7 @@
                                         <h1>
                                          <span class="counter">369</span>
                                         </h1>
-                                         <h5>AWARDS WINNED</h5>
+                                         <h5>Giải thưởng</h5>
                                     </div>
                                 </div>
                             </div>
@@ -125,7 +124,7 @@
                                         <h1>
                                             <span class="counter">689</span>
                                         </h1>
-                                        <h5>HOURS WORKED</h5>
+                                        <h5>giờ bán hàng</h5>
                                     </div>
                                 </div>
                             </div>
@@ -141,7 +140,7 @@
                                         <h1>
                                             <span class="counter">2169</span>
                                         </h1>
-                                        <h5>COMPLETE PROJECTS</h5>
+                                        <h5>sản phẩm đã được bán</h5>
                                     </div>
                                 </div>
                             </div>
@@ -157,11 +156,11 @@
                         <div class="row">
                             <div class="col-md-12 col-lg-6 col-xs-12">
                                 <div class="skrill_here">
-                                    <h3>WE HAVE SKILLS TO SHOW</h3>
+                                    <h3>CHÚNG TÔI CÓ KỸ NĂNG BÁN HÀNG TRỰC TUYẾN</h3>
                                     <div class="ht-single-about">
                                         <div class="skill-bar">
                                             <div class="skill-bar-item">
-                                                <span>WEB DESIGN</span>
+                                                <span>SẢN PHẨM CÓ MẶT TRÊN THỊ TRƯỜNG</span>
                                                 <div class="progress">
                                                     <div class="progress-bar wow fadeInLeft width80" data-progress="80%" data-wow-duration="1.5s" data-wow-delay="1.2s">
                                                         <span class="text-top">80%</span>
@@ -169,7 +168,7 @@
                                                 </div>
                                             </div>
                                             <div class="skill-bar-item">
-                                                <span>PHP &amp; JAVASCRIPT</span>
+                                                <span>GIÁ THÌ TRUNG BÌNH</span>
                                                 <div class="progress">
                                                     <div class="progress-bar wow fadeInLeft width90" data-progress="90%" data-wow-duration="1.5s" data-wow-delay="1.2s">
                                                         <span class="text-top">90%</span>
@@ -177,7 +176,7 @@
                                                 </div>
                                             </div>
                                             <div class="skill-bar-item">
-                                                <span>HTML5 &amp; CSS3</span>
+                                                <span>MẪU MÃ MỚI</span>
                                                 <div class="progress">
                                                     <div class="progress-bar wow fadeInLeft width70" data-progress="70%"  data-wow-duration="1.5s" data-wow-delay="1.2s">
                                                         <span class="text-top">70%</span>
@@ -185,7 +184,7 @@
                                                 </div>
                                             </div>
                                             <div class="skill-bar-item">
-                                                <span>wordpress</span>
+                                                <span>PHẢN HỒI KHÁCH HÀNG</span>
                                                 <div class="progress">
                                                     <div class="progress-bar wow fadeInLeft width95" data-progress="95%" data-wow-duration="1.5s" data-wow-delay="1.2s">
                                                         <span class="text-top">95%</span>
@@ -198,7 +197,7 @@
                             </div>
                             <div class="col-md-12 col-lg-6 col-xs-12">
                                 <div class="banner_h2__left_image lft_to_right">
-                                    <img alt="" src="images/banner/about-us-img2.jpg">
+                                    <img alt="" src="images/banner/netsale-9-cach-lua-chon-san-pham-khi-kinh-doanh-online.jpg">
                                 </div>
                             </div>
                         </div>

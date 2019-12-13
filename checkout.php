@@ -55,7 +55,7 @@
 <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Bege || checkout</title>
+        <title>Bege || Thanh toán</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -71,6 +71,38 @@
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/responsive.css">
         <link rel="stylesheet" href="css/colors.css">
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+        <style>
+
+          .rowP {
+              display: -ms-flexbox; /* IE10 */
+              display: flex;
+              -ms-flex-wrap: wrap; /* IE10 */
+              flex-wrap: wrap;
+              margin: 0 -16px;
+          }
+
+          .col-50 {
+              -ms-flex: 50%; /* IE10 */
+              flex: 50%;
+          }
+
+          .col-75 {
+              -ms-flex: 75%; /* IE10 */
+              flex: 75%;
+          }
+
+          label {
+              margin-bottom: 10px;
+              display: block;
+          }
+
+          .icon-container {
+              margin-bottom: 20px;
+              padding: 7px 0;
+              font-size: 24px;
+          }
+    </style>
     </head>
     <body>
         <!--[if lte IE 9]>
@@ -90,8 +122,8 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <nav class="woocommerce-breadcrumb">
-                                <a href="index.html">Home</a>
-                                <span class="separator">/</span> Checkout
+                                <a href="index.html">Trang chủ</a>
+                                <span class="separator">/</span> Thanh toán
                             </nav>
                         </div>
                     </div>
@@ -103,7 +135,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h1 class="entry-title">Checkout</h1>
+                            <h1 class="entry-title">Thanh toán</h1>
                         </div>
                     </div>
                 </div>
@@ -119,29 +151,29 @@
                                 <div class="coupon-accordion">
                                     <!-- ACCORDION START -->
                                     <?php if ($user == null): ?>
-                                        <h3 role="button" data-toggle="collapse" data-parent="#checkout-login" href="#checkout-login" aria-expanded="true" aria-controls="collapseOne">Returning customer? <span id="showlogin">Click here to login</span></h3>
+                                        <h3 role="button" data-toggle="collapse" data-parent="#checkout-login" href="#checkout-login" aria-expanded="true" aria-controls="collapseOne">Bạn có tài khoản ? <span id="showlogin">Bấm vào đây để đăng nhập</span></h3>
 
                                         <div id="checkout-login" class="coupon-content">
                                             <div class="coupon-info">
-                                                <p class="coupon-text">Quisque gravida turpis sit amet nulla posuere lacinia. Cras sed est sit amet ipsum luctus.</p>
+                                                <p class="coupon-text">Nếu bạn đã đăng ký tài khoản, nhập thông tin và đăng nhập để lấy dữ liệu nhanh hơn.</p>
                                                 <form method="post">
                                                     <p class="form-row-first">
-                                                        <label>Username <span class="required">*</span></label>
+                                                        <label>Tài khoản <span class="required">*</span></label>
                                                         <input type="text" name="username">
                                                     </p>
                                                     <p class="form-row-last">
-                                                        <label>Password  <span class="required">*</span></label>
+                                                        <label>Mật khẩu  <span class="required">*</span></label>
                                                         <input type="text" name="password">
                                                     </p>
                                                     <p class="form-row">
                                                         <input type="submit" value="Login" name="btn_login">
                                                         <label>
                                                         <input type="checkbox">
-                                                         Remember me 
+                                                         Ghi nhớ
                                                     </label>
                                                     </p>
                                                     <p class="lost-password">
-                                                        <a href="forgot-password.php">Lost your password?</a>
+                                                        <a href="forgot-password.php">Quên mật khẩu ?</a>
                                                     </p>
                                                 </form>
                                             </div>
@@ -149,7 +181,7 @@
                                     <?php endif ?>
                                     <!-- ACCORDION END -->
                                     <!-- ACCORDION START -->
-                                    <h3 role="button" data-toggle="collapse" data-parent="#checkout_coupon" href="#checkout_coupon" aria-expanded="true" aria-controls="collapseOne">Have a coupon? <span id="showcoupon">Click here to enter your code</span></h3>
+                                    <h3 role="button" data-toggle="collapse" data-parent="#checkout_coupon" href="#checkout_coupon" aria-expanded="true" aria-controls="collapseOne">Có mã giảm giá ? <span id="showcoupon">Bấm vào đây để nhập mã giảm giá</span></h3>
                                     <!-- <div id="checkout_coupon" class="coupon-checkout-content">
                                         <div class="coupon-info"> -->
                                             <form >
@@ -157,7 +189,7 @@
                                                     <input type="text" class="code" placeholder="Coupon code" class="voucher-code-input">
                                                     <!-- <input type="submit" value="Apply Coupon" class="btn-voucher"> -->
                                                     
-                                                    <button type="button" class="btn-voucher btn btn-small btn-dark-solid">Apply Voucher Code</button>
+                                                    <button type="button" class="btn-voucher btn btn-small btn-dark-solid">Áp dụng</button>
                                                 </p>
                                             </form>
                                         <!-- </div>
@@ -176,42 +208,42 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6">
                                     <div class="checkbox-form">
-                                        <h3>Billing Details</h3>
+                                        <h3>Chi Tiết Thanh Toán</h3>
                                         <!-- nếu không đăng nhập -->
                                             <?php if ($user == null): ?>
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="checkout-form-list">
-                                                            <label>Full Name <span class="required">*</span></label>
+                                                            <label>Họ tên <span class="required">*</span></label>
                                                             <input type="text" required="" name="name" placeholder="Your name">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12">
                                                         <div class="checkout-form-list">
-                                                            <label>Address <span class="required">*</span></label>
+                                                            <label>Địa chỉ <span class="required">*</span></label>
                                                             <input type="text" required="" name="address" placeholder="Street address">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="checkout-form-list mb-30">
-                                                            <label>Email Address <span class="required">*</span></label>
+                                                            <label>Địa chỉ Email <span class="required">*</span></label>
                                                             <input type="email" required="" name="email" placeholder="Your email address">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="checkout-form-list mb-30">
-                                                            <label>Phone  <span class="required">*</span></label>
+                                                            <label>Số điện thoại <span class="required">*</span></label>
                                                             <input type="number" style="height: 45px" required="" name="phone_number" placeholder="Phone number contact">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12">
                                                         <div class="checkout-form-list create-acc mb-30">
                                                             <input id="cbox" type="checkbox" role="button" data-toggle="collapse" data-parent="#cbox_info" href="#cbox_info" aria-expanded="true" aria-controls="collapseOne" name="cbox_create_account" value="1">
-                                                            <label for="cbox">Create an account?</label>
+                                                            <label for="cbox">Tạo tài khoản ?</label>
                                                         </div>
                                                         <div id="cbox_info" class="checkout-form-list create-accounts mb-25">
-                                                            <p class="mb-10">Create an account by entering the information below. If you are a returning customer please login at the top of the page.</p>
-                                                            <label>Account password  <span class="required">*</span></label>
+                                                            <p class="mb-10">Tạo một tài khoản bằng cách nhập thông tin dưới đây. Nếu bạn là khách hàng cũ, vui lòng đăng nhập ở đầu trang.</p>
+                                                            <label>Mật khẩu tài khoản  <span class="required">*</span></label>
                                                             <input type="text" name="username" placeholder="username" style="height: 30px">
                                                             <input type="text" name="password" placeholder="password" style="height: 30px">
                                                         </div>
@@ -223,25 +255,25 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="checkout-form-list">
-                                                            <label>Full Name <span class="required">*</span></label>
+                                                            <label>Họ tên <span class="required">*</span></label>
                                                             <input type="text" required="" name="name" placeholder="Your name" value="<?php echo $user['name'] ?>">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12">
                                                         <div class="checkout-form-list">
-                                                            <label>Address <span class="required">*</span></label>
+                                                            <label>Địa chỉ <span class="required">*</span></label>
                                                             <input type="text" required="" name="address" placeholder="Street address" value="<?php echo $user['address'] ?>">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="checkout-form-list mb-30">
-                                                            <label>Email Address <span class="required">*</span></label>
+                                                            <label>Địa chỉ Email <span class="required">*</span></label>
                                                             <input type="email" required="" name="email" placeholder="Your email address" value="<?php echo $user['email'] ?>">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="checkout-form-list mb-30">
-                                                            <label>Phone  <span class="required">*</span></label>
+                                                            <label>Số điện thoại <span class="required">*</span></label>
                                                             <input type="number" style="height: 45px" required="" name="phone_number" placeholder="Phone number contact" value="<?php echo $user['phone_number'] ?>">
                                                         </div>
                                                     </div>
@@ -250,7 +282,7 @@
                                         <div class="different-address">
                                             <div class="order-notes">
                                                 <div class="checkout-form-list">
-                                                    <label>Order Notes</label>
+                                                    <label>Ghi chú đơn hàng</label>
                                                     <textarea id="checkout-mess" name="message" cols="30" rows="10" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
                                                 </div>
                                             </div>
@@ -259,13 +291,13 @@
                                 </div>
                                 <div class="col-lg-6 col-md-6">
                                     <div class="your-order">
-                                        <h3>Your order</h3>
+                                        <h3>Đơn hàng của bạn</h3>
                                         <div class="your-order-table table-responsive">
                                             <table>
                                                 <thead>
                                                     <tr>
-                                                        <th class="product-name">Product</th>
-                                                        <th class="product-total">Total</th>
+                                                        <th class="product-name">Sản phẩm</th>
+                                                        <th class="product-total">Tổng</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -287,11 +319,11 @@
                                                 </tbody>
                                                 <tfoot>
                                                     <tr class="cart-subtotal">
-                                                        <th>Cart Subtotal</th>
+                                                        <th>Tổng giỏ hàng</th>
                                                         <td><span class="amount"><?php echo number_format($totalPrice, 0, '', ','); ?> đ</span></td>
                                                     </tr>
                                                     <tr class="order-total">
-                                                        <th>Order Total</th>
+                                                        <th>Tổng đơn hàng</th>
                                                         <td><strong><span class="amount" class="cart-total"><?php echo number_format($totalPrice, 0, '', ','); ?> đ</span></strong>
                                                         </td>
                                                     </tr>
@@ -304,15 +336,17 @@
                                                     <div class="panel panel-default">
                                                         <div class="panel-heading" role="tab" id="headingOne">
                                                             <h4 class="panel-title">
-                                                                <input type="radio" required="" name="payment_method" value="Thẻ tín dụng">
-                                                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                                    Thẻ tín dụng
-                                                                </a>
+                                                                <input type="radio" id="pm1" required="" name="payment_method" value="Thẻ tín dụng">
+                                                                <!-- <label for="pm1"> -->
+                                                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                                        Thẻ tín dụng
+                                                                    </a>
+                                                                <!-- </label> -->
                                                             </h4>
                                                         </div>
                                                         <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                                             <div class="panel-body">
-                                                                <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
+                                                                <p>abcxyz</p>
                                                             </div>
                                                         </div>
                                                     </div>

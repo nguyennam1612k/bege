@@ -30,7 +30,7 @@
 <div class="col-xs-12 col-md-3 sidebar-shop">
     <div class="sidebar-product-categori">
         <div class="widget-title">
-            <h3>PRODUCT CATEGORIES</h3>
+            <h3>DANH MỤC SẢN PHẨM</h3>
         </div>
         <div class="widget-content">
             <ul class="product-categories">
@@ -48,25 +48,10 @@
                     <?php endforeach ?>
                 </form>
             </ul>
-        </div>
-        <div class="product-filter mb-30">
-            <div class="widget-title">
-                <h3>Filter by price</h3>
-            </div>
-            <div class="widget-content">
-                <div id="price-range"></div>
-                <div class="price-values">
-                    <div class="price_text_btn">
-                        <span>Price:</span>
-                        <input type="text" class="price-amount">
-                    </div>
-                    <button class="button" type="submit">Filter</button>
-                </div>
-            </div>
         </div>                                
         <div class="product-filter mb-30">
             <div class="widget-title">
-                <h3>TOP RATED PRODUCTS</h3>
+                <h3>SẢN PHẨM ĐÁNH GIÁ CAO</h3>
             </div>
             <div class="widget-content">
                 <ul class="product_list_widget">
@@ -116,21 +101,21 @@
                 </div>
                 <div class="sidebar-tag">
                     <div class="widget-title">
-                        <h3>PRODUCT TAGS</h3>
+                        <h3>NHÃN SẢN PHẨM</h3>
                     </div>
                     <div class="widget-content">
                         <div class="product-tags">
-                            <a href="?tag=sản phẩm mới">sản phẩm mới</a>
-                            <a href="?tag=khuyến mại">khuyến mại</a>
-                            <a href="?tag=thời trang">thời trang</a>
-                            <a href="?tag=yêu thích">yêu thích</a>
-                            <a href="?tag=giảm giá">giảm giá</a>
-                            <a href="?tag=bộ xử lý">bộ xử lý</a>
-                            <a href="?tag=đẹp">đẹp</a>
-                            <a href="?tag=free ship">free ship</a>
-                            <a href="?tag=màu sắc">màu sắc</a>
-                            <a href="?tag=số lượng">số lượng</a>
-                            <a href="?tag=chip 1022">chip 1022</a>
+                            <a href="search.php?tag=sản phẩm mới">sản phẩm mới</a>
+                            <a href="search.php?tag=khuyến mại">khuyến mại</a>
+                            <a href="search.php?tag=thời trang">thời trang</a>
+                            <a href="search.php?tag=yêu thích">yêu thích</a>
+                            <a href="search.php?tag=giảm giá">giảm giá</a>
+                            <a href="search.php?tag=bộ xử lý">bộ xử lý</a>
+                            <a href="search.php?tag=đẹp">đẹp</a>
+                            <a href="search.php?tag=free ship">free ship</a>
+                            <a href="search.php?tag=màu sắc">màu sắc</a>
+                            <a href="search.php?tag=số lượng">số lượng</a>
+                            <a href="search.php?tag=chip 1022">chip 1022</a>
                         </div>
                     </div>
                 </div>

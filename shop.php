@@ -46,7 +46,7 @@
 <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Bege || Shop</title>
+        <title>Bege || Cửa hàng</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -81,8 +81,8 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <nav class="woocommerce-breadcrumb">
-                                <a href="index.html">Home</a>
-                                <span class="separator">/</span> Shop
+                                <a href="index.html">Trang chủ</a>
+                                <span class="separator">/</span> Cửa hàng
                             </nav>
                         </div>
                     </div>
@@ -98,7 +98,7 @@
                         <div class="col-xs-12 col-md-9 shop-content">
                             <div class="product-toolbar">
                                 <div class="topbar-title">
-                                    <h1>SHOP</h1>
+                                    <h1>CỬA HÀNG</h1>
                                     ( Hiện thị tất cả sản phẩm )
                                 </div>
                                 <?php
@@ -140,7 +140,7 @@
                                                                 <div class="product-image">
                                                                     <a href="single-product.php?product_id=<?php echo $value['id'] ?>">
                                                                         <center>
-                                                                        <img src="<?php echo $value['feature_image'] ?>" alt="">
+                                                                        <img style="width: 300px; height: 300px" src="<?php echo $value['feature_image'] ?>" alt="">
                                                                         </center>
                                                                     </a>
                                                                     <div class="quickviewbtn">
@@ -157,7 +157,7 @@
                                                                 </div>
                                                                 <div class="product-hidden">
                                                                     <div class="add-to-cart">
-                                                                        <a href="add-cart.php?id=<?php echo $value['id'] ?>">Add to cart</a>
+                                                                        <a href="add-cart.php?id=<?php echo $value['id'] ?>">Thêm vào giỏ</a>
                                                                     </div>
                                                                     <div class="star-actions">
                                                                         <div class="product-rattings">
@@ -215,76 +215,78 @@
                                     </div>
                                     <div id="list" class="tab-pane fade">
                                         <div class="row">
-                                            <?php $ik = 1 ?>
-                                            <?php foreach ($searchs as $value): ?>
+                                            <?php $ik = 0 ?>
+                                            <?php foreach ($products as $value): ?>
                                                 <?php $ik++ ?>
-                                                <div class="col-sm-12">
-                                                    <div class="single-product-area">
-                                                        <div class="product-wrapper listview">
-                                                            <div class="list-col4">
-                                                                <div class="product-image">
-                                                                    <a href="single-product.php?product_id=<?php echo $value['id'] ?>">
-                                                                        <?php if ($value['price'] - $value['sale_price'] >= 1000000): ?>
-                                                                            <span class="onsale">Sale!</span>
-                                                                        <?php endif ?>
-                                                                        <img src="<?php echo $value['feature_image'] ?>" alt="">
-                                                                    </a>
-                                                                    <div class="quickviewbtn">
-                                                                        <a href="#" data-toggle="modal" data-target="#<?php echo $value['id'] ?>"  data-original-title="Quick View"><i class="ion-eye"></i></a>
+                                                <?php if ($ik <= 8): ?>
+                                                    <div class="col-sm-12">
+                                                        <div class="single-product-area">
+                                                            <div class="product-wrapper listview">
+                                                                <div class="list-col4">
+                                                                    <div class="product-image">
+                                                                        <a href="single-product.php?product_id=<?php echo $value['id'] ?>">
+                                                                            <?php if ($value['price'] - $value['sale_price'] >= 1000000): ?>
+                                                                                <span class="onsale">Sale!</span>
+                                                                            <?php endif ?>
+                                                                            <img src="<?php echo $value['feature_image'] ?>" alt="">
+                                                                        </a>
+                                                                        <div class="quickviewbtn">
+                                                                            <a href="#" data-toggle="modal" data-target="#<?php echo $value['id'] ?>"  data-original-title="Quick View"><i class="ion-eye"></i></a>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="list-col8">
-                                                                <div class="product-info">
-                                                                    <h2><a href="single-product.html"><?php echo $value['name'] ?></a></h2>
-                                                                    <span class="price">
-                                                                        <del><?php echo number_format($value['price'], 0, '', ',') ?> ₫</del> $ <?php echo number_format($value['sale_price'], 0, '', ',') ?> ₫
-                                                                    </span>
-                                                                    <div class="product-rattings">
-                                                                        <?php
-                                                                        if ($value['rate'] == 0) {
-                                                                                $op = true;
-                                                                            }
-                                                                        for($ia = 1; $ia <= 5; $ia++){
-                                                                            if($value['rate'] >= $ia){
-                                                                                $starClass = "fa fa-star";
-                                                                                $op = is_float($value['rate']);
-                                                                            }else if( $op == false ){
-                                                                                $starClass = "fa fa-star-half-o";
-                                                                                $op = true;
-                                                                            }else{
-                                                                                $starClass = "fa fa-star-o";
+                                                                <div class="list-col8">
+                                                                    <div class="product-info">
+                                                                        <h2><a href="single-product.html"><?php echo $value['name'] ?></a></h2>
+                                                                        <span class="price">
+                                                                            <del><?php echo number_format($value['price'], 0, '', ',') ?> ₫</del> $ <?php echo number_format($value['sale_price'], 0, '', ',') ?> ₫
+                                                                        </span>
+                                                                        <div class="product-rattings">
+                                                                            <?php
+                                                                            if ($value['rate'] == 0) {
+                                                                                    $op = true;
+                                                                                }
+                                                                            for($ia = 1; $ia <= 5; $ia++){
+                                                                                if($value['rate'] >= $ia){
+                                                                                    $starClass = "fa fa-star";
+                                                                                    $op = is_float($value['rate']);
+                                                                                }else if( $op == false ){
+                                                                                    $starClass = "fa fa-star-half-o";
+                                                                                    $op = true;
+                                                                                }else{
+                                                                                    $starClass = "fa fa-star-o";
+                                                                                }
+                                                                                ?>
+                                                                                <span><i class="<?php echo $starClass ?>"></i></span>
+                                                                                <?php
                                                                             }
                                                                             ?>
-                                                                            <span><i class="<?php echo $starClass ?>"></i></span>
-                                                                            <?php
-                                                                        }
-                                                                        ?>
+                                                                        </div>
+                                                                        <div class="product-desc">
+                                                                            <p><?php echo $value['detail'] ?></p>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="product-desc">
-                                                                        <p><?php echo $value['detail'] ?></p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="actions-wrapper">
-                                                                    <div class="add-to-cart">
-                                                                        <a href="add-cart.php?id=<?php echo $value['id'] ?>">Add to cart</a>
-                                                                    </div>
-                                                                    <div class="star-actions">
-                                                                        <ul class="actions">
-                                                                            <?php if ($user == null): ?>
-                                                                                <li><a href="javascript:void(0)" onclick="return alert('Bạn cần đăng nhập để sử dụng chức năng này')"><i class="ion-android-favorite-outline"></i>Add to Wishlist</a></li>
-                                                                            <?php endif ?>
-                                                                            <?php if ($user != null): ?>
-                                                                                <li><a href="#"><i class="ion-android-favorite-outline"></i>Add to Wishlist</a></li>
-                                                                            <?php endif ?>
-                                                                            <li><a href="javascript:void(0)"><i class="ion-ios-shuffle-strong"></i>Compare</a></li>
-                                                                        </ul>
+                                                                    <div class="actions-wrapper">
+                                                                        <div class="add-to-cart">
+                                                                            <a href="add-cart.php?id=<?php echo $value['id'] ?>">Thêm vào giỏ</a>
+                                                                        </div>
+                                                                        <div class="star-actions">
+                                                                            <ul class="actions">
+                                                                                <?php if ($user == null): ?>
+                                                                                    <li><a href="javascript:void(0)" onclick="return alert('Bạn cần đăng nhập để sử dụng chức năng này')"><i class="ion-android-favorite-outline"></i>Thêm vào yêu thích</a></li>
+                                                                                <?php endif ?>
+                                                                                <?php if ($user != null): ?>
+                                                                                    <li><a href="#"><i class="ion-android-favorite-outline"></i>Thêm vào yêu thích</a></li>
+                                                                                <?php endif ?>
+                                                                                <li><a href="javascript:void(0)"><i class="ion-ios-shuffle-strong"></i>So sánh</a></li>
+                                                                            </ul>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                <?php endif ?>
                                             <?php endforeach ?>
                                         </div>
                                     </div>
@@ -310,7 +312,9 @@
                                     }
                                     ?>
 
-                                    <li><a class="next page-numbers" href="?page=<?php echo $page+1 ?>">→</a></li>
+                                    <?php if ($tik > 1): ?>
+                                        <li><a class="next page-numbers" href="?page=<?php echo $page+1 ?>">→</a></li>
+                                    <?php endif ?>
                                 </ul>
                             </nav>
                         </div>
