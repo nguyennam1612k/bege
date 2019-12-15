@@ -63,9 +63,7 @@
                                 <div class="banner_h2_Right_text">
                                     <div class="wpb_wrapper">
                                         <h3>WEBSITE<br> THƯƠNG MẠI ĐIỆN TỬ.</h3>
-                                        <p>Thương mại điện tử, hay còn gọi là e-commerce, e-comm hay EC, là sự mua bán sản phẩm hay dịch vụ trên các hệ thống điện tử như Internet và các mạng máy tính.[1][2] Thương mại điện tử dựa trên một số công nghệ như chuyển tiền điện tử, quản lý chuỗi dây chuyền cung ứng, tiếp thị Internet, quá trình giao dịch trực tuyến, trao đổi dữ liệu điện tử (EDI), các hệ thống quản lý hàng tồn kho, và các hệ thống tự động thu thập dữ liệu. Thương mại điện tử hiện đại thường sử dụng mạng World Wide Web là một điểm ít nhất phải có trong chu trình giao dịch, mặc dù nó có thể bao gồm một phạm vi lớn hơn về mặt công nghệ như email, các thiết bị di động như là điện thoại.
-
-                                        Thương mại điện tử thông thường được xem ở các khía cạnh của kinh doanh điện tử (e-business). Nó cũng bao gồm việc trao đổi dữ liệu tạo điều kiện thuận lợi cho các nguồn tài chính và các khía cạnh thanh toán của việc giao dịch kinh doanh.[2]</p>
+                                        <p>Thương mại điện tử, hay còn gọi là e-commerce, e-comm hay EC, là sự mua bán sản phẩm hay dịch vụ trên các hệ thống điện tử như Internet và các mạng máy tính.[1][2] Thương mại điện tử dựa trên một số công nghệ như chuyển tiền điện tử, quản lý chuỗi dây chuyền cung ứng, tiếp thị Internet, quá trình giao dịch trực tuyến, trao đổi dữ liệu điện tử (EDI), các hệ thống quản lý hàng tồn kho, và các hệ thống tự động thu thập dữ liệu.</p>
                                         <p class="text-center">
                                             <a href="#"> Xem thêm </a>
                                         </p>

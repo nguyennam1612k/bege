@@ -174,7 +174,7 @@
                                             <div class="tab-pane active" id="pro-details1">
                                                 <div class="product-popup">
                                                     <a href="<?php echo $single['feature_image'] ?>">
-                                                        <center><img style="width: 377px; height: 377px" src="<?php echo $single['feature_image'] ?>" alt=""></center>
+                                                        <center><img style="width: 377px; margin: auto" src="<?php echo $single['feature_image'] ?>" alt=""></center>
                                                     </a>
                                                 </div>
                                             </div>
@@ -183,7 +183,7 @@
                                                 <div class="tab-pane" id="pro-details<?php echo $al['stt']+1 ?>">
                                                     <div class="product-popup">
                                                         <a href="<?php echo $al['url'] ?>">
-                                                            <center><img style="width: 377px; height: 377px" src="<?php echo $al['url'] ?>" alt=""></center>
+                                                            <center><img style="width: 377px;" src="<?php echo $al['url'] ?>" alt=""></center>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -445,8 +445,8 @@
                                     <div class="product-wrapper gridview">
                                         <div class="list-col4">
                                             <div  style="text-align: center;" class="product-image">
-                                                <a href="<?php echo $rlt['feature_image'] ?>">
-                                                    <img style="width: 200px; height: 200px" src="<?php echo $rlt['feature_image'] ?>" alt="">
+                                                <a href="single-product.php?product_id=<?php echo $rlt['id'] ?>">
+                                                    <img style="width: 200px;" src="<?php echo $rlt['feature_image'] ?>" alt="">
                                                 </a>
                                                 <div class="quickviewbtn">
                                                     <a href="#" data-toggle="modal" data-target="#<?php echo $rlt['id'] ?>"  data-original-title="Quick View"><i class="ion-eye"></i></a>

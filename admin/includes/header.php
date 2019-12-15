@@ -28,7 +28,7 @@
 ?>
 <div class="page-main-header">
     <div class="main-header-left">
-        <div class="logo-wrapper"><a href="index.php"><img class="blur-up lazyloaded" src="../assets/images/layout-2/logo/logo.png" alt=""></a></div>
+        <div class="logo-wrapper"><a href="<?php echo BASE_URL ?>"><img class="blur-up lazyloaded" src="../assets/images/layout-2/logo/logo.png" alt=""></a></div>
     </div>
     <div class="main-header-right row">
         <div class="mobile-sidebar">
@@ -48,7 +48,7 @@
                     </form>
                 </li>
 
-                <li class="onhover-dropdown"><a class="txt-dark" href="../index.php">
+                <li class="onhover-dropdown"><a class="txt-dark" href="<?php echo BASE_URL ?>">
                     <h6>Shop</h6></a>
                 </li>
                 <li><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i data-feather="maximize"></i></a></li>

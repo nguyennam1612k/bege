@@ -5,17 +5,21 @@
  * Date: 11/16/2017
  * Time: 9:14 AM
  */
-require('libs/stripe/init.php');
+require_once "commons/db.php";
+require_once 'commons/constants.php';
+require_once './commons/helpers.php';
+require('libs/stripepayment/stripe/init.php');
 $error = '';
 $success = '';
 
-
+$user = isset($_SESSION[AUTH]) ? $_SESSION[AUTH] : null;
+$cart = $_SESSION[CART];
 
 if ($_POST) {
     if(!isset($_POST['amount']) || empty($_POST['amount'])){
         throw new Exception("Please input the amount of payment");
     }
-    $amount = $_POST['amount'].'00';
+    $amount = round($_SESSION['total']/230, 0);
     \Stripe\Stripe::setApiKey("sk_test_LZBU7ogG4jfChfaJMQKRlIG7004VVfqASy");
     try {
         if (!isset($_POST['stripeToken'])) throw new Exception("The Stripe Token was not generated correctly");
@@ -28,7 +32,42 @@ if ($_POST) {
             'source' => $token,
             // 'metadata' => ['name' => $_POST['name'], 'email' => $_POST['email']]
         ]);
-        if ($charge->id) $success = '<h1>Thank You!</h1><h3>Your payment has been processed successfully.</h3>';
+        if ($charge->id) $success = '<h1>Thank You!</h1><h3>Your payment has been processed successfully.</h3>
+                                        <br><a href="'.BASE_URL.'">Home</a>';
+        executeQuery($_SESSION['sqlOrder']);
+        setcookie('mess_or', '<b>Đặt hàng thành công</b>', time()+30);
+        //lay id hoa don
+        $code = $_SESSION['code'];
+        $sqlIdOrder = "SELECT id FROM `orders` 
+        where code='$code'";
+        $checkCode = executeQuery($sqlIdOrder, false);
+        $order_id = $checkCode['id'];
+
+        //Thêm hóa đơn chi tiết
+        foreach ($cart as $key => $value) {
+            $product_id = $cart[$key]['id'];
+            $sku        = $cart[$key]['sku'];
+            $image      = $cart[$key]['feature_image'];
+            $sale_price = $cart[$key]['sale_price'];
+            $quantity   = $cart[$key]['quantity'];
+            $total_product = $sale_price*$quantity;
+
+            $sqlInsertOrderDetail = "INSERT into order_detail
+            (order_id, product_id, sku, image, quantity, sale_price, total_product)
+            values
+            ($order_id, $product_id, '$sku', '$image', $quantity, $sale_price, $total_product)";
+            executeQuery($sqlInsertOrderDetail);
+        }
+
+        if($user != null){
+            executeQuery($_SESSION['sqlPoint']);
+        }
+        // xoa session
+        unset($_SESSION[CART]);
+        unset($_SESSION['total']);
+        unset($_SESSION['code']);
+        unset($_SESSION['sqlOrder']);
+        unset($_SESSION['sqlPoint']);
     }
     catch (\Stripe\Error\Base $e) {
         $error = $e->getMessage();
@@ -95,6 +134,7 @@ if ($_POST) {
             });
         });
     </script>
+    <base href="libs/stripepayment/">
 </head>
 <body>
 <!-- to display errors returned by createToken -->
@@ -107,7 +147,7 @@ if ($_POST) {
     <span class="payment-errors"><?= $error ?></span>
     <form action="" method="POST" id="payment-form">
         <div class="form-group">
-            <label>OfficeHeads payment for Mango service: <font size="3"><strong>&nbsp;$790</strong></font></label>
+            <label>OfficeHeads payment for Mango service: <font size="3"><strong>&nbsp;<?php echo number_format($_SESSION['total']) ?> vnd</strong></font></label>
             <input type="hidden" name="amount" autocomplete="off" class="amount form-control" value="790" />
         </div>
     

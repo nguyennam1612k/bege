@@ -122,7 +122,7 @@
                                 //Nếu không tìm ra sản phẩm phù hợp sẽ select random products thay thế
                                 $searchs = isset($searchs) ? $searchs : null;
                                 if($searchs == null){
-                                    $sqlQuery = "SELECT * from products limit $start,$limit";
+                                    $sqlQuery = "SELECT * from products order by rand() limit $start,$limit";
                                     $searchs = executeQuery($sqlQuery, true);
                                 }
 

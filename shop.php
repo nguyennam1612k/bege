@@ -140,7 +140,7 @@
                                                                 <div class="product-image">
                                                                     <a href="single-product.php?product_id=<?php echo $value['id'] ?>">
                                                                         <center>
-                                                                        <img style="width: 300px; height: 300px" src="<?php echo $value['feature_image'] ?>" alt="">
+                                                                        <img style="width: 300px; max-height: 250px" src="<?php echo $value['feature_image'] ?>" alt="">
                                                                         </center>
                                                                     </a>
                                                                     <div class="quickviewbtn">

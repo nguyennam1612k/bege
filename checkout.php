@@ -346,7 +346,7 @@
                                                         </div>
                                                         <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                                             <div class="panel-body">
-                                                                <p>abcxyz</p>
+                                                                <!-- <p>abcxyz</p> -->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -354,9 +354,7 @@
                                                         <div class="panel-heading" role="tab" id="headingTwo">
                                                             <h4 class="panel-title">
                                                                 <input type="radio" required="" name="payment_method" value="Thanh toán khi nhận hàng" id="">
-                                                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                                                 Thanh toán khi nhận hàng
-                                                                </a>
                                                             </h4>
                                                         </div>
                                                         <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
@@ -366,14 +364,6 @@
                                                         </div>
                                                     </div>
                                                     <div class="panel panel-default">
-                                                        <div class="panel-heading" role="tab" id="headingThree">
-                                                            <h4 class="panel-title">
-                                                                <input type="radio" required="" name="payment_method" value="Ví Airpay" id="">
-                                                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                                Airpay
-                                                                </a>
-                                                            </h4>
-                                                        </div>
                                                         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                                                             <div class="panel-body">
                                                                 <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>

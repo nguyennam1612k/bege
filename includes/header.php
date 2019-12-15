@@ -62,7 +62,7 @@
                         <div class="main-menu">
                             <nav class="nav">
                                 <ul>
-                                    <li><a href="index.php">trang chủ</a></li>
+                                    <li><a href="<?php echo BASE_URL ?>">trang chủ</a></li>
                                     <li><a href="shop.php">cửa hàng</a></li>
                                     <li><a href="blog.php">tin tức</a></li>
                                     <li><a href="about-us.php">giới thiệu</a></li>
@@ -110,7 +110,7 @@
                             <div class="mobile-menu">
                                 <nav id="mobile-menu-active">
                                     <ul class="menu-overflow">
-                                        <li><a href="index.php">Trang chủ</a></li>
+                                        <li><a href="<?php echo BASE_URL ?>">Trang chủ</a></li>
                                         <li><a href="shop.php">cửa hàng</a></li>
                                         <li><a href="blog.php">tin tức</a></li>
                                         <li><a href="about-us.php">giới thiệu</a></li>
@@ -216,7 +216,7 @@
                 <div class="col-xl-2 col-md-12">
                     <!-- site-logo -->
                     <div class="site-logo">
-                        <a href="index.php"><img src="images/logo/logo-white.png" alt="Nikado"></a>
+                        <a href="<?php echo BASE_URL ?>"><img src="images/logo/logo-white.png" alt="Nikado"></a>
                     </div>
                 </div>
                 <div class="col-xl-6 col-md-12">
