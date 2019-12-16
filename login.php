@@ -42,7 +42,8 @@
                     header('location: '. BASE_URL . 'admin/');
                     die;
                 }else{
-                    header('location: '. BASE_URL . 'my-account.php');
+                    // header('location: '. BASE_URL . 'my-account.php');
+                    header('location: '.$_SERVER['HTTP_REFERER']);
                     die;
                 }
             }
