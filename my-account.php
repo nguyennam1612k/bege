@@ -9,9 +9,10 @@
         header('location: ' . BASE_URL . 'login.php');
     }
     $user_id = $user['id'];
+    // dd($user_id);
     //PHÂN TRANG
     $page=1;//khởi tạo trang ban đầu
-    $limit=5;//số bản ghi trên 1 trang (2 bản ghi trên 1 trang)
+    $limit=10;//số bản ghi trên 1 trang (2 bản ghi trên 1 trang)
     
     $arrs_list = "SELECT count(id) as count from orders where user_id=$user_id";
     $count = executeQuery($arrs_list);
@@ -35,6 +36,10 @@
 
     //tính start (vị trí bản ghi sẽ bắt đầu lấy):
     $start=($page-1)*$limit;
+
+    if($start < 0){
+        $start = 0;
+    }
     //PHÂN TRANG END
 
     //select all đơn hàng tài khoản
@@ -44,6 +49,7 @@
                 where user_id=$user_id
                 limit $start,$limit";
     $orders = executeQuery($sqlQuery, true);
+    // dd($sqlQuery);
     // echo "ngày ".date("d-m-Y") . " lúc " . date(" H:i:s");
     // dd($_SESSION[AUTH]);
     //Cập nhật chi tiết tài khoản
@@ -180,7 +186,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h1 class="entry-title">Tài khoản của tôi</h1>
-                            <?php if (isset($_COOKIE['mess'])): ?>
+                            <?php if (isset($_COOKIE['mess_or'])): ?>
                                 <center style="color: #D24F07; margin-top: 30px; font-size: 20px"><?php echo $_COOKIE['mess_or'] ?></center>
                             <?php endif ?>
                         </div>
@@ -268,9 +274,6 @@
                                                 </thead>
 
                                                 <tbody>
-                                                <?php if ($orders == null): ?>
-                                                    Bạn chưa có đơn đặt hàng nào
-                                                <?php endif ?>
                                                 <?php if ($orders != null): ?>
                                                     <?php $i=0 ?>
                                                     <?php foreach ($orders as $value): ?>
@@ -337,7 +340,7 @@
                                                             </td>
                                                         </tr>
                                                     <?php endforeach ?>
-                                                <?php endif ?>                                                
+                                                <?php endif ?>                                             
                                                 </tbody>
                                             </table>
                                         </div>

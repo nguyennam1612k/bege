@@ -13,6 +13,7 @@
         $sqlQuery = "SELECT * from product_galleries where product_id=$product_id";
         $albums = executeQuery($sqlQuery, true);
 
+
         //select tên danh mục
         $cate_id = $value['cate_id'];
         $sqlQuery = "SELECT title from categories where id=$cate_id";

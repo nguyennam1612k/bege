@@ -125,6 +125,8 @@
         // this identifies your website in the createToken call below
         Stripe.setPublishableKey('pk_test_51fPtf262Z9p11AQqmZGZK4J003SfLH077');
         function stripeResponseHandler(status, response) {
+            var valueRadio = document.getElementsByName('payment_method').val();
+            // document.write(valueRadio);
             if (response.error) {
                 // re-enable the submit button
                 $('.submit-button').removeAttr("disabled");
@@ -153,7 +155,21 @@
                 }, stripeResponseHandler);
                 return false; // submit from callback
             });
+
+            $("#pm2-label").click(function(){
+                $("#collapseOne-stripe").hide('slow');
+            });
+            $("#pm1-label").click(function(){
+                if($("#pm1").prop("checked")){
+                    $("#collapseOne-stripe").show('slow');
+                }else{
+                    $("#collapseOne-stripe").hide('slow');
+                }
+            });
         });
+    </script>
+    <script>
+        
     </script>
     </head>
     <body>
@@ -388,15 +404,13 @@
                                                     <div class="panel panel-default">
                                                         <div class="panel-heading" role="tab" id="headingOne">
                                                             <h4 class="panel-title">
-                                                                <input type="radio" id="pm1" required="" name="payment_method" value="stripe">
-                                                                <!-- <label for="pm1"> -->
-                                                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                                <label for="pm1" id="pm1-label">
+                                                                    <input type="radio" id="pm1" required="" name="payment_method" value="stripe">
                                                                         Thanh toán qua Stripe
-                                                                    </a>
-                                                                <!-- </label> -->
+                                                                </label>
                                                             </h4>
                                                         </div>
-                                                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                                        <div id="collapseOne-stripe" style="display: none;">
                                                             <div class="panel-body">
                                                                 <!-- <p>abcxyz</p> -->
                                                                 <span class="payment-errors"><?= $error ?></span>
@@ -423,8 +437,10 @@
                                                     <div class="panel panel-default">
                                                         <div class="panel-heading" role="tab" id="headingTwo">
                                                             <h4 class="panel-title">
-                                                                <input type="radio" required="" name="payment_method" value="offline" id="">
-                                                                Thanh toán khi nhận hàng
+                                                                <label id="pm2-label" for="pm2">
+                                                                <input type="radio" required="" name="payment_method" value="offline" id="pm2">
+                                                                    Thanh toán khi nhận hàng
+                                                                </label>
                                                             </h4>
                                                         </div>
                                                         <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">

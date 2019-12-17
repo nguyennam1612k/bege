@@ -10,11 +10,10 @@
 
     $cart = $_SESSION[CART];
     //thực hiện thêm order
-    if(isset($_POST['btn_order']) || (isset($_POST['stripeToken']) && !empty($_POST['stripeToken']))){
+    if(isset($_POST['btn_order']) || (isset($_POST['stripeToken']) && !empty($_POST['stripeToken'])) ){
     	extract($_REQUEST);
         $points = $total_price/10000;
         $code = strtoupper(uniqid());
-
 
         //kiểm tra checkbox tạo tài khoản
         $check_create_account = isset($_POST['cbox_create_account']) ? $_POST['cbox_create_account'] : null;
