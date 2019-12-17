@@ -125,9 +125,6 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h1 class="entry-title">Danh sách yêu thích</h1>
-                            <?php if ($user == null): ?>
-                                <center style="font-size: 20px; color: #C4820F; margin-top: 40px">Bạn cần đăng nhập để sử dụng chức năng này</center>
-                            <?php endif ?>
                             <?php if ($user != null): ?>
                                 <center style="font-size: 20px; color: #C4820F; margin-top: 40px">( <?php echo $countW ?> sản phẩm trong danh sách yêu thích)</center>
                             <?php endif ?>

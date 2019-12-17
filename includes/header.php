@@ -244,7 +244,13 @@
                     <div class="shop-cart-menu pull-right">
                         <ul>
                             <li><a href="#"><i class="ion-ios-shuffle-strong"></i></a></li>
-                            <li><a href="wishlist.php"><i class="ion-android-favorite-outline"></i></a></li>
+                            <li>
+                                <?php if($user == null) { ?>
+                                    <a href="javascript:void(0)" class="disabled" onclick="return alert('Bạn cần đăng nhập để sử dụng chức năng này')"><i class="ion-android-favorite-outline"></i></a>
+                                <?php } else { ?>
+                                    <a href="wishlist.php"><i class="ion-android-favorite-outline"></i></a>
+                                <?php } ?>
+                            </li>
                             <li><a href="cart.php">
                                     <span class="cart-icon">
                                         <i class="ion-bag"></i><sup><?php if ($cart != null) {
