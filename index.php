@@ -668,7 +668,7 @@
                                                                 </div>
                                                                 <div class="list-col8">
                                                                     <div class="product-info">
-                                                                        <h2><a href="single-product.html"><?php echo $pr_gr['name'] ?></a></h2>
+                                                                        <h2><a href="single-product.php?product_id=<?php echo $pr_gr['id'] ?>"><?php echo $pr_gr['name'] ?></a></h2>
                                                                         <span class="price">
                                                                             <?php echo number_format($pr_gr['sale_price'], 0, '', ',') ?> ₫
                                                                         </span>
