@@ -15,10 +15,7 @@ $success = '';
 $user = isset($_SESSION[AUTH]) ? $_SESSION[AUTH] : null;
 $cart = $_SESSION[CART];
 
-if ($_POST) {
-    if(!isset($_POST['amount']) || empty($_POST['amount'])){
-        throw new Exception("Please input the amount of payment");
-    }
+
     $amount = round($_SESSION['total']/230, 0);
     \Stripe\Stripe::setApiKey("sk_test_LZBU7ogG4jfChfaJMQKRlIG7004VVfqASy");
     try {
@@ -75,7 +72,7 @@ if ($_POST) {
     catch (Exception $e) {
         $error = $e->getMessage();
     }
-}
+
 
 ?>
 

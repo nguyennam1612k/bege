@@ -8,6 +8,7 @@ use PHPMailer\PHPMailer\Exception;
 // Load Composer's autoloader
 // require 'vendor/autoload.php';
 $emailTo = $_POST['email'];
+
 // Instantiation and passing `true` enables exceptions
 $mail = new PHPMailer(true);
 
@@ -24,10 +25,10 @@ try {
     $mail->Port       = 587;                                    // TCP port to connect to
 
     //Recipients
-    $mail->setFrom('namnv1612k@gmail.com', 'Nguyễn Văn Nam');
+    $mail->setFrom('nguyennam1612k@gmail.com', 'Nguyễn Văn Nam');
     // $mail->addAddress('vinhnguyenba217@gmail.net', 'Vinh Pokemon');     // Add a recipient
     $mail->addAddress($emailTo, 'NamNV');               // Name is optional
-    $mail->addReplyTo('quoc26102000@gmail.com', 'Quốc LB');
+    $mail->addReplyTo('namnvph08169@fpt.edu.vn', 'Nam NV');
     // $mail->addCC('cc@example.com');
     // $mail->addBCC('bcc@example.com');
 

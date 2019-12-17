@@ -1,7 +1,9 @@
 <?php
     require_once "commons/db.php";
     require_once 'commons/constants.php';
-
+    require('libs/stripepayment/stripe/init.php');
+    $error = '';
+    $success = '';
     $cart = isset($_SESSION[CART]) ? $_SESSION[CART] : null;
     $user = isset($_SESSION[AUTH]) ? $_SESSION[AUTH] : null;
     //Kiểm tra giỏ hàng
@@ -45,6 +47,11 @@
             }else{
                 echo "<script>alert('Tài khoản hoặc mật khẩu không đúng')</script>";
             }
+        }
+    }
+    if(isset($_POST['btn_order'])){
+        if($_POST['payment_method'] == "Thanh toán khi nhận hàng"){
+            header('location: add-order.php');
         }
     }
 ?>
@@ -103,6 +110,51 @@
               font-size: 24px;
           }
     </style>
+    <style type="text/css">
+        .payment-errors {    
+            color: red;
+            margin: 20px auto;
+            display: block;
+            font-size: 14px;
+        }
+    </style>
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <!-- jQuery is used only for this example; it isn't required to use Stripe -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        // this identifies your website in the createToken call below
+        Stripe.setPublishableKey('pk_test_51fPtf262Z9p11AQqmZGZK4J003SfLH077');
+        function stripeResponseHandler(status, response) {
+            if (response.error) {
+                // re-enable the submit button
+                $('.submit-button').removeAttr("disabled");
+                // show the errors on the form
+                $(".payment-errors").html(response.error.message);
+            } else {
+                var form$ = $("#payment-form");
+                // token contains id, last4, and card type
+                var token = response['id'];
+                // insert the token into the form so it gets submitted to the server
+                form$.append("<input type='hidden' name='stripeToken' value='" + token + "' />");
+                // and submit
+                form$.get(0).submit();
+            }
+        }
+        $(document).ready(function() {
+            $("#payment-form").submit(function(event) {
+                // disable the submit button to prevent repeated clicks
+                $('.submit-button').attr("disabled", "disabled");
+                // createToken returns immediately - the supplied callback submits the form if there are no errors
+                Stripe.createToken({
+                    number: $('.card-number').val(),
+                    cvc: $('.card-cvc').val(),
+                    exp_month: $('.card-expiry-month').val(),
+                    exp_year: $('.card-expiry-year').val()
+                }, stripeResponseHandler);
+                return false; // submit from callback
+            });
+        });
+    </script>
     </head>
     <body>
         <!--[if lte IE 9]>
@@ -204,7 +256,7 @@
                 <!-- checkout area -->
                 <div class="checkout-area">
                     <div class="container">
-                        <form action="add-order.php" method="post">
+                        <form action="add-order.php" method="post" id="payment-form">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6">
                                     <div class="checkbox-form">
@@ -320,11 +372,11 @@
                                                 <tfoot>
                                                     <tr class="cart-subtotal">
                                                         <th>Tổng giỏ hàng</th>
-                                                        <td><span class="amount"><?php echo number_format($totalPrice, 0, '', ','); ?> đ</span></td>
+                                                        <td><span class="amount"><?php echo number_format($totalPrice, 0, '', ','); ?> vnđ</span></td>
                                                     </tr>
                                                     <tr class="order-total">
                                                         <th>Tổng đơn hàng</th>
-                                                        <td><strong><span class="amount" class="cart-total"><?php echo number_format($totalPrice, 0, '', ','); ?> đ</span></strong>
+                                                        <td><strong><span class="amount" class="cart-total"><?php echo number_format($totalPrice, 0, '', ','); ?> vnđ</span></strong>
                                                         </td>
                                                     </tr>
                                                 </tfoot>
@@ -336,10 +388,10 @@
                                                     <div class="panel panel-default">
                                                         <div class="panel-heading" role="tab" id="headingOne">
                                                             <h4 class="panel-title">
-                                                                <input type="radio" id="pm1" required="" name="payment_method" value="Thẻ tín dụng">
+                                                                <input type="radio" id="pm1" required="" name="payment_method" value="stripe">
                                                                 <!-- <label for="pm1"> -->
                                                                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                                        Thẻ tín dụng
+                                                                        Thanh toán qua Stripe
                                                                     </a>
                                                                 <!-- </label> -->
                                                             </h4>
@@ -347,13 +399,31 @@
                                                         <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                                             <div class="panel-body">
                                                                 <!-- <p>abcxyz</p> -->
+                                                                <span class="payment-errors"><?= $error ?></span>
+                                                                    <div class="form-group">
+                                                                        <label>OfficeHeads payment for Mango service: <font size="3"><strong>&nbsp;<?php echo number_format($_SESSION['total']) ?> vnd</strong></font></label>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Card Number</label>
+                                                                        <input type="text" size="20" autocomplete="off" class="card-number form-control" />
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>CVC</label>
+                                                                        <input type="text" style="width: 70px;" size="4" autocomplete="off" class="card-cvc form-control" />
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label style="width: 100%;float: left;">Expiration (MM/YYYY)</label>
+                                                                        <input type="text" size="2" style="width: 70px;float: left;" class="card-expiry-month form-control"/>
+                                                                        <span style="width: 30px;float: left;text-align: center"> / </span>
+                                                                        <input type="text" size="4" style="width: 90px;float: left;" class="card-expiry-year form-control"/>
+                                                                    </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="panel panel-default">
                                                         <div class="panel-heading" role="tab" id="headingTwo">
                                                             <h4 class="panel-title">
-                                                                <input type="radio" required="" name="payment_method" value="Thanh toán khi nhận hàng" id="">
+                                                                <input type="radio" required="" name="payment_method" value="offline" id="">
                                                                 Thanh toán khi nhận hàng
                                                             </h4>
                                                         </div>
@@ -373,7 +443,7 @@
                                                 </div>
                                                 <div class="order-button-payment">
                                                     <input type="hidden" name="total_price" value="<?php echo $totalPrice ?>">
-                                                    <input type="submit" name="btn_order" value="Place order" onclick="return confirm('Xác nhận thanh toán đơn hàng?')">
+                                                    <input type="submit" name="btn_order" class="submit-button" value="Xác nhận thanh toán" onclick="return confirm('Xác nhận thanh toán đơn hàng?')">
                                                 </div>
                                             </div>
                                         </div>

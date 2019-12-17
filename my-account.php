@@ -18,12 +18,10 @@
 
     $total_record = $count['count'];//tính tổng số bản ghi có trong bảng khoahoc
     $total_page = $total_record/$limit;//tính tổng số trang sẽ chia
-    if($total_record < $limit){//Neu count nho hon limit thi limit = total_record
+    if($total_record < $limit && $total_record != 0){//Neu count nho hon limit thi limit = total_record
         $limit=$total_record;
-        $total_page = $total_record/$limit;
+        $total_page = $total_record/5;
     }
-    // dd($total_record < $limit);
-
     //xem trang có vượt giới hạn không:
     if(isset($_GET["page"])){
         $page=$_GET["page"];//nếu biến $_GET["page"] tồn tại thì trang hiện tại là trang $_GET["page"]

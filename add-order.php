@@ -1,13 +1,16 @@
 <?php 
+error_reporting(1);
+ini_set('display_errors', 1);
 	require_once "commons/db.php";
     require_once 'commons/constants.php';
     require_once './commons/helpers.php';
     require_once './libs/Faker/autoload.php';
-    require      './libs/stripepayment/stripe/init.php';
+    require('libs/stripepayment/stripe/init.php');
     $faker = Faker\Factory::create('vi_VN');
 
     $cart = $_SESSION[CART];
     //thực hiện thêm order
+
     if(isset($_POST['btn_order'])){
     	extract($_REQUEST);
         $points = $total_price/10000;
@@ -85,11 +88,11 @@
 
         
         
-
+var_dump($payment_method);
 
         //thuc hien cau lenh
 
-        if($payment_method == "Thanh toán khi nhận hàng"){
+        if($payment_method == "offline"){
             //insert order
             executeQuery($sqlInsert);
 
@@ -133,8 +136,8 @@
                 setcookie('mess', 'Đặt hàng thành công, mời bạn xem ở mục Orders', time()+30);
                 die;
             }
-        }else{
-
+        } elseif ($payment_method == 'stripe'){
+// dd($_SESSION['code']);
             if($user != null){
                  $sqlPoint = $sqlUpdatePoints;
             }else{
@@ -143,8 +146,69 @@
             $_SESSION['total'] = $total_price;
             $_SESSION['sqlOrder']  = $sqlInsert;
             $_SESSION['sqlPoint']  = $sqlPoint;
-            header('location: onetime.php');
-            dd($_SESSION['sqlPoint']);
+            // header('location: onetime.php');
+            // dd($_SESSION['sqlPoint']);
+
+
+            $amount = round($total_price/230, 0);
+            \Stripe\Stripe::setApiKey("sk_test_LZBU7ogG4jfChfaJMQKRlIG7004VVfqASy");
+            try {
+                if (!isset($_POST['stripeToken'])) throw new Exception("The Stripe Token was not generated correctly");
+                $token = $_POST['stripeToken'];
+                $charge = \Stripe\Charge::create([
+                    'amount' => $amount,
+                    'currency' => 'usd',
+                    'description' => 'OfficeHeads payment for Mango service',
+                    'source' => $token,
+                // 'metadata' => ['name' => $_POST['name'], 'email' => $_POST['email']]
+                ]);
+                var_dump($token);
+                var_dump($charge);die;
+                if ($charge->id) $success = '<h1>Thank You!</h1><h3>Your payment has been processed successfully.</h3>
+                                        <br><a href="'.BASE_URL.'">Home</a>';
+                executeQuery($_SESSION['sqlOrder']);
+                setcookie('mess_or', '<b>Đặt hàng thành công</b>', time()+30);
+                //lay id hoa don
+                $code = $_SESSION['code'];
+                $sqlIdOrder = "SELECT id FROM `orders` 
+                where code='$code'";
+                $checkCode = executeQuery($sqlIdOrder, false);
+                $order_id = $checkCode['id'];
+
+                //Thêm hóa đơn chi tiết
+                foreach ($cart as $key => $value) {
+                    $product_id = $cart[$key]['id'];
+                    $sku        = $cart[$key]['sku'];
+                    $image      = $cart[$key]['feature_image'];
+                    $sale_price = $cart[$key]['sale_price'];
+                    $quantity   = $cart[$key]['quantity'];
+                    $total_product = $sale_price*$quantity;
+
+                    $sqlInsertOrderDetail = "INSERT into order_detail
+                    (order_id, product_id, sku, image, quantity, sale_price, total_product)
+                    values
+                    ($order_id, $product_id, '$sku', '$image', $quantity, $sale_price, $total_product)";
+                    executeQuery($sqlInsertOrderDetail);
+                }
+
+                if($user != null){
+                    executeQuery($_SESSION['sqlPoint']);
+                }
+                // xoa session
+                unset($_SESSION[CART]);
+                unset($_SESSION['total']);
+                unset($_SESSION['code']);
+                unset($_SESSION['sqlOrder']);
+                unset($_SESSION['sqlPoint']);
+            }
+
+            catch (\Stripe\Error\Base $e) {
+                // header('location: checkout.php');
+                var_dump($e->getMessage());die;
+            }catch (Exception $e) {
+                $error = "Error: ".$e->getMessage();
+            }        
+            
         }
 
     }

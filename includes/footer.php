@@ -11,7 +11,7 @@
                     </div>
                     <div class="newsletter">
                         <div class="newsletter-box">
-                            <form action="#">
+                            <form action="sendmail.php" method="post">
                                 <input class="subscribe" placeholder="địa chỉ Email của bạn" name="email" id="subscribe" type="email">
                                 <button type="submit" class="submit">Đăng ký!</button>
                             </form>
