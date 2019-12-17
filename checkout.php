@@ -125,9 +125,11 @@
         // this identifies your website in the createToken call below
         Stripe.setPublishableKey('pk_test_51fPtf262Z9p11AQqmZGZK4J003SfLH077');
         function stripeResponseHandler(status, response) {
-            var valueRadio = document.getElementsByName('payment_method').val();
+            var valueRadio = $("input[name='payment_method']:checked").val();
+            // alert(valueRadio);
             // document.write(valueRadio);
-            if (response.error) {
+            // alert(valueRadio);
+            if (response.error && valueRadio == "stripe" ) {
                 // re-enable the submit button
                 $('.submit-button').removeAttr("disabled");
                 // show the errors on the form
@@ -250,18 +252,18 @@
                                     <!-- ACCORDION END -->
                                     <!-- ACCORDION START -->
                                     <h3 role="button" data-toggle="collapse" data-parent="#checkout_coupon" href="#checkout_coupon" aria-expanded="true" aria-controls="collapseOne">Có mã giảm giá ? <span id="showcoupon">Bấm vào đây để nhập mã giảm giá</span></h3>
-                                    <!-- <div id="checkout_coupon" class="coupon-checkout-content">
-                                        <div class="coupon-info"> -->
-                                            <form >
+                                    <div id="checkout_coupon" class="coupon-checkout-content">
+                                        <div class="coupon-info">
+                                            <form class="form-row">
                                                 <p class="checkout-coupon">
                                                     <input type="text" class="code" placeholder="Coupon code" class="voucher-code-input">
-                                                    <!-- <input type="submit" value="Apply Coupon" class="btn-voucher"> -->
+                                                    <input type="button" value="Apply Coupon" class="btn-voucher">
                                                     
-                                                    <button type="button" class="btn-voucher btn btn-small btn-dark-solid">Áp dụng</button>
+                                                    <!-- <button type="button" class="btn-voucher submit-button">Áp dụng</button> -->
                                                 </p>
                                             </form>
-                                        <!-- </div>
-                                    </div> -->
+                                        </div>
+                                    </div>
                                     <!-- ACCORDION END -->
                                 </div>
                             </div>
@@ -404,7 +406,7 @@
                                                     <div class="panel panel-default">
                                                         <div class="panel-heading" role="tab" id="headingOne">
                                                             <h4 class="panel-title">
-                                                                <label for="pm1" id="pm1-label">
+                                                                <label for="pm1" id="pm1-label" style="font-weight: bold; font-size: 1em">
                                                                     <input type="radio" id="pm1" required="" name="payment_method" value="stripe">
                                                                         Thanh toán qua Stripe
                                                                 </label>
@@ -415,18 +417,18 @@
                                                                 <!-- <p>abcxyz</p> -->
                                                                 <span class="payment-errors"><?= $error ?></span>
                                                                     <div class="form-group">
-                                                                        <label>OfficeHeads payment for Mango service: <font size="3"><strong>&nbsp;<?php echo vnd($totalPrice) ?> VNĐ</strong></font></label>
+                                                                        <label>Thanh toán qua dịch vụ Stripe: <font size="3"><strong>&nbsp;<?php echo vnd($totalPrice) ?> VNĐ</strong></font></label>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label>Card Number</label>
+                                                                        <label style="font-weight: bold;">Số thẻ</label>
                                                                         <input type="text" size="20" autocomplete="off" class="card-number form-control" />
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label>CVC</label>
+                                                                        <label style="font-weight: bold;">CVC</label>
                                                                         <input type="text" style="width: 70px;" size="4" autocomplete="off" class="card-cvc form-control" />
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label style="width: 100%;float: left;">Expiration (MM/YYYY)</label>
+                                                                        <label style="width: 100%;float: left; font-weight: bold;">Hết hạn (MM/YYYY)</label>
                                                                         <input type="text" size="2" style="width: 70px;float: left;" class="card-expiry-month form-control"/>
                                                                         <span style="width: 30px;float: left;text-align: center"> / </span>
                                                                         <input type="text" size="4" style="width: 90px;float: left;" class="card-expiry-year form-control"/>
@@ -437,7 +439,7 @@
                                                     <div class="panel panel-default">
                                                         <div class="panel-heading" role="tab" id="headingTwo">
                                                             <h4 class="panel-title">
-                                                                <label id="pm2-label" for="pm2">
+                                                                <label id="pm2-label" for="pm2" style="font-weight: bold; font-size: 1em">
                                                                 <input type="radio" required="" name="payment_method" value="offline" id="pm2">
                                                                     Thanh toán khi nhận hàng
                                                                 </label>

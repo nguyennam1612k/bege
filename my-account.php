@@ -12,7 +12,7 @@
     // dd($user_id);
     //PHÂN TRANG
     $page=1;//khởi tạo trang ban đầu
-    $limit=10;//số bản ghi trên 1 trang (2 bản ghi trên 1 trang)
+    $limit=5;//số bản ghi trên 1 trang (2 bản ghi trên 1 trang)
     
     $arrs_list = "SELECT count(id) as count from orders where user_id=$user_id";
     $count = executeQuery($arrs_list);
