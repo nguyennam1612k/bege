@@ -19,8 +19,7 @@
 
     //select hóa đơn
     $sqlQuery = "SELECT 
-                    ROW_NUMBER() OVER (ORDER BY id) AS stt,
-                    orders.*
+                    *
                 from orders";
     $orders = executeQuery($sqlQuery, true);
 ?>
@@ -203,22 +202,30 @@
                                         </thead>
                                         <tbody>
                                             <?php if ($orders != null): ?>
+                                                <?php $i=0 ?>
                                                 <?php foreach ($orders as $value): ?>
+                                                    <?php $i++ ?>
                                                     <tr>
-                                                        <td><?php echo $value['stt'] ?></td>
+                                                        <td><?php echo $i ?></td>
                                                         <td class="digits"><?php echo number_format($value['total_price'], 0, '', ',') ?> vnđ</td>
                                                         <td><?php echo $value['name'] ?></td>
                                                         <td class="digits"><?php echo $value['payment_method'] ?></td>
                                                         <?php
-                                                        if($value['status'] == "1 - chờ xử lý"){
+                                                        if($value['status'] == 1){
                                                             $classStatus = "font-warning";
-                                                        }else if($value['status'] == "0 - đã hủy"){
-                                                            $classStatus = "font-danger";
-                                                        }else{
+                                                            $valueStatus = "chờ xử lý";
+                                                        }else if($value['status'] == 2){
                                                             $classStatus = "font-primary";
+                                                            $valueStatus = "đã hủy";
+                                                        }else if($value['status'] == 3){
+                                                            $classStatus = "font-primary";
+                                                            $valueStatus = "đã giao hàng";
+                                                        }else{
+                                                            $classStatus = "font-danger";
+                                                            $valueStatus = "đã hủy đơn hàng";
                                                         }
                                                         ?>
-                                                        <td class="<?php echo $classStatus ?>"><?php echo $value['status'] ?></td>
+                                                        <td class="<?php echo $classStatus ?>"><?php echo $valueStatus ?></td>
                                                     </tr>
                                                 <?php endforeach ?>
                                             <?php endif ?>

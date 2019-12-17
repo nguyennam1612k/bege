@@ -39,8 +39,7 @@
 
     //select all đơn hàng tài khoản
     $user_id = $user['id'];
-    $sqlQuery = "SELECT 
-                    ROW_NUMBER() OVER (ORDER BY id) AS stt,orders.*
+    $sqlQuery = "SELECT *
                 from orders
                 where user_id=$user_id
                 limit $start,$limit";
@@ -147,6 +146,7 @@
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/responsive.css">
         <link rel="stylesheet" href="css/colors.css">
+
     </head>
     <body>
         <!--[if lte IE 9]>
@@ -181,7 +181,7 @@
                         <div class="col-sm-12">
                             <h1 class="entry-title">Tài khoản của tôi</h1>
                             <?php if (isset($_COOKIE['mess'])): ?>
-                                <center style="color: #D24F07; margin-top: 30px; font-size: 20px"><?php echo $_COOKIE['mess'] ?></center>
+                                <center style="color: #D24F07; margin-top: 30px; font-size: 20px"><?php echo $_COOKIE['mess_or'] ?></center>
                             <?php endif ?>
                         </div>
                     </div>
@@ -257,12 +257,13 @@
                                             <table class="table table-bordered">
                                                 <thead class="thead-light">
                                                 <tr>
-                                                    <th>Order</th>
-                                                    <th>Products</th>
-                                                    <th>Date</th>
-                                                    <th>Status</th>
-                                                    <th>Total</th>
-                                                    <th>Action</th>
+                                                    <th>ID</th>
+                                                    <th>Sản phẩm</th>
+                                                    <th>Thời gian</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Tổng</th>
+                                                    <th>Thanh toán</th>
+                                                    <th>Hủy</th>
                                                 </tr>
                                                 </thead>
 
@@ -271,9 +272,11 @@
                                                     Bạn chưa có đơn đặt hàng nào
                                                 <?php endif ?>
                                                 <?php if ($orders != null): ?>
+                                                    <?php $i=0 ?>
                                                     <?php foreach ($orders as $value): ?>
+                                                        <?php $i++ ?>
                                                         <tr>
-                                                            <td><?php echo $value['stt'] ?></td>
+                                                            <td><?php echo $i ?></td>
                                                             <td>
                                                                 <!-- select ra những sản phẩm trong order này -->
                                                                 <?php
@@ -292,11 +295,33 @@
                                                             <td>
                                                                 <?php echo $value['created_date'] ?>
                                                             </td>
-                                                            <td><?php echo $value['status'] ?></td>
-                                                            <td><?php echo number_format($value['total_price'], 0, '', ','); ?> vnđ</td>
                                                             <td>
                                                                 <?php
-                                                                if($value['status'] == "1 - chờ xử lý"){
+                                                                    if ($value['status'] == 1){
+                                                                        echo "chờ xử lý";
+                                                                    } else if ($value['status'] == 2){
+                                                                        echo "đang vận chuyển";
+                                                                    } else if ($value['status'] == 3){
+                                                                        echo "đã giao hàng";
+                                                                    } else if ($value['status'] == 0){
+                                                                        echo "đã hủy";
+                                                                    }
+
+                                                                ?>
+                                                            </td>
+                                                            <td><?php echo vnd($value['total_price']) ?> vnđ</td>
+                                                            <td>
+                                                                <?php
+                                                                    if ($value['status_payment'] == 1){
+                                                                        echo "đã thanh toán";
+                                                                    } else {
+                                                                        echo "chưa thanh toán";
+                                                                    }
+                                                                ?>        
+                                                            </td>
+                                                            <td>
+                                                                <?php
+                                                                if($value['status'] == 1){
                                                                     ?>
                                                                     <form action="update-order.php" method="post" style="margin-top: 5px">
                                                                         <input type="hidden" name="id" value="<?php echo $value['id'] ?>">
@@ -342,52 +367,6 @@
                                             <?php endif ?>
                                         </ul>
                                     </nav>
-                                </div>
-                                <!-- Single Tab Content End -->
-
-                                <!-- Single Tab Content Start -->
-                                <div class="tab-pane fade" id="download" role="tabpanel">
-                                    <div class="myaccount-content">
-                                        <h3>Downloads</h3>
-
-                                        <div class="myaccount-table table-responsive text-center">
-                                            <table class="table table-bordered">
-                                                <thead class="thead-light">
-                                                <tr>
-                                                    <th>Product</th>
-                                                    <th>Date</th>
-                                                    <th>Expire</th>
-                                                    <th>Download</th>
-                                                </tr>
-                                                </thead>
-
-                                                <tbody>
-                                                <tr>
-                                                    <td>Haven - Free Real Estate PSD Template</td>
-                                                    <td>Aug 22, 2018</td>
-                                                    <td>Yes</td>
-                                                    <td><a href="#" class="btn">Download File</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>HasTech - Profolio Business Template</td>
-                                                    <td>Sep 12, 2018</td>
-                                                    <td>Never</td>
-                                                    <td><a href="#" class="btn">Download File</a></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Single Tab Content End -->
-
-                                <!-- Single Tab Content Start -->
-                                <div class="tab-pane fade" id="payment-method" role="tabpanel">
-                                    <div class="myaccount-content">
-                                        <h3>Payment Method</h3>
-
-                                        <p class="saved-message">You Can't Saved Your Payment Method yet.</p>
-                                    </div>
                                 </div>
                                 <!-- Single Tab Content End -->
 
@@ -502,7 +481,6 @@
                     </div>
                     </div>
                 </div>
-            </div>
             <!-- My Account page content end -->
             <?php include "includes/footer.php" ?>
         </div>

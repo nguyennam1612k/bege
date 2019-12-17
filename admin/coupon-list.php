@@ -161,28 +161,28 @@
                                                             $end_v = strtotime($vou['end_time']);
                                                             $now_v = strtotime("now");
                                                             if($now_v <= $start_v || $now_v > $end_v || $vou['used_count'] < 0){
-                                                                $status_title = "Hết hạn";
-                                                                $status_voucher = "fa fa-circle font-dark f-12";
+                                                                $status_title = "Hết / hết hạn";
+                                                                $status_voucher = "badge font-danger";
                                                             }else{
                                                                 $status_title = "Còn sử dụng";
-                                                                $status_voucher = "fa fa-circle font-warning f-12";
+                                                                $status_voucher = "badge font-warning f-12";
                                                             }
                                                             ?>
-                                                            <i class="<?php echo $status_voucher ?>" title="<?php echo $status_title ?>"></i>
+                                                            <span class="<?php echo $status_voucher ?>"><?php echo $status_title ?></span>
                                                             <?php
                                                             ?>
                                                             </td>
                                                         <td class="jsgrid-cell" style="width: 100px;">
                                                             <?php
                                                             if($vou['active'] == 1){
-                                                                $active_voucher = "fa fa-circle font-success f-12";
+                                                                $active_voucher = "badge font-warning";
                                                                 $active_title = "Đã kích hoạt";
                                                             }else{
-                                                                $active_voucher = "fa fa-circle font-danger f-12";
+                                                                $active_voucher = "badge font-dark";
                                                                 $active_title = "Chưa kích hoạt";
                                                             }
                                                             ?>
-                                                            <i class="<?php echo $active_voucher ?>" title="<?php echo $active_title ?>"></i>
+                                                            <span class="<?php echo $active_voucher ?>"><?php echo $active_title ?></span>
                                                             <?php
                                                             ?>
                                                         </td>
@@ -204,18 +204,18 @@
                                                             </td>
                                                             <td class="jsgrid-cell jsgrid-align-right" style="width: 100px;">
                                                                 <?php
-                                                                $start_v = strtotime($show['start_time']);
-                                                                $end_v = strtotime($show['end_time']);
-                                                                $now_v = strtotime("now");
-                                                                if($now_v <= $start_v || $now_v > $end_v || $show['used_count'] < 0){
-                                                                    $status_title = "Hết";
-                                                                    $status_voucher = "fa fa-circle font-dark f-12";
-                                                                }else{
-                                                                    $status_title = "Còn";
-                                                                    $status_voucher = "fa fa-circle font-warning f-12";
-                                                                }
+                                                                    $start_v = strtotime($show['start_time']);
+                                                                    $end_v = strtotime($show['end_time']);
+                                                                    $now_v = strtotime("now");
+                                                                    if($now_v <= $start_v || $now_v > $end_v || $show['used_count'] < 0){
+                                                                        $status_title = "Hết / hết hạn";
+                                                                        $status_voucher = "badge font-dark";
+                                                                    }else{
+                                                                        $status_title = "Còn";
+                                                                        $status_voucher = "badge font-warning";
+                                                                    }
                                                                 ?>
-                                                                <i class="<?php echo $status_voucher ?>" title="<?php echo $status_title ?>"></i>
+                                                                <span class="<?php echo $status_voucher ?>"><?php echo $status_title ?></span>
                                                                 <?php
                                                                 ?>
                                                             </td>

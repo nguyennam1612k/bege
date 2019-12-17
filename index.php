@@ -189,7 +189,7 @@
                                                                 </a>
                                                                 <div class="quickviewbtn">
 
-                                                                    <a href="#" data-toggle="modal" data-target="#<?php echo $deal['id'] ?>" data-original-title="Quick View"><i class="ion-eye"></i></a>
+                                                                    <a href="#" data-proId="<?php echo $deal['id'] ?>" data-toggle="modal" data-target="#<?php echo $deal['id'] ?>" data-original-title="Quick View"><i class="ion-eye"></i></a>
 
                                                                 </div>
                                                             </div>

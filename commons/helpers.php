@@ -4,6 +4,14 @@
 		var_dump($var);
 		die;
 	}
+	
+
+	//Hàm format vnđ
+	function vnd($price){
+		$price = number_format($price, 0, '', ',');
+		return $price;
+	}
+
 	//Đếm thời gian chi tiết
 	function nicetime($date){
 		date_default_timezone_set('Asia/Ho_Chi_Minh');

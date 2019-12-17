@@ -5,8 +5,7 @@
 
     //select hóa đơn
     $sqlQuery = "SELECT 
-                    ROW_NUMBER() OVER (ORDER BY id) AS stt,
-                    orders.*
+                    *
                 from orders";
     $orders = executeQuery($sqlQuery, true);
 ?>
@@ -130,17 +129,21 @@
                                                 <td><span><?php echo $value['name'] ?></span></td>
                                                 <td><?php echo $value['payment_method'] ?></td>
                                                 <?php
-                                                if( $value['status'] == "1 - chờ xử lý"){
+                                                if( $value['status'] == 1){
                                                     $classStatus = "badge badge-warning";
-                                                }else if( $value['status'] == "2 - đang vận chuyển"){
+                                                    $valueStatus = "chờ xử lý";
+                                                }else if( $value['status'] == 2){
                                                     $classStatus = "badge badge-primary";
-                                                }else if( $value['status'] == "3 - đã giao hàng"){
+                                                    $valueStatus = "đang vận chuyển";
+                                                }else if( $value['status'] == 3){
                                                     $classStatus = "badge badge-success";
-                                                }else if( $value['status'] == "0 - đã hủy"){
+                                                    $valueStatus = "đã giao hàng";
+                                                }else if( $value['status'] == 0){
                                                     $classStatus = "badge badge-danger";
+                                                    $valueStatus = "đã hủy đơn";
                                                 }
                                                 ?>
-                                                <td><span class="<?php echo $classStatus ?>"><?php echo $value['status'] ?></span></td>
+                                                <td><span class="<?php echo $classStatus ?>"><?php echo $valueStatus ?></span></td>
                                                 <td><?php echo nicetime($value['created_date']) ?></td>
                                                 <td><?php echo number_format($value['total_price'], 0, '', ',') ?> đ</td>
                                                 <td><a href="update-order.php?id=<?php echo $value['id'] ?>">Xử lý</a></td>

@@ -28,7 +28,7 @@
 ?>
 <div class="page-main-header">
     <div class="main-header-left">
-        <div class="logo-wrapper"><a href="<?php echo BASE_URL ?>"><img class="blur-up lazyloaded" src="../assets/images/layout-2/logo/logo.png" alt=""></a></div>
+        <div class="logo-wrapper"><a href="<?php echo BASE_URL ?>admin"><img class="blur-up lazyloaded" src="../assets/images/layout-2/logo/logo.png" alt=""></a></div>
     </div>
     <div class="main-header-right row">
         <div class="mobile-sidebar">

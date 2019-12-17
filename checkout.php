@@ -401,7 +401,7 @@
                                                                 <!-- <p>abcxyz</p> -->
                                                                 <span class="payment-errors"><?= $error ?></span>
                                                                     <div class="form-group">
-                                                                        <label>OfficeHeads payment for Mango service: <font size="3"><strong>&nbsp;<?php echo number_format($_SESSION['total']) ?> vnd</strong></font></label>
+                                                                        <label>OfficeHeads payment for Mango service: <font size="3"><strong>&nbsp;<?php echo vnd($totalPrice) ?> VNĐ</strong></font></label>
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label>Card Number</label>

@@ -15,9 +15,10 @@
     //Thực hiện update status
     if(isset($_POST['btn_update'])){
         $status = $_POST['status'];
-        $sqlUpdate = "UPDATE orders set status='$status' where id=$id";
+        $sqlUpdate = "  UPDATE orders
+                            set status=$status,
+                        where id=$id";
         executeQuery($sqlUpdate);
-        // dd($sqlUpdate);
         header('location: order.php');
         die;
     }
@@ -152,12 +153,12 @@
                                             </div>
                                             <div class="form">
                                                 <div class="form-group row">
-                                                    <label for="exampleFormControlSelect1" class="col-xl-3 col-sm-4 mb-0">Status :</label>
+                                                    <label for="exampleFormControlSelect1" class="col-xl-3 col-sm-4 mb-0">Trạng thái :</label>
                                                     <select class="form-control digits col-xl-8 col-sm-7" id="exampleFormControlSelect1" name="status">
                                                         <!-- <option value="1 - chờ xử lý">Đang chờ xử lý</option> -->
-                                                        <option value="2 - đang vận chuyển">Đang vận chuyển</option>
-                                                        <option value="3 - đã giao hàng">Đã giao hàng</option>
-                                                        <option value="0 - đã hủy">Hủy đơn hàng</option>
+                                                        <option value="2">Xử lý vận chuyển</option>
+                                                        <option value="3">Giao hàng thành công</option>
+                                                        <option value="0">Hủy đơn hàng</option>
                                                     </select>
                                                 </div>
                                             </div>
