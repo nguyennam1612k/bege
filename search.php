@@ -74,7 +74,7 @@
         <link rel="stylesheet" href="css/responsive.css">
         <link rel="stylesheet" href="css/colors.css">
         <style>
-            .style-img{
+            .style-img a img{
                 height: 250px;
             }
         </style>
@@ -166,10 +166,12 @@
                                                 <div class="col-sm-6 col-md-4 col-xl-3">
                                                     <div class="single-product-area">
                                                         <div class="product-wrapper gridview">
-                                                            <div class="list-col4  style-img" >
-                                                                <div class="product-image">
+                                                            <div class="list-col4">
+                                                                <div class="product-image style-img">
                                                                     <a href="single-product.php?product_id=<?php echo $value['id'] ?>">
+                                                                        <center>
                                                                         <img src="<?php echo $value['feature_image'] ?>" alt="">
+                                                                        </center>
                                                                     </a>
                                                                     <div class="quickviewbtn">
                                                                         <a href="#" data-toggle="modal" data-target="#<?php echo $value['id'] ?>"  data-original-title="Quick View"><i class="ion-eye"></i></a>

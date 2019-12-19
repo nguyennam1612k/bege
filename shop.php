@@ -63,7 +63,7 @@
         <link rel="stylesheet" href="css/responsive.css">
         <link rel="stylesheet" href="css/colors.css">
         <style>
-            .style-img{
+            .style-img a img{
                 height: 250px;
             }
         </style>
@@ -145,7 +145,7 @@
                                                                 <div class="product-image style-img">
                                                                     <a href="single-product.php?product_id=<?php echo $value['id'] ?>">
                                                                         <center>
-                                                                        <img style="width: 300px; max-height: 250px" src="<?php echo $value['feature_image'] ?>" alt="">
+                                                                        <img src="<?php echo $value['feature_image'] ?>" alt="">
                                                                         </center>
                                                                     </a>
                                                                     <div class="quickviewbtn">
