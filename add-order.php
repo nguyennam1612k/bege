@@ -12,6 +12,7 @@
     //thực hiện thêm order
     if(isset($_POST['btn_order']) || (isset($_POST['stripeToken']) && !empty($_POST['stripeToken'])) ){
     	extract($_REQUEST);
+        $total_price = $_POST['total_all'];
         $points = $total_price/10000;
         $code = strtoupper(uniqid());
 

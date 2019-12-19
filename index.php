@@ -736,11 +736,6 @@
         <!-- QUICKVIEW PRODUCT END -->
     </div>
     <!-- Body main wrapper end -->
-
-
-    <!-- jQuery CDN -->
-    <script src="../../../code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-    <!-- jQuery Local -->
     <script>
         window.jQuery || document.write('<script src="js/jquery-3.2.1.min.js"><\/script>')
 
@@ -770,7 +765,6 @@
         ga('send', 'pageview')
 
     </script>
-    <script src="../../../www.google-analytics.com/analytics.js" async defer></script>
 </body>
 
 

@@ -78,7 +78,7 @@
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/responsive.css">
         <link rel="stylesheet" href="css/colors.css">
-        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <style>
 
           .rowP {
@@ -256,7 +256,7 @@
                                         <div class="coupon-info">
                                             <form class="form-row">
                                                 <p class="checkout-coupon">
-                                                    <input type="text" class="code" placeholder="Coupon code" class="voucher-code-input">
+                                                    <input type="text" name="demo0" placeholder="Coupon code" class="voucher-code-input">
                                                     <input type="button" value="Apply Coupon" class="btn-voucher">
                                                     
                                                     <!-- <button type="button" class="btn-voucher submit-button">Áp dụng</button> -->
@@ -394,9 +394,10 @@
                                                     </tr>
                                                     <tr class="order-total">
                                                         <th>Tổng đơn hàng</th>
-                                                        <td><strong><span class="amount" class="cart-total"><?php echo number_format($totalPrice, 0, '', ','); ?> vnđ</span></strong>
+                                                        <td><strong><span class="amount" id="cart-total"><?php echo number_format($totalPrice, 0, '', ','); ?> vnđ</span></strong>
                                                         </td>
                                                     </tr>
+                                                    <input type="text" id="total-price" name="total_all" value="<?php echo $totalPrice ?>">
                                                 </tfoot>
                                             </table>
                                         </div>
@@ -475,33 +476,17 @@
             </div>
             <!-- checkout page content end -->
             <?php include "includes/footer.php" ?>
-            <!-- QUICKVIEW PRODUCT START -->
-            <?php include "includes/quickview.php" ?>
-            <!-- QUICKVIEW PRODUCT END -->
         </div>
         <!-- Body main wrapper end -->
+        
+        <?php include "includes/script.php" ?>
 
-
-        <!-- jQuery CDN -->
-        <script src="../../../code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-        <!-- jQuery Local -->
-        <script>window.jQuery || document.write('<script src="js/jquery-3.2.1.min.js"><\/script>')</script>
-
-        <!-- Popper min js -->
-        <script src="js/popper.min.js"></script>
-        <!-- Bootstrap min js  -->
-        <script src="js/bootstrap.min.js"></script>
-        <!-- All plugins here -->
-        <script src="js/plugins.js"></script>
-        <!-- Main js  -->
-        <script src="js/main.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <input type="hidden" id="total-price" value="<?php echo $totalPrice ?>">
         <script>
-            $("input[name='demo0']").TouchSpin({});
 
             var buttonApplyVoucher = document.querySelector(".btn-voucher"); //button
             buttonApplyVoucher.onclick = function(){
+                // alert("ok");
                 var voucherCode = document.querySelector('.voucher-code-input').value; //value text input
 
                 var url = "checkVoucherCode.php?code=" + voucherCode;
@@ -510,25 +495,23 @@
                 .then(function(data){
                     if(data == null){
                         alert('Mã Voucher không tồn tại/hết hạn');
+                        $(".btn-voucher").attr("disabled", false);
                     }else{
                         var totalPrice = document.querySelector('#total-price').value;
-                        totalPrice = parseInt(totalPrice)-parseInt(data.discount_price);
+                        totalPrice = parseInt(totalPrice)-parseInt(data.discount);
+                        intPrice = totalPrice;
                         totalPrice = totalPrice.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
-                        document.querySelector('.cart-total').innerText = totalPrice; //Hiện thị tổng tiền
-
+                        document.querySelector('#cart-total').innerText = totalPrice; //Hiện thị tổng tiền
+                        document.querySelector('#total-price').value = intPrice; //Hiện thị tổng tiền
+                        $(".btn-voucher").attr("disabled", true);//disabled button
                     }
                 });
 
             }
         </script>
-
-        <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
         <script>
             window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
             ga('create','UA-XXXXX-Y','auto');ga('send','pageview')
         </script>
-        <script src="../../../www.google-analytics.com/analytics.js" async defer></script>
     </body>
-
-<!-- Mirrored from preview.hasthemes.com/bege-v4/bege/checkout.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Nov 2019 11:48:17 GMT -->
 </html>
