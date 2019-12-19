@@ -7783,5 +7783,7 @@ a.ideas-btn:hover {
 .disabled {
     cursor: not-allowed;
 }
-
+.style-img a img{
+    height: 250px;
+}
 /*== My Account Page End ==*/

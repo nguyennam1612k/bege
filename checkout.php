@@ -421,7 +421,7 @@
                                                                 <!-- <p>abcxyz</p> -->
                                                                 <span class="payment-errors"><?= $error ?></span>
                                                                     <div class="form-group">
-                                                                        <label>Thanh toán qua dịch vụ Stripe: <font size="3"><strong>&nbsp;<?php echo vnd($totalPrice) ?> VNĐ</strong></font></label>
+                                                                        <label>Thanh toán qua dịch vụ Stripe: <font size="3"><strong id="total-stripe">&nbsp;<?php echo vnd($totalPrice) ?> VNĐ</strong></font></label>
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label style="font-weight: bold;">Số thẻ</label>
@@ -505,8 +505,10 @@
                         intPrice = totalPrice;
                         totalPrice = totalPrice.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
                         document.querySelector('#cart-total').innerText = totalPrice; //Hiện thị tổng tiền
+                        document.querySelector('#total-stripe').innerText = totalPrice; //Hiện thị tổng tiền
                         document.querySelector('#total-price').value = intPrice; //Hiện thị tổng tiền
                         $(".btn-voucher").attr("disabled", true);//disabled button
+
                     }
                 });
 

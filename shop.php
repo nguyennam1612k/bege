@@ -62,11 +62,6 @@
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/responsive.css">
         <link rel="stylesheet" href="css/colors.css">
-        <style>
-            .style-img a img{
-                height: 250px;
-            }
-        </style>
     </head>
     <body>
         <!--[if lte IE 9]>

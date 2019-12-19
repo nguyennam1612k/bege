@@ -177,7 +177,7 @@
                                                 <div class="single-product-area">
                                                     <div class="product-wrapper gridview">
                                                         <div class="list-col4">
-                                                            <div class="product-image">
+                                                            <div class="product-image style-img">
                                                                 <a href="single-product.php?product_id=<?php echo $deal['id'] ?>">
                                                                     <?php if($deal['price'] - $deal['sale_price'] >= 1000000 ){
                                                                         ?>
@@ -185,7 +185,7 @@
                                                                         <?php
                                                                     }
                                                                     ?>
-                                                                    <img style="width: 225px; height: 225px" src="<?php echo $deal['feature_image'] ?>" alt="">
+                                                                    <img src="<?php echo $deal['feature_image'] ?>" alt="">
                                                                 </a>
                                                                 <div class="quickviewbtn">
 
@@ -198,7 +198,7 @@
                                                             <div class="product-info">
                                                                 <h2><a href="single-product.php?product_id=<?php echo $deal['id'] ?>"><?php echo $deal['name'] ?></a></h2>
                                                                 <span class="price">
-                                                                    <del><?php echo number_format($deal['price'], 0, '', ',') ?> ₫</del> <?php echo number_format($deal['sale_price'], 0, '', ',') ?> ₫
+                                                                    <del><?php echo vnd($deal['price']) ?> ₫</del> <?php echo vnd($deal['sale_price']) ?> ₫
                                                                 </span>
                                                             </div>
                                                             <div class="product-hidden">
@@ -208,25 +208,8 @@
                                                                 <div class="star-actions">
                                                                     <div class="product-rattings">
                                                                     <!-- Đánh giá sao -->
-                                                                    <?php
-                                                                    if ($deal['rate'] == 0) {
-                                                                        $ilki = true;
-                                                                    }
-                                                                    for($ppp = 1; $ppp <= 5; $ppp++){
-                                                                        if($deal['rate'] >= $ppp){
-                                                                            $starClass = "fa fa-star";
-                                                                            $ilki = is_float($deal['rate']);
-                                                                        }else if($ilki == false ){
-                                                                            $starClass = "fa fa-star-half-o";
-                                                                            $ilki = true;
-                                                                        }else{
-                                                                            $starClass = "fa fa-star-o";
-                                                                        }
-                                                                        ?>
-                                                                        <span><i class="<?php echo $starClass ?>"></i></span>
-                                                                        <?php
-                                                                    }
-                                                                    ?>
+                                                                    <!-- if ($deal['rate'] == 0) { -->
+                                                                    <?php rate($deal['rate']) ?>
                                                                     </div>
 
                                                                     <ul class="actions">
@@ -328,25 +311,7 @@
                                                                         </div>
                                                                         <div class="star-actions">
                                                                             <div class="product-rattings">
-                                                                                <?php
-                                                                                if ($value['rate'] == 0) {
-                                                                                    $il1 = true;
-                                                                                }
-                                                                                for($p1 = 1; $p1 <= 5; $p1++){
-                                                                                    if($value['rate'] >= $p1){
-                                                                                        $starClass = "fa fa-star";
-                                                                                        $il1 = is_float($value['rate']);
-                                                                                    }else if($il1 == false ){
-                                                                                        $starClass = "fa fa-star-half-o";
-                                                                                        $il1 = true;
-                                                                                    }else{
-                                                                                        $starClass = "fa fa-star-o";
-                                                                                    }
-                                                                                    ?>
-                                                                                    <span><i class="<?php echo $starClass ?>"></i></span>
-                                                                                    <?php
-                                                                                }
-                                                                                ?>
+                                                                                <?php rate($value['rate']) ?>
                                                                             </div>
                                                                             <ul class="actions">
 
@@ -435,25 +400,7 @@
                                                                             </div>
                                                                             <div class="star-actions">
                                                                                 <div class="product-rattings">
-                                                                                    <?php
-                                                                                    if ($value['rate'] == 0) {
-                                                                                        $il2 = true;
-                                                                                    }
-                                                                                    for($p2 = 1; $p2 <= 5; $p2++){
-                                                                                        if($value['rate'] >= $p2){
-                                                                                            $starClass = "fa fa-star";
-                                                                                            $il2 = is_float($value['rate']);
-                                                                                        }else if($il2 == false ){
-                                                                                            $starClass = "fa fa-star-half-o";
-                                                                                            $il2 = true;
-                                                                                        }else{
-                                                                                            $starClass = "fa fa-star-o";
-                                                                                        }
-                                                                                        ?>
-                                                                                        <span><i class="<?php echo $starClass ?>"></i></span>
-                                                                                        <?php
-                                                                                    }
-                                                                                    ?>
+                                                                                    <?php rate($value['rate']) ?>
                                                                                 </div>
                                                                             <ul class="actions">
 
@@ -541,25 +488,7 @@
                                                                             </div>
                                                                             <div class="star-actions">
                                                                                 <div class="product-rattings">
-                                                                                    <?php
-                                                                                    if ($value['rate'] == 0) {
-                                                                                        $il3 = true;
-                                                                                    }
-                                                                                    for($p3 = 1; $p3 <= 5; $p3++){
-                                                                                        if($value['rate'] >= $p3){
-                                                                                            $starClass = "fa fa-star";
-                                                                                            $il3 = is_float($value['rate']);
-                                                                                        }else if($il3 == false ){
-                                                                                            $starClass = "fa fa-star-half-o";
-                                                                                            $il3 = true;
-                                                                                        }else{
-                                                                                            $starClass = "fa fa-star-o";
-                                                                                        }
-                                                                                        ?>
-                                                                                        <span><i class="<?php echo $starClass ?>"></i></span>
-                                                                                        <?php
-                                                                                    }
-                                                                                    ?>
+                                                                                    <?php rate($value['rate']) ?>
                                                                             </div>
                                                                             <ul class="actions">
 
@@ -672,25 +601,7 @@
                                                                             <?php echo number_format($pr_gr['sale_price'], 0, '', ',') ?> ₫
                                                                         </span>
                                                                         <div class="product-rattings">
-                                                                            <?php
-                                                                            if ($pr_gr['rate'] == 0) {
-                                                                                $il = true;
-                                                                            }
-                                                                            for($ui = 1; $ui <= 5; $ui++){
-                                                                                if($pr_gr['rate'] >= $ui){
-                                                                                    $starClass = "fa fa-star";
-                                                                                    $il = is_float($pr_gr['rate']);
-                                                                                }else if($il == false ){
-                                                                                    $starClass = "fa fa-star-half-o";
-                                                                                    $il = true;
-                                                                                }else{
-                                                                                    $starClass = "fa fa-star-o";
-                                                                                }
-                                                                                ?>
-                                                                                <span><i class="<?php echo $starClass ?>"></i></span>
-                                                                                <?php
-                                                                            }
-                                                                            ?>
+                                                                            <?php rate($pr_gr['rate']) ?>
                                                                         </div>
                                                                     </div>
                                                                     <div class="add-to-cart">

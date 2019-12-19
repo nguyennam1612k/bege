@@ -41,4 +41,26 @@
 		$difference = round($difference);
 		return "$difference $periods[$j] {$tense}";
 	}
+
+	//function rate
+	function rate($rate){
+		if ($rate == 0) {
+			$i = false;
+		}
+		for($p = 1; $p <= 5; $p++){
+			if($rate >= $p){
+				$starClass = "fa fa-star";
+				$i = is_float($rate - $p);
+			}else if($i == true ){
+				$starClass = "fa fa-star-half-o";
+				$i = false;
+			}else{
+				$starClass = "fa fa-star-o";
+			}
+			?>
+			<span><i class="<?php echo $starClass ?>"></i></span>
+			<?php
+			
+		}
+	}
  ?>
