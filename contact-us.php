@@ -66,10 +66,10 @@
                             <div class="col-sm-12 col-md-12 col-lg-6 col-xs-12">
                                 <div class="contact-form-inner">
                                     <h2>CHO CHÚNG TÔI BIẾT DỰ ÁN CỦA BẠN</h2>
-                                    <form action="http://preview.hasthemes.com/bege-v4/bege/mail.php" method="get">
+                                    <form action="mail.php" method="post">
                                         <div class="row">
                                             <div class="col">
-                                                <input type="text" class="form-control" placeholder="Họ tên*" required>
+                                                <input type="text" name="name" class="form-control" placeholder="Họ tên*" required>
                                             </div>
                                             <div class="col">
                                                 <input type="text" class="form-control" placeholder="Số điện thoại*" required>
@@ -77,16 +77,15 @@
                                         </div>
                                         <div class="row">
                                             <div class="col">
-                                                <input type="text" class="form-control" placeholder="Email*" required>
+                                                <input type="text" name="email" class="form-control" placeholder="Email*" required>
                                             </div>
                                             <div class="col">
-                                                <input type="text" class="form-control" placeholder="Chủ đề*" required>
+                                                <input type="text" name="subject" class="form-control" placeholder="Chủ đề*" required>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col">
-                                                <textarea name="your-message" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea wpcf7-validates-as-required" aria-required="true"
-                                                    aria-invalid="false" placeholder="Tin nhắn *" required></textarea>
+                                                <textarea name="your-message" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea wpcf7-validates-as-required" name="message" placeholder="Tin nhắn *" required></textarea>
                                             </div>
                                         </div>
                                         <div class="contact-submit">

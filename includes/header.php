@@ -207,7 +207,7 @@
                                                         <h5><a href="cart.php"><?php echo $value['name'] ?></a></h5>
                                                         <span class="price">
                                                             <?php $itemTotal = $value['sale_price']*$value['quantity']; ?>
-                                                            <?php echo number_format($value['sale_price'], 0, '', ','); ?> vnđ</span>
+                                                            <?php echo vnd($value['sale_price']) ?> vnđ</span>
                                                         <span class="quantaty">Số lượng: <?php echo $value['quantity'] ?></span>
                                                         <span class="cart-remove"><a href="?action=deleteCart&id=<?php echo $value['id'] ?>"><i class="fa fa-times"></i></a></span>
                                                     </div>
@@ -219,7 +219,7 @@
                                     <li>
                                         <!-- shop-cart-total -->
                                         <div class="shop-cart-total">
-                                            <p>Tổng phụ: <span class="pull-right"><?php echo number_format($totalPrice, 0, '', ','); ?> đ</span></p>
+                                            <p>Tổng: <span class="pull-right"><?php echo vnd($totalPrice) ?> đ</span></p>
                                         </div>
                                     </li>
                                     <li>
