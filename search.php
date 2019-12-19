@@ -73,6 +73,11 @@
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/responsive.css">
         <link rel="stylesheet" href="css/colors.css">
+        <style>
+            .style-img{
+                height: 250px;
+            }
+        </style>
     </head>
     <body>
         <!--[if lte IE 9]>
@@ -161,7 +166,7 @@
                                                 <div class="col-sm-6 col-md-4 col-xl-3">
                                                     <div class="single-product-area">
                                                         <div class="product-wrapper gridview">
-                                                            <div class="list-col4">
+                                                            <div class="list-col4  style-img" >
                                                                 <div class="product-image">
                                                                     <a href="single-product.php?product_id=<?php echo $value['id'] ?>">
                                                                         <img src="<?php echo $value['feature_image'] ?>" alt="">

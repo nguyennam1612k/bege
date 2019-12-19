@@ -62,6 +62,11 @@
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/responsive.css">
         <link rel="stylesheet" href="css/colors.css">
+        <style>
+            .style-img{
+                height: 250px;
+            }
+        </style>
     </head>
     <body>
         <!--[if lte IE 9]>
@@ -118,7 +123,7 @@
                                             <div class="orderby-wrapper">
                                                 <label>Sắp xếp :</label>
                                                 <select class="nice-select-menu orderby">
-                                                    <option dara-display="Select">Mặc định phân loại</option>
+                                                    <option dara-display="Select" aria-label="activate to sort column ascending">Mặc định phân loại</option>
                                                     <option value="popularity">Mức độ phổ biến</option>
                                                     <option value="rating">Đánh giá cao</option>
                                                     <option value="date">Sản phẩm mới</option>
@@ -137,7 +142,7 @@
                                                     <div class="single-product-area">
                                                         <div class="product-wrapper gridview">
                                                             <div class="list-col4">
-                                                                <div class="product-image">
+                                                                <div class="product-image style-img">
                                                                     <a href="single-product.php?product_id=<?php echo $value['id'] ?>">
                                                                         <center>
                                                                         <img style="width: 300px; max-height: 250px" src="<?php echo $value['feature_image'] ?>" alt="">
