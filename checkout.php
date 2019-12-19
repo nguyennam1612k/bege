@@ -49,11 +49,7 @@
             }
         }
     }
-    if(isset($_POST['btn_order'])){
-        if($_POST['payment_method'] == "Thanh toán khi nhận hàng"){
-            header('location: add-order.php');
-        }
-    }
+
 ?>
 <!DOCTYPE html>
 <html class="no-js" lang="en">

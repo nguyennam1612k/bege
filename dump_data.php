@@ -196,4 +196,23 @@ for ($i=1; $i < 26; $i++) {
 					'$store_name')";
 	// executeQuery($sqlQuery);
 }
+
+//tạo album cho toàn bộ sản phẩm
+
+$sqlQuery = "SELECT * from products";
+$products = executeQuery($sqlQuery, true);
+
+foreach ($products as $key => $value) {
+	$product_id = $products['id'];
+
+	for($i = 1, $i < 5, $i++){
+		$url = 'images/products/'.'laptop_00'.rand(1,20).
+		$sqlAlbum = "INSERT into product_galleries
+						(product_id, url, sort_order)
+					values
+						($product_id, '$url', $i)";
+		executeQuery($sqlAlbum);
+	}
+}
+
  ?>

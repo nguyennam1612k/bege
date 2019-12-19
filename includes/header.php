@@ -30,7 +30,7 @@
     //Đăng xuất
     if($action == "logout"){
         unset($_SESSION[AUTH]);
-        header('location: ' . BASE_URL . 'login.php');
+        header('location: login.php');
     }
 
     //Xóa phần tử trong cart

@@ -6,10 +6,12 @@
   /* ----------------------------------------------
         jQuery MeanMenu
     ---------------------------------------------- */
-    $('#mobile-menu-active').meanmenu({
-        meanScreenWidth: "991",
-        meanMenuContainer: ".mobile-menu-area .mobile-menu",
-    });
+    // if($('$mobile-menu-active').meanmenu() != null){
+        $('#mobile-menu-active').meanmenu({
+            meanScreenWidth: "991",
+            meanMenuContainer: ".mobile-menu-area .mobile-menu",
+        });
+    // }
 
     /* ----------------------------------------------
         nice-select-menu
@@ -763,6 +765,7 @@
 	// -------------------------------------------------------------
     // nivoSlider
     // -------------------------------------------------------------
+    if( document.getElementById('mainSlider') != null){
 	  $('#mainSlider').nivoSlider({
 		manualAdvance: false,  
 		directionNav: true,
@@ -774,6 +777,7 @@
 		prevText: '<i class="fa fa-angle-left nivo-prev-icon"></i>',
 		nextText: '<i class="fa fa-angle-right nivo-next-icon"></i>'
 	});
+    }
 
 
 })(jQuery);

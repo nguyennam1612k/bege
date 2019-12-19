@@ -51,10 +51,10 @@
                                                         <?php $al1 = 2 ?>
                                                         <?php foreach ($albums as $key): ?>
                                                             <?php $al1++ ?>
-                                                            <div class="tab-pane" id="pro-details<?php echo $alc ?>">
+                                                            <div class="tab-pane" id="pro-details<?php echo $al1 ?>">
                                                                 <div class="product-popup">
                                                                     <a href="<?php echo $key['url'] ?>">
-                                                                        <img src="<?php echo $key['url'] ?>" alt="">
+                                                                        <img src="<?php echo $key['url'] ?>" alt="22">
                                                                     </a>
                                                                 </div>
                                                             </div>
