@@ -40,7 +40,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <nav class="woocommerce-breadcrumb">
-                                <a href="index.html">Home</a>
+                                <a href="index.php">Trang chủ</a>
                                 <span class="separator">/</span> 404
                             </nav>
                         </div>
@@ -53,18 +53,20 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
-                            <h2>OOPS! PAGE NOT BE FOUND</h2>
-                            <p>Sorry but the page you are looking for does not exist, have been removed, name changed or is temporarity unavailable.</p>
-                            <div class="search__sidbar">
-                                <div class="input_form">
-                                    <input type="text" class="input_text" value="Search..." name="s" id="search_input">
-                                    <button class="button" type="submit" id="blogsearchsubmit">
-                                        <i class="fa fa-search"></i>
-                                    </button>
+                            <h2>TRANG KHÔNG TỒN TẠI</h2>
+                            <p>Xin lỗi nhưng trang bạn đang tìm kiếm không tồn tại, đã bị xóa, tên đã thay đổi hoặc không có sẵn tạm thời.</p>
+                            <form action="search.php" method="post">
+                                <div class="search__sidbar">
+                                    <div class="input_form">
+                                        <input type="text" class="input_text" placeholder="Search..." name="value_search" id="search_input">
+                                        <button class="button" type="submit" name="submit" id="blogsearchsubmit">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                             <div class="hom_btn">
-                                <a href="index.html">Back to home page</a>
+                                <a href="index.php">Quay về trang chủ</a>
                             </div>
                         </div>
                     </div>
@@ -72,15 +74,10 @@
             </div>
             <!-- cart page content end -->
             <?php include "includes/footer.php"?>
-            <!-- QUICKVIEW PRODUCT START -->
-            <?php include "includes/quickview.php"?>
-            <!-- QUICKVIEW PRODUCT END -->
         </div>
         <!-- Body main wrapper end -->
 
 
-        <!-- jQuery CDN -->
-        <script src="../../../code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
         <!-- jQuery Local -->
         <script>window.jQuery || document.write('<script src="js/jquery-3.2.1.min.js"><\/script>')</script>
 
@@ -100,7 +97,6 @@
             window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
             ga('create','UA-XXXXX-Y','auto');ga('send','pageview')
         </script>
-        <script src="../../../www.google-analytics.com/analytics.js" async defer></script>
     </body>
 
 <!-- Mirrored from preview.hasthemes.com/bege-v4/bege/404.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Nov 2019 11:49:52 GMT -->

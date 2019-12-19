@@ -86,7 +86,7 @@
                                 <div id="mainSlider" class="nivoSlider nevo-slider">
                                     <!-- Ảnh slide -->
                                     <?php foreach($slide as $ima): ?>
-                                    <img src="<?php echo $ima['image'] ?>" alt="main slider" title="#<?php echo $ima['id'] ?>" />
+                                    <img style="max-height: 540px" src="<?php echo $ima['image'] ?>" alt="main slider" title="#<?php echo $ima['id'] ?>" />
                                     <?php endforeach ?>
                                     <!-- Ảnh slide end -->
                                 </div>
@@ -230,12 +230,11 @@
                                                                     </div>
 
                                                                     <ul class="actions">
-                                                                        
                                                                         <?php if ($user == null): ?>
                                                                             <li><a href="javascript:void(0)" onclick="return alert('Bạn cần đăng nhập để sử dụng chức năng ngày')"><i class="ion-android-favorite-outline"></i></a></li>
                                                                         <?php endif ?>
                                                                         <?php
-                                                                        if($user != null){
+                                                                        if ($user != null) {
                                                                             $user_id = $user['id'];
                                                                             $product_id = $deal['id'];
                                                                             $sqlCheck = "SELECT * from wish_lists where user_id=$user_id and product_id=$product_id";

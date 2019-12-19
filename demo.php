@@ -1,16 +1,6 @@
-<?php
-require_once './commons/db.php';
-require_once './commons/constants.php';
-require_once './commons/helpers.php';
-
-$sqlQuery = "SELECT * from categories";
-$categories = executeQuery($sqlQuery, true);
-// foreach ($categories as $c) {
-//     var_dump($c);
-
-//     // what you really want instead of var_dump is something to
-//     // to create markup-- list items maybe, For example...
-//     // echo '<li>'.$c->cat_name.'</li>';
-// }
+<?php  
+	date_default_timezone_set('Asia/Ho_Chi_Minh');
+	// $date = date_create();
+	echo strtotime(date_format(date_create(), 'Y-m-d H:i:s'));
 
 ?>

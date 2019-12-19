@@ -5,7 +5,7 @@
 <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Bege || Forgot Password</title>
+        <title>Bege || Quên mật khẩu</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -40,8 +40,8 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <nav class="woocommerce-breadcrumb">
-                                <a href="index.html">Home</a>
-                                <span class="separator">/</span> forgot password
+                                <a href="index.php">Trang chủ</a>
+                                <span class="separator">/</span> Quên mật khẩu
                             </nav>
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h1 class="entry-title">Forgot Password</h1>
+                            <h1 class="entry-title">Quên mật khẩu</h1>
                         </div>
                     </div>
                 </div>
@@ -66,9 +66,9 @@
                         <div class="col-sm-12">
                             <form class="password-forgot clearfix" action="sendmail.php" method="post">
                                 <fieldset>
-                                    <legend>Your Personal Details</legend>
+                                    <legend>Thông tin chi tiết của bạn</legend>
                                     <div class="form-group d-md-flex">
-                                        <label class="control-label col-md-2" for="email"><span class="require">*</span>Enter you email address here...</label>
+                                        <label class="control-label col-md-2" for="email"><span class="require">*</span>Nhập Email của bạn tại đây...</label>
                                         <div class="col-md-10">
                                             <input type="email" name="email" class="form-control" id="email" placeholder="Enter you email address here...">
                                         </div>
@@ -76,10 +76,10 @@
                                 </fieldset>
                                 <div class="buttons newsletter-input">
                                     <div class="float-left float-sm-left">
-                                        <a class="customer-btn mr-20" href="login.html">Back</a>
+                                        <a class="customer-btn mr-20" href="login.php">Quay lại</a>
                                     </div>
                                     <div class="float-right float-sm-right">
-                                        <input type="submit" value="Continue" class="return-customer-btn">
+                                        <input type="submit" value="Tiếp tục" class="return-customer-btn">
                                     </div>
                                 </div>
                             </form>

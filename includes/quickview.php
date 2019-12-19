@@ -41,14 +41,14 @@
                                                     <!-- Feature image làm ảnh galleries đầu tiên -->
                                                     <div class="tab-pane active" id="pro-details1">
                                                         <div class="product-popup">
-                                                            <a href="<?php echo $value['feature_image'] ?>">
-                                                                <img src="<?php echo $value['feature_image'] ?>" alt="">
+                                                            <a href="javascript:void(0)">
+                                                                <img style="width: 800px" src="<?php echo $value['feature_image'] ?>" alt="">
                                                             </a>
                                                         </div>
                                                     </div>
                                                     <!-- select tất cả album làm ảnh galleries tiếp theo -->
                                                     <?php if ($albums != null): ?>
-                                                        <?php $al1 = 2 ?>
+                                                        <?php $al1 = 1 ?>
                                                         <?php foreach ($albums as $key): ?>
                                                             <?php $al1++ ?>
                                                             <div class="tab-pane" id="pro-details<?php echo $al1 ?>">
@@ -67,7 +67,7 @@
                                                         <img src="<?php echo $value['feature_image'] ?>" alt="">
                                                     </a>
                                                     <?php if ($albums != null): ?>
-                                                        <?php $al2 = 2 ?>
+                                                        <?php $al2 = 1 ?>
                                                         <?php foreach ($albums as $key): ?>
                                                             <?php $al2++ ?>
                                                             <a href="#pro-details<?php echo $al2 ?>">

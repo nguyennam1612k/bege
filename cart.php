@@ -49,7 +49,7 @@ require_once './commons/helpers.php';
                     <div class="row">
                         <div class="col-sm-12">
                             <nav class="woocommerce-breadcrumb">
-                                <a href="index.html">Trang chủ</a>
+                                <a href="index.php">Trang chủ</a>
                                 <span class="separator">/</span> Giỏ hàng
                             </nav>
                         </div>

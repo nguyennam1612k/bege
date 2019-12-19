@@ -33,8 +33,8 @@
     $value_search = isset($_POST['value_search']) ? $_POST['value_search'] : null;
     $sort         = isset($_POST['sort']) ? $_POST['sort'] : null;
 
-    if($value_search != null && $sort != null){
-        if($sort == "all"){
+    if($value_search != null){
+        if($sort == "all" || empty($sort)){
             $sqlQuery = "SELECT * from products where name like '%$value_search%' limit $start,$limit";
             //sql đếm số sản phẩm
             $sqlDem = "SELECT count(id) as count from products where name like '%$value_search%'";
@@ -108,13 +108,14 @@
                             <?php include "includes/sidebar-shop.php" ?>
                         <div class="col-xs-12 col-md-9 shop-content">
                             <div class="product-toolbar">
+                                <?php $searchs = isset($searchs) ? $searchs : null ?>
                                 <div class="topbar-title">
                                     <?php if ($searchs != null): ?>
-                                        <h1>Tìm kiếm</h1>
+                                        <h1>danh sách Tìm kiếm</h1>
                                         ( Từ khóa: <b>#<?php echo $value_search; ?></b> )
                                     <?php endif ?>
                                     <?php if ($searchs == null): ?>
-                                        <h1>Tham khảo</h1>
+                                        <h1>Tham khảo sản phẩm khác</h1>
                                         ( Không tìm thấy: <b>#<?php echo $value_search;?></b> )
                                     <?php endif ?>
                                 </div>

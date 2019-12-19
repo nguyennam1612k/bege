@@ -20,12 +20,12 @@ try {
     $mail->Host       = 'smtp.gmail.com';;                    // Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
     $mail->Username   = 'nguyennam1612k@gmail.com';                     // SMTP username
-    $mail->Password   = 'kutataxoa24h';                               // SMTP password
+    $mail->Password   = 'developernvn';                               // SMTP password
     $mail->SMTPSecure = 'tls';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
     $mail->Port       = 587;                                    // TCP port to connect to
 
     //Recipients
-    $mail->setFrom('nguyennam1612k@gmail.com', 'Nguyễn Văn Nam');
+    $mail->setFrom('namnv1612k@gmail.com', 'Nguyễn Văn Nam');
     // $mail->addAddress('vinhnguyenba217@gmail.net', 'Vinh Pokemon');     // Add a recipient
     $mail->addAddress($emailTo, 'NamNV');               // Name is optional
     $mail->addReplyTo('namnvph08169@fpt.edu.vn', 'Nam NV');

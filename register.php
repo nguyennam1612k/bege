@@ -34,7 +34,8 @@
         //Kiem tra tài khoản tồn tại
         $sqlQuery = "SELECT * from users where username='$username'";
         $check = executeQuery($sqlQuery, false);
-        if($check != null){
+
+        if ($check != null){
             echo "<script>alert('Tài khoản đã tồn tại')</script>";
         }else if($password != $confirm_password){
             echo "<script>alert('Xác thực mật khẩu không trùng khớp')</script>";
@@ -58,7 +59,7 @@
 <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Bege || Register Page</title>
+        <title>Bege || Đăng ký tài khoản</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -93,8 +94,8 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <nav class="woocommerce-breadcrumb">
-                                <a href="index.html">Home</a>
-                                <span class="separator">/</span> register
+                                <a href="index.php">Trang Chủ</a>
+                                <span class="separator">/</span> Đăng Ký
                             </nav>
                         </div>
                     </div>
@@ -106,7 +107,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h1 class="entry-title">Register</h1>
+                            <h1 class="entry-title">Đăng Ký</h1>
                         </div>
                     </div>
                 </div>
@@ -119,62 +120,64 @@
                         <div class="col-sm-12">
                             <form class="form-register" method="post">
                                 <fieldset>
-                                    <legend>Your Personal Details</legend>
+                                    <legend>Thông Tin Cá Nhân Của Bạn</legend>
                                     <div class="form-group d-md-flex align-items-md-center">
-                                        <label class="control-label col-md-2" for="f-name"><span class="require">*</span>Username</label>
+                                        <label class="control-label col-md-2" for="f-name"><span class="require">*</span>Tên tài khoản</label>
                                         <div class="col-md-10">
                                             <input type="text" class="form-control" id="f-name" placeholder="Username" name="username" required="">
                                         </div>
                                     </div>
                                     <div class="form-group d-md-flex align-items-md-center">
-                                        <label class="control-label col-md-2" for="l-name"><span class="require">*</span>Full Name</label>
+                                        <label class="control-label col-md-2" for="l-name"><span class="require">*</span>Họ tên</label>
                                         <div class="col-md-10">
                                             <input type="text" class="form-control" id="l-name" placeholder="Full Name" name="name" required="">
                                         </div>
                                     </div>
                                     <div class="form-group d-md-flex align-items-md-center">
-                                        <label class="control-label col-md-2" for="email"><span class="require">*</span>Enter you email address here...</label>
+                                        <label class="control-label col-md-2" for="email"><span class="require">*</span>Địa chỉ Email</label>
                                         <div class="col-md-10">
                                             <input type="email" class="form-control" id="email" placeholder="Enter you email address here..." name="email" required="">
                                         </div>
                                     </div>
                                     <div class="form-group d-md-flex align-items-md-center">
-                                        <label class="control-label col-md-2" for="number"><span class="require">*</span>Telephone</label>
+                                        <label class="control-label col-md-2" for="number"><span class="require">*</span>Số điện thoại</label>
                                         <div class="col-md-10">
-                                            <input type="number" class="form-control" id="number" placeholder="Telephone" name="phone_number" required="">
+                                            <input style="height: 45px; border: 1px solid #E2E2E2" type="nummber" class="form-control" id="number" placeholder="Telephone" name="phone_number" required="">
                                         </div>
                                     </div>
                                 </fieldset>
                                 <fieldset>
-                                    <legend>Your Password</legend>
+                                    <legend>Mật khẩu</legend>
                                     <div class="form-group d-md-flex align-items-md-center">
-                                        <label class="control-label col-md-2" for="pwd"><span class="require">*</span>Password:</label>
+                                        <label class="control-label col-md-2" for="pwd"><span class="require">*</span>Mật khẩu:</label>
                                         <div class="col-md-10">
                                             <input type="password" class="form-control" id="pwd" placeholder="Password" name="password" required="">
                                         </div>
                                     </div>
                                     <div class="form-group d-md-flex align-items-md-center">
-                                        <label class="control-label col-md-2" for="pwd-confirm"><span class="require">*</span>Confirm Password</label>
+                                        <label class="control-label col-md-2" for="pwd-confirm"><span class="require">*</span>Xác thực mật khẩu</label>
                                         <div class="col-md-10">
                                             <input type="password" class="form-control" id="pwd-confirm" placeholder="Confirm password" name="confirm_password" required="">
                                         </div>
                                     </div>
                                 </fieldset>
-                                <fieldset class="newsletter-input">
-                                    <legend>Newsletter</legend>
+                                <!-- <fieldset class="newsletter-input">
+                                    <legend>Đăng ký nhận thông tin</legend>
                                     <div class="form-group d-md-flex align-items-md-center">
-                                        <label class="col-md-2 control-label">Subscribe</label>
+                                        <label class="col-md-2 control-label">Đăng ký</label>
                                         <div class="col-md-10 radio-button">
-                                             <label class="radio-inline"><input type="radio" name="optradio">Yes</label>
-                                             <label class="radio-inline"><input type="radio" name="optradio">No</label>
+                                             <label class="radio-inline"><input type="radio" name="optradio">Đồng ý</label>
+                                             <label class="radio-inline"><input type="radio" name="optradio">Từ chối</label>
                                         </div>
                                     </div>
-                                </fieldset>
+                                </fieldset> -->
                                 <div class="terms">
                                     <div class="float-md-right">
-                                        <span>I have read and agree to the <a href="#" class="agree"><b>Privacy Policy</b></a></span>
-                                        <input type="checkbox" name="agree" value="1"> &nbsp;
-                                        <input type="submit" value="Continue" class="return-customer-btn" name="btn_register">
+                                        <label for="agree">
+                                            <span>Tôi đồng ý với <a href="#" class="agree"><b>Chính sách bảo mật</b></a></span>
+                                        </label>
+                                        <input type="checkbox" name="agree" value="1" required="" id="agree"> &nbsp;
+                                        <input type="submit" value="Tiếp tục" class="return-customer-btn" name="btn_register">
                                     </div>
                                 </div>
                             </form>
@@ -186,7 +189,6 @@
             <?php include "includes/footer.php" ?>
         </div>
         <!-- Body main wrapper end -->
-
 
         <!-- jQuery Local -->
         <script>window.jQuery || document.write('<script src="js/jquery-3.2.1.min.js"><\/script>')</script>

@@ -39,7 +39,14 @@
     $rate = executeQuery($sqlQuery, false);
 
     //select album ảnh product
-    $sqlQuery = "SELECT ROW_NUMBER() OVER (ORDER BY sort_order) AS 'stt', product_galleries.id, product_galleries.product_id, product_galleries.url, product_galleries.image_text FROM product_galleries order by sort_order asc";
+    $sqlQuery = "SELECT 
+                    product_galleries.id, 
+                    product_galleries.product_id, 
+                    product_galleries.url, 
+                    product_galleries.image_text 
+                FROM product_galleries 
+                where product_id=$product_id
+                order by sort_order asc";
     $album = executeQuery($sqlQuery, true);
 
     //select sản phẩm liên quan random
@@ -178,9 +185,10 @@
                                                     </a>
                                                 </div>
                                             </div>
-
+                                            <?php $jk = 1 ?>
                                             <?php foreach ($album as $al): ?>
-                                                <div class="tab-pane" id="pro-details<?php echo $al['stt']+1 ?>">
+                                                <?php $jk++ ?>
+                                                <div class="tab-pane" id="pro-details<?php echo $jk ?>">
                                                     <div class="product-popup">
                                                         <a href="<?php echo $al['url'] ?>">
                                                             <center><img style="width: 377px;" src="<?php echo $al['url'] ?>" alt=""></center>
@@ -196,9 +204,10 @@
                                             <a class="active" href="#pro-details1">
                                                 <img src="<?php echo $single['feature_image'] ?>" alt="">
                                             </a>
-
+                                            <?php $jh = 1 ?>
                                             <?php foreach ($album as $al): ?>
-                                                <a class="active" href="#pro-details<?php echo $al['stt']+1 ?>">
+                                                <?php $jh++ ?>
+                                                <a class="active" href="#pro-details<?php echo $jh ?>">
                                                     <img src="<?php echo $al['url'] ?>" alt="">
                                                 </a>
                                             <?php endforeach ?>
