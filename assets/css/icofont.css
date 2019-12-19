@@ -8,7 +8,7 @@
 @font-face {
   font-family: 'icofont';
   src: url("http://themes.pixelstrap.com/bigdeal/assets/fonts/ico/icofont.eot?v=1.0.0-beta");
-  src: url("http://themes.pixelstrap.com/bigdeal/assets/fonts/ico/icofont.eot?v=1.0.0-beta#iefix") format("embedded-opentype"), url("http://themes.pixelstrap.com/bigdeal/assets/fonts/ico/icofont.ttf?v=1.0.0-beta") format("truetype"), url("http://themes.pixelstrap.com/bigdeal/assets/fonts/ico/icofont.woff?v=1.0.0-beta") format("woff"), url("http://themes.pixelstrap.com/bigdeal/assets/fonts/ico/icofont.svg?v=1.0.0-beta#icofont") format("svg");
+  src: url("http://themes.pixelstrap.com/bigdeal/assets/fonts/ico/icofont.eot?v=1.0.0-beta#iefix") format("embedded-opentype"), url("icofont.ttf") format("truetype"), url("http://themes.pixelstrap.com/bigdeal/assets/fonts/ico/icofont.woff?v=1.0.0-beta") format("woff"), url("http://themes.pixelstrap.com/bigdeal/assets/fonts/ico/icofont.svg?v=1.0.0-beta#icofont") format("svg");
   font-weight: normal;
   font-style: normal; }
 

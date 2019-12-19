@@ -236,28 +236,6 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="col-xl-4 xl-50">
-                        <div class="card customers-card">
-                            <div class="card-header">
-                                <h5>Khách hàng mới</h5>
-                                <div class="chart-value-box pull-right">
-                                    <div class="value-square-box-secondary"></div><span class="f-12 f-w-600">Khách hàng</span>
-                                </div>
-                            </div>
-                            <div class="card-body p-0">
-                                <div class="apex-chart-container">
-                                    <div id="customers"></div>
-                                </div>
-                                <div class="code-box-copy">
-                                    <button class="code-box-copy__btn btn-clipboard" data-clipboard-target="#example-head7" title="" data-original-title="Copy"><i class="icofont icofont-copy-alt"></i></button>
-                                    <pre class=" language-html"><code class=" language-html" id="example-head7">
-                                    <div id="customers"></div>
-                                    </code></pre>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-xl-8 xl-50">
                         <div class="card height-equal">
                             <div class="card-header">
@@ -286,7 +264,7 @@
                                         <?php foreach ($users as $value): ?>
                                             <tr>
                                                 <td class="bd-t-none u-s-tb">
-                                                    <div class="align-middle image-sm-size"><img class="img-radius align-top m-r-15 rounded-circle blur-up lazyloaded" src="assets/images/dashboard/user2.jpg" alt="" data-original-title="" title="">
+                                                    <div class="align-middle image-sm-size"><img class="img-radius align-top m-r-15 rounded-circle blur-up lazyloaded" src="../<?php echo $value['avatar'] ?>" alt="" data-original-title="" title="">
                                                         <div class="d-inline-block">
                                                             <h6><?php echo $value['name'] ?> <span class="text-muted digits">(<?php echo $value['onlines'] ?>+ Online)</span></h6>
                                                         </div>
@@ -314,7 +292,7 @@
                                                 <tbody>
                                                     <tr>
                                                         <td class="bd-t-none u-s-tb">
-                                                            <div class="align-middle image-sm-size"><img class="img-radius align-top m-r-15 rounded-circle blur-up lazyloaded" src="assets/images/dashboard/user2.jpg" alt="" data-original-title="" title="">
+                                                            <div class="align-middle image-sm-size"><img class="img-radius align-top m-r-15 rounded-circle blur-up lazyloaded" src="../images/user/default-avatar.jpg" alt="" data-original-title="" title="">
                                                                 <div class="d-inline-block">
                                                                     <h6>John Deo <span class="text-muted digits">(14+ Online)</span></h6>
                                                                 </div>
@@ -332,7 +310,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td class="bd-t-none u-s-tb">
-                                                            <div class="align-middle image-sm-size"><img class="img-radius align-top m-r-15 rounded-circle blur-up lazyloaded" src="assets/images/dashboard/man.png" alt="" data-original-title="" title="">
+                                                            <div class="align-middle image-sm-size"><img class="img-radius align-top m-r-15 rounded-circle blur-up lazyloaded" src="../images/user/default-avatar.jpg" alt="" data-original-title="" title="">
                                                                 <div class="d-inline-block">
                                                                     <h6>Mohsib lara<span class="text-muted digits">(99+ Online)</span></h6>
                                                                 </div>
@@ -350,7 +328,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td class="bd-t-none u-s-tb">
-                                                            <div class="align-middle image-sm-size"><img class="img-radius align-top m-r-15 rounded-circle blur-up lazyloaded" src="assets/images/dashboard/user.png" alt="" data-original-title="" title="">
+                                                            <div class="align-middle image-sm-size"><img class="img-radius align-top m-r-15 rounded-circle blur-up lazyloaded" src="../images/user/default-avatar.jpg" alt="" data-original-title="" title="">
                                                                 <div class="d-inline-block">
                                                                     <h6>Hileri Soli <span class="text-muted digits">(150+ Online)</span></h6>
                                                                 </div>
@@ -368,7 +346,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td class="bd-t-none u-s-tb">
-                                                            <div class="align-middle image-sm-size"><img class="img-radius align-top m-r-15 rounded-circle blur-up lazyloaded" src="assets/images/dashboard/designer.jpg" alt="" data-original-title="" title="">
+                                                            <div class="align-middle image-sm-size"><img class="img-radius align-top m-r-15 rounded-circle blur-up lazyloaded" src="../images/user/default-avatar.jpg" alt="" data-original-title="" title="">
                                                                 <div class="d-inline-block">
                                                                     <h6>Pusiz bia <span class="text-muted digits">(14+ Online)</span></h6>
                                                                 </div>
@@ -431,7 +409,7 @@
 <script src="../assets/js/sidebar-menu.js"></script>
 
 <!--chartist js-->
-<script src="../assets/js/chart/chartist/chartist.js"></script>
+<!-- <script src="../assets/js/chart/chartist/chartist.js"></script> -->
 
 
 <!-- lazyload js-->
@@ -466,7 +444,7 @@
 <script src="../assets/js/chart/flot-chart/jquery.flot.stack.js"></script>
 <script src="../assets/js/chart/flot-chart/jquery.flot.pie.js"></script>
 <!--dashboard custom js-->
-<script src="../assets/js/dashboard/default.js"></script>
+<!-- <script src="../assets/js/dashboard/default.js"></script> -->
 
 <!--right sidebar js-->
 <script src="../assets/js/chat-menu.js"></script>

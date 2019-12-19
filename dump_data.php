@@ -182,6 +182,11 @@ for ($i=1; $i < 26; $i++) {
 	// executeQuery($sqlQuery);
 	// dd($sqlQuery);
 
+
+	//Lấy id sản phẩm
+	$sqlQuery = "SELECT id from products where sku=$sku";
+	$checkId = executeQuery($sqlQuery, false);
+	$product_id = $checkId['id'];
 	//Tạo album cho sản phẩm
 	for($li = 1; $li < 6; $li++){
 		$rand = rand(1,20);
