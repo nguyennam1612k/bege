@@ -172,7 +172,7 @@
                                                             }
                                                              ?>
                                                         </span></td>
-                                                        <td class="product-add-to-cart"><a href="add-cart.php?id=<?php echo $value['product_id'] ?>">Add to cart</a></td>
+                                                        <td class="product-add-to-cart"><a href="add-cart.php?id=<?php echo $value['product_id'] ?>">+ giỏ hàng</a></td>
                                                     </tr>
                                                 <?php endforeach ?>
                                             <?php endif ?>

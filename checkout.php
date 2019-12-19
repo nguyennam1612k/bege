@@ -50,6 +50,13 @@
         }
     }
 
+    $action = isset($_GET['action']) ? $_GET['action'] : null;
+    //Đăng xuất
+    if($action == "logout"){
+        unset($_SESSION[AUTH]);
+        header('location: login.php');
+    }
+
 ?>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -253,7 +260,7 @@
                                             <form class="form-row">
                                                 <p class="checkout-coupon">
                                                     <input type="text" name="demo0" placeholder="Coupon code" class="voucher-code-input">
-                                                    <input type="button" value="Apply Coupon" class="btn-voucher">
+                                                    <input style="height: 35px" type="button" value="Apply Coupon" class="submit-button btn-voucher">
                                                     
                                                     <!-- <button type="button" class="btn-voucher submit-button">Áp dụng</button> -->
                                                 </p>
@@ -349,7 +356,7 @@
                                             <div class="order-notes">
                                                 <div class="checkout-form-list">
                                                     <label>Ghi chú đơn hàng</label>
-                                                    <textarea id="checkout-mess" name="message" cols="30" rows="10" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+                                                    <textarea id="checkout-mess" name="message" cols="30" rows="10" placeholder="Ghi chú về đơn hàng của bạn, ví dụ: ghi chú đặc biệt để giao hàng."></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -393,7 +400,7 @@
                                                         <td><strong><span class="amount" id="cart-total"><?php echo number_format($totalPrice, 0, '', ','); ?> vnđ</span></strong>
                                                         </td>
                                                     </tr>
-                                                    <input type="text" id="total-price" name="total_all" value="<?php echo $totalPrice ?>">
+                                                    <input type="hidden" id="total-price" name="total_all" value="<?php echo $totalPrice ?>">
                                                 </tfoot>
                                             </table>
                                         </div>

@@ -257,7 +257,7 @@
                                 <!-- Single Tab Content Start -->
                                 <div class="tab-pane fade" id="orders" role="tabpanel">
                                     <div class="myaccount-content">
-                                        <h3>Orders</h3>
+                                        <h3>Đơn hàng</h3>
 
                                         <div class="myaccount-table table-responsive text-center">
                                             <table class="table table-bordered">
@@ -405,7 +405,7 @@
                                             ?>
                                             <div><?= $user['address']?></div>
                                         </address>
-                                        <a href="#" class="btn d-inline-block"><i class="fa fa-edit"></i> Chỉnh sửa</a>
+                                        
                                     </div>
                                 </div>
                                 <!-- Single Tab Content End -->

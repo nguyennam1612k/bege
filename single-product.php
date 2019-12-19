@@ -99,7 +99,7 @@
                 color:#ccc;
             }
             .rate:not(:checked) > label:before {
-                content: '★ ';
+                content: '★';
             }
             .rate > input:checked ~ label {
                 color: #ffc700;    
@@ -530,9 +530,6 @@
         </div>
         <!-- Body main wrapper end -->
 
-
-        <!-- jQuery CDN -->
-        <script src="../../../code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
         <!-- jQuery Local -->
         <script>window.jQuery || document.write('<script src="js/jquery-3.2.1.min.js"><\/script>')</script>
 
@@ -545,14 +542,11 @@
         <!-- Main js  -->
         <script src="js/main.js"></script>
 
-
-
         <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
         <script>
             window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
             ga('create','UA-XXXXX-Y','auto');ga('send','pageview')
         </script>
-        <script src="../../../www.google-analytics.com/analytics.js" async defer></script>
     </body>
 
 <!-- Mirrored from preview.hasthemes.com/bege-v4/bege/single-product.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Nov 2019 11:49:58 GMT -->

@@ -54,7 +54,7 @@
                                                             <div class="tab-pane" id="pro-details<?php echo $al1 ?>">
                                                                 <div class="product-popup">
                                                                     <a href="<?php echo $key['url'] ?>">
-                                                                        <img src="<?php echo $key['url'] ?>" alt="22">
+                                                                        <img style="width: 800px" src="<?php echo $key['url'] ?>" alt="22">
                                                                     </a>
                                                                 </div>
                                                             </div>

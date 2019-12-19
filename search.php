@@ -110,11 +110,11 @@
                             <div class="product-toolbar">
                                 <div class="topbar-title">
                                     <?php if ($searchs != null): ?>
-                                        <h1>Sản phẩm theo tìm kiếm</h1>
+                                        <h1>Tìm kiếm</h1>
                                         ( Từ khóa: <b>#<?php echo $value_search; ?></b> )
                                     <?php endif ?>
                                     <?php if ($searchs == null): ?>
-                                        <h1>Tham khảo sản phẩm khác</h1>
+                                        <h1>Tham khảo</h1>
                                         ( Không tìm thấy: <b>#<?php echo $value_search;?></b> )
                                     <?php endif ?>
                                 </div>

@@ -151,7 +151,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <input id="remember" type="checkbox" name="remember" value="ok">
-                                                <label for="remember">Remember me</label>
+                                                <label for="remember">Nhớ tài khoản</label>
                                             </div>
                                             <p class="lost-password"><a href="forgot-password.php">Quên mật khẩu ?</a></p>
                                             <input name="btn_login" type="submit" value="Đăng nhập" class="return-customer-btn">

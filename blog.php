@@ -68,7 +68,7 @@
 <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Bege || Tin tức</title>
+        <title>Bege || Bài viết</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -104,7 +104,7 @@
                         <div class="col-sm-12">
                             <nav class="woocommerce-breadcrumb">
                                 <a href="index.html">Trang chủ</a>
-                                <span class="separator">/</span> Tin tức
+                                <span class="separator">/</span> Bài Viết
                             </nav>
                         </div>
                     </div>
@@ -116,7 +116,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h1 class="entry-title">Tin tức</h1>
+                            <h1 class="entry-title">Bài Viết</h1>
                         </div>
                     </div>
                 </div>
@@ -243,7 +243,7 @@
                                             </a>
                                         </div>
                                         <div class="product-filter mb-30">
-                                            <h5>THẺ SẢN PHẨM</h5>
+                                            <h5>TAG SẢN PHẨM</h5>
                                             <div class="blog-tags">
                                                 <a href="shop.php?tag=sản phẩm mới">sản phẩm mới</a>
                                                 <a href="shop.php?tag=khuyến mại">khuyến mại</a>

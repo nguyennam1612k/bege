@@ -181,6 +181,21 @@ for ($i=1; $i < 26; $i++) {
 					$active)";
 	// executeQuery($sqlQuery);
 	// dd($sqlQuery);
+
+	//Tạo album cho sản phẩm
+	for($li = 1; $li < 6; $li++){
+		$rand = rand(1,20);
+		$url = 'images/products/'.'tivi_00'.$rand.'.jpg';
+		if($rand>=10){
+			$url = str_replace("_00", "_0", $url);
+		}
+		$sqlAlbum = "	INSERT into product_galleries
+							(product_id, url, sort_order)
+						values
+							($product_id, '$url', $li)";
+		// executeQuery($sqlAlbum);
+	}
+
 }
 
 //Tạo 25 bản ghi vedor
@@ -199,20 +214,27 @@ for ($i=1; $i < 26; $i++) {
 
 //tạo album cho toàn bộ sản phẩm
 
-$sqlQuery = "SELECT * from products";
+$cate_id = 4;
+
+$sqlQuery = "SELECT * from products where cate_id=$cate_id";
 $products = executeQuery($sqlQuery, true);
+// dd($products);
+foreach ($products as $value) {
+	$product_id = $value['id'];
 
-foreach ($products as $key => $value) {
-	$product_id = $products['id'];
-
-	for($i = 1, $i < 5, $i++){
-		$url = 'images/products/'.'laptop_00'.rand(1,20).
-		$sqlAlbum = "INSERT into product_galleries
-						(product_id, url, sort_order)
-					values
-						($product_id, '$url', $i)";
-		executeQuery($sqlAlbum);
+	for($li = 1; $li < 6; $li++){
+		$rand = rand(1,20);
+		$url = 'images/products/'.'tivi_00'.$rand.'.jpg';
+		if($rand>=10){
+			$url = str_replace("_00", "_0", $url);
+		}
+		$sqlAlbum = "	INSERT into product_galleries
+							(product_id, url, sort_order)
+						values
+							($product_id, '$url', $li)";
+		// executeQuery($sqlAlbum);
 	}
+		// dd($sqlAlbum);
 }
-
+// dd($sqlAlbum);
  ?>

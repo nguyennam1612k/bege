@@ -103,8 +103,8 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <nav class="woocommerce-breadcrumb">
-                                <a href="index.html">Home</a>
-                                <span class="separator">/</span> Single Blog
+                                <a href="<?php echo BASE_URL ?>">Trang Chủ</a>
+                                <span class="separator">/</span> Bài Viết
                             </nav>
                         </div>
                     </div>
@@ -116,7 +116,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h1 class="entry-title">Single Blog</h1>
+                            <h1 class="entry-title">Bài Viết</h1>
                         </div>
                     </div>
                 </div>
@@ -132,11 +132,11 @@
                                 <article class="text-center">
                                     <div class="blog-entry-header">
                                         <div class="post-category">
-                                            <a href="#"><?php echo $blog['tag'] ?></a>
+                                            <a href="?tag=<?php echo $blog['tag'] ?>"><?php echo $blog['tag'] ?></a>
                                         </div>
-                                        <h1><a href="single-blog.html"><?php echo $blog['name'] ?></a></h1>
+                                        <h1><a href="#"><?php echo $blog['name'] ?></a></h1>
                                         <div class="post-meta">
-                                            <a href="#"  class="post-author"><i class="fa fa-user"></i>Posted by <?php echo $blog['user_name'] ?></a>
+                                            <a href="#"  class="post-author"><i class="fa fa-user"></i>Đăng bởi <?php echo $blog['user_name'] ?></a>
                                             <a href="#" class="post-date"><i class="fa fa-calendar"></i> <?php echo $blog['created_at'] ?> </a>
                                         </div>
                                     </div>
@@ -157,10 +157,10 @@
                                             $sqlQuery = "SELECT count(id) as count from blog_comments where blog_id=$blog_id";
                                             $count = executeQuery($sqlQuery, false);
                                              ?>
-                                            <a class="comment-link" href="#"><?php echo $count['count'] ?> comments</a> / Tags: <a href="#" rel="tag"><?php echo $blog['tag'] ?></a>,
+                                            <a class="comment-link" href="#"><?php echo $count['count'] ?> bình luận</a> / Tag: <a href="#" rel="tag"><?php echo $blog['tag'] ?></a>,
                                         </div>
                                         <div class="social-sharing">
-                                            <h3>Share this post</h3>
+                                            <h3>Chia sẻ bài viết</h3>
                                             <div class="social-sharie">
                                                 <ul class="social-icons">
                                                     <li><a class="facebook social-icon" href="#"><i class="fa fa-facebook"></i></a></li>
@@ -175,7 +175,7 @@
                                 </article>
                                 <!-- blog post end -->
                                 <div class="relatedposts">
-                                    <h3>Related posts</h3>
+                                    <h3>Bài viết liên quan</h3>
                                     <div class="row">
                                         <!-- related post -->
                                         <?php if ($related != null): ?>
@@ -194,7 +194,7 @@
                                 </div>
                             </div>
                             <div class="comments-area">
-                                <h3><?php echo $count['count'] ?> comments</h3>
+                                <h3><?php echo $count['count'] ?> bình luận</h3>
                                 <!-- comment chính -->
                                 <?php if ($comments != null): ?>
                                     
@@ -208,7 +208,7 @@
                                                     <div class="comment-info">
                                                         <a href="#"><?php echo $value['name'] ?></a>
                                                         <div class="reply">
-                                                            <a href="#">Reply</a>
+                                                            <a href="#comment-respond">Trả lời</a>
                                                         </div>
                                                         <span class="date"><?php echo nicetime($value['created_at']) ?></span>
                                                         <p><?php echo $value['content'] ?></p>
@@ -252,13 +252,13 @@
                                 <?php endif ?>
                                 <!-- comment chính edn -->
                             </div>
-                            <div class="comment-respond">
-                                <h3>Leave a Reply </h3>
-                                <small>Your email address will not be published. Required fields are marked *</small>
+                            <div class="comment-respond" id="comment-respond">
+                                <h3>Bình luận </h3>
+                                <small>Bạn cần đăng nhập để bình luận *</small>
                                 <form method="post">
                                     <div class="text-filds">
                                         <p class="comment-form-author">
-                                            <label for="author">Reply for</label> 
+                                            <label for="author">Trả lời cho</label> 
                                             <select name="reply_for">
                                                 <option style="font-style: italic;">Null</option>
                                                 <?php if ($comments != null): ?>
@@ -268,100 +268,28 @@
                                                 <?php endif ?>
                                             </select>
                                         </p>
-                                        <label for="comment">Comment</label>
+                                        <label for="comment">Nội dung</label>
                                         <textarea id="comment" name="content" cols="45" rows="8" maxlength="65525" required="required"></textarea>
                                     </div>
                                     <div class="form-submit">
-                                        <input name="btn_submit" type="submit" id="submit" class="submit" value="Post Comment">
+                                        <?php if ($user != null){ ?>
+                                            <input name="btn_submit" type="submit" id="submit" class="submit" value="Gửi">
+                                        <?php } else { ?>
+                                            <input onclick="return alert('Bạn cần đăng nhập để bình luận')" type="button" id="submit" class="submit" value="Gửi">
+                                        <?php } ?>
                                     </div>
                                 </form>
                             </div>
                         </div>
-                        <!-- <div class="col-xs-12 col-md-3">
-                            <div class="blog_sidebar">
-                                <div class="row_products_side">
-                                    <div class="product_left_sidbar">
-                                        <div class="product-filter  mb-30">
-                                          <h5>Search </h5>
-                                          <div class="search__sidbar">
-                                             <div class="input_form">
-                                                <form method="get">
-                                                    <input type="text" id="search_input" name="value_search_blog" placeholder="Search..." class="input_text">
-                                                    <button id="blogsearchsubmit" type="submit" class="button">
-                                                        <i class="fa fa-search"></i>
-                                                    </button>
-                                                </form>
-                                             </div>
-                                          </div>
-                                        </div>
-                                        <div class="product-filter  mb-30">
-                                          <h5>Blog Archives </h5>
-                                            <div class="blog_Archives__sidbar">
-                                                <ul>
-                                                    <li>
-                                                        <a href="#">March 2015</a>&nbsp;(1)</li>
-                                                    <li>
-                                                        <a href="#">December 2014</a>&nbsp;(3)</li>
-                                                    <li>
-                                                        <a href="#">November 2014</a>&nbsp;(4)</li>
-                                                    <li>
-                                                        <a href="#">September 2014</a>&nbsp;(1)</li>
-                                                    <li>
-                                                        <a href="#">August 2014</a>&nbsp;(1)</li>
-                                                </ul>
-                                          </div>
-                                        </div>
-                                        <div class="product-filter  mb-30">
-                                            <h5>Recent Posts</h5>
-                                            <div class="blog_Archives__sidbar">
-                                                <ul>
-                                                    <li> <a href="#">Blog image post</a>&nbsp;(1)</li>
-                                                    <li> <a href="#">Post with Gallery</a>&nbsp;(3)</li>
-                                                    <li><a href="#">Post with Audio</a>&nbsp;(4)</li>
-                                                    <li><a href="#">Post with Video</a>&nbsp;(1)</li>
-                                                    <li><a href="#">Post with Text</a>&nbsp;(1)</li>
-                                                    
-                                                </ul>
-                                          </div>
-                                        </div>
-                                        <div class="sidebar-single-banner">
-                                            <a href="#">
-                                                <img src="images/banner/shop-sidebar.jpg" alt="Banner">
-                                            </a>
-                                        </div>
-                                        <div class="product-filter mb-30">
-                                            <h5>product tags</h5>
-                                                <div class="blog-tags">
-                                                    <a href="#">brand</a>
-                                                    <a href="#">black</a>
-                                                    <a href="#">white</a>
-                                                    <a href="#">chire</a>
-                                                    <a href="#">table</a>
-                                                    <a href="#">Lorem</a>
-                                                    <a href="#">ipsum</a>
-                                                    <a href="#">dolor</a>
-                                                    <a href="#">sit</a>
-                                                    <a href="#">amet</a>
-                                                </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
             </div>
             <!-- cart page content end -->
             <?php include "includes/footer.php" ?>
-            <!-- QUICKVIEW PRODUCT START -->
-            <?php include "includes/quickview.php" ?>
-            <!-- QUICKVIEW PRODUCT END -->
         </div>
         <!-- Body main wrapper end -->
 
 
-        <!-- jQuery CDN -->
-        <script src="../../../code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
         <!-- jQuery Local -->
         <script>window.jQuery || document.write('<script src="js/jquery-3.2.1.min.js"><\/script>')</script>
 
@@ -374,14 +302,11 @@
         <!-- Main js  -->
         <script src="js/main.js"></script>
 
-
-
         <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
         <script>
             window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
             ga('create','UA-XXXXX-Y','auto');ga('send','pageview')
         </script>
-        <script src="../../../www.google-analytics.com/analytics.js" async defer></script>
     </body>
 
 <!-- Mirrored from preview.hasthemes.com/bege-v4/bege/single-blog.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Nov 2019 11:49:58 GMT -->

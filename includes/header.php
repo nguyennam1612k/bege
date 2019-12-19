@@ -48,9 +48,8 @@
     }
     
 ?>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-
 <header class="header-area">
     <!-- Header top area start -->
     <div class="header-top-area">
@@ -64,45 +63,9 @@
                                 <ul>
                                     <li><a href="<?php echo BASE_URL ?>">trang chủ</a></li>
                                     <li><a href="shop.php">cửa hàng</a></li>
-                                    <li><a href="blog.php">tin tức</a></li>
+                                    <li><a href="blog.php">Bài viết</a></li>
                                     <li><a href="about-us.php">giới thiệu</a></li>
                                     <li><a href="contact-us.php">liên hệ</a></li>
-                                    <!-- <li><a href="#">Menu <i class="fa fa-angle-down"></i></a>
-                                        Hiện thị danh mục cha và danh mục con
-                                        <ul class="megamenu-3-column">
-                                            <li><a href="#">Pages</a>
-                                                <ul>
-                                                    <li><a href="about-us.php">About Us</a></li>
-                                                    <li><a href="contact-us.php">Contact Us</a></li>
-                                                    <li><a href="service.php">Services</a></li>
-                                                    <li><a href="portfolio.php">Portfolio</a></li>
-                                                    <li><a href="faq.php">Frequently Questins</a></li>
-                                                    <li><a href="404.php">Error 404</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">Blog</a>
-                                                <ul>
-                                                    <li><a href="blog-no-sidebar.php">None Sidebar</a></li>
-                                                    <li><a href="blog.php">Sidebar right</a></li>
-                                                    <li><a href="single-blog.php">Image Format</a></li>
-                                                    <li><a href="single-blog-gallery.php">Gallery Format</a></li>
-                                                    <li><a href="single-blog-audio.php">Audio Format</a></li>
-                                                    <li><a href="single-blog-video.php">Video Format</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">Shop</a>
-                                                <ul>
-                                                    <li><a href="shop.php">Shop</a></li>
-                                                    <li><a href="shop-list.php">Shop List View</a></li>
-                                                    <li><a href="shop-right.php">Shop Right</a></li>
-                                                    <li><a href="single-product.php">Shop Single</a></li>
-                                                    <li><a href="cart.php">Shoping Cart</a></li>
-                                                    <li><a href="checkout.php">Checkout</a></li>
-                                                    <li><a href="my-account.php">My Account</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li> -->
                                 </ul>
                             </nav>
                         </div>
@@ -110,44 +73,11 @@
                             <div class="mobile-menu">
                                 <nav id="mobile-menu-active">
                                     <ul class="menu-overflow">
-                                        <li><a href="<?php echo BASE_URL ?>">Trang chủ</a></li>
+                                        <li><a href="<?php echo BASE_URL ?>">trang chủ</a></li>
                                         <li><a href="shop.php">cửa hàng</a></li>
-                                        <li><a href="blog.php">tin tức</a></li>
+                                        <li><a href="blog.php">Bài viết</a></li>
                                         <li><a href="about-us.php">giới thiệu</a></li>
                                         <li><a href="contact-us.php">liên hệ</a></li>
-                                        <li><a href="#">Danh mục</a>
-                                            <ul>
-                                                <li><a href="#">Pages</a>
-                                                    <ul>
-                                                        <li><a href="about-us.php">About Us</a></li>
-                                                        <li><a href="service.php">Services</a></li>
-                                                        <li><a href="portfolio.php">Portfolio</a></li>
-                                                        <li><a href="faq.php">Frequently Questins</a></li>
-                                                        <li><a href="404.php">Error 404</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">Blog</a>
-                                                    <ul>
-                                                        <li><a href="blog-no-sidebar.php">None Sidebar</a></li>
-                                                        <li><a href="blog.php">Sidebar right</a></li>
-                                                        <li><a href="single-blog.php">Image Format</a></li>
-                                                        <li><a href="single-blog-gallery.php">Gallery Format</a></li>
-                                                        <li><a href="single-blog-audio.php">Audio Format</a></li>
-                                                        <li><a href="single-blog-video.php">Video Format</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">Shop</a>
-                                                    <ul>
-                                                        <li><a href="shop.php">Shop</a></li>
-                                                        <li><a href="shop-list.php">Shop List View</a></li>
-                                                        <li><a href="shop-right.php">Shop Right</a></li>
-                                                        <li><a href="single-product.php">Shop Single</a></li>
-                                                        <li><a href="cart.php">Shoping Cart</a></li>
-                                                        <li><a href="checkout.php">Checkout</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
                                     </ul>
                                 </nav>
                             </div>
@@ -246,7 +176,7 @@
                             <li><a href="#"><i class="ion-ios-shuffle-strong"></i></a></li>
                             <li>
                                 <?php if($user == null) { ?>
-                                    <a href="javascript:void(0)" class="disabled" onclick="return alert('Bạn cần đăng nhập để sử dụng chức năng này')"><i class="ion-android-favorite-outline"></i></a>
+                                    <a href="javascript:void(0)" onclick="return alert('Bạn cần đăng nhập để sử dụng chức năng này')"><i class="ion-android-favorite-outline"></i></a>
                                 <?php } else { ?>
                                     <a href="wishlist.php"><i class="ion-android-favorite-outline"></i></a>
                                 <?php } ?>
