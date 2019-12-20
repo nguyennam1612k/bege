@@ -283,7 +283,7 @@
                                                         <div class="single-product-area">
                                                             <div class="product-wrapper gridview">
                                                                 <div class="list-col4">
-                                                                    <div class="product-image">
+                                                                    <div class="product-image style-img">
                                                                         <a href="single-product.php?product_id=<?php echo $value['id'] ?>">
                                                                             <?php if($value['price'] - $value['sale_price'] >= 1000000 ){
                                                                                 ?>
@@ -372,7 +372,7 @@
                                                             <div class="single-product-area">
                                                                 <div class="product-wrapper gridview">
                                                                     <div class="list-col4">
-                                                                        <div class="product-image">
+                                                                        <div class="product-image style-img">
                                                                             <a href="single-product.php?product_id=<?php echo $value['id'] ?>">
                                                                                 <?php if($value['price'] - $value['sale_price'] >= 1000000 ){
                                                                                     ?>
@@ -460,7 +460,7 @@
                                                             <div class="single-product-area">
                                                                 <div class="product-wrapper gridview">
                                                                     <div class="list-col4">
-                                                                        <div class="product-image">
+                                                                        <div class="product-image style-img">
                                                                             <a href="single-product.php?product_id=<?php echo $value['id'] ?>">
                                                                                 <?php if($value['price'] - $value['sale_price'] >= 1000000 ){
                                                                                     ?>
