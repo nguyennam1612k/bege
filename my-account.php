@@ -295,8 +295,8 @@
                                                                     <?php endforeach ?>
                                                                 <?php endif ?>
                                                             </td>
-                                                            <td>
-                                                                <?php echo $value['created_date'] ?>
+                                                            <td><?php echo nicetime($value['created_date']); ?><br>
+                                                                ( <?php echo $value['created_date'] ?> )
                                                             </td>
                                                             <td>
                                                                 <?php

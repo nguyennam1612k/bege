@@ -66,7 +66,7 @@
 <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Bege || Single Product</title>
+        <title>Bege || Chi tiết Sản phẩm</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -144,9 +144,9 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <nav class="woocommerce-breadcrumb">
-                                <a href="index.php">Home</a>
+                                <a href="index.php">Trang chủ</a>
                                 <span class="separator">/</span>
-                                <a href="shop.php">Shop</a>
+                                <a href="shop.php">Cửa hàng</a>
                                 <span class="separator">/</span>
                                 <a href="shop.php?cate_id=<?php echo $single['cate_id'] ?>"><?php echo $single['title'] ?></a>
                                 <span class="separator">/</span> <?php echo $single['name'] ?>
@@ -242,19 +242,19 @@
                                     }
                                     ?>
                                     </div>
-                                    <p style="float: right ;margin-right: 300px">View: <?php echo $single['views'] ?> <i class="far fa-eye"></i></p>
+                                    <p style="float: right ;margin-right: 300px">Lượt xem: <?php echo $single['views'] ?> <i class="far fa-eye"></i></p>
                                     <span class="price">
                                         <del><?php echo number_format($single['price'], 0, '', ',') ?> ₫</del><br> <?php echo number_format($single['sale_price'], 0, '', ',') ?> ₫
                                     </span>
                                     <?php $detail = explode('&nbsp', $single['detail'], 2) ?>
                                     <p><?php echo $detail[0] ?> ....</p>
                                     <div class="box-quantity d-flex">
-                                        <a class="add-cart" href="add-cart.php?id=<?php echo $single['id'] ?>">add to cart</a>
+                                        <a class="add-cart" href="add-cart.php?id=<?php echo $single['id'] ?>">Cho vào giỏ</a>
                                     </div>
                                     <div class="wishlist-compear-area">
 
                                         <?php if ($user == null): ?>
-                                            <a href="javascript:void(0)" onclick="return alert('Bạn cần đăng nhập để sử dụng chức năng này')" ><i class="ion-ios-heart-outline"></i> Add to Wishlist</a>
+                                            <a href="javascript:void(0)" onclick="return alert('Bạn cần đăng nhập để sử dụng chức năng này')" ><i class="ion-ios-heart-outline"></i> Thêm vào yêu thích</a>
                                         <?php endif ?>
                                         <?php
                                         if($user != null){
@@ -264,23 +264,23 @@
                                             $checkWish = executeQuery($sqlCheck, false);
                                             if($checkWish == null){
                                                 ?>
-                                                <a href="add-wish.php?id=<?php echo $single['id'] ?>"><i class="ion-ios-heart-outline"></i> Add to Wishlist</a>
+                                                <a href="add-wish.php?id=<?php echo $single['id'] ?>"><i class="ion-ios-heart-outline"></i> Thêm vào yêu thích</a>
                                                 <?php
                                             }else{
                                                 ?>
-                                                <a href="javascript:void(0)" onclick="return alert('Sản phẩm đã tồn tại trong danh sách yêu thích')" ><i class="ion-ios-heart-outline"></i> Add to Wishlist</a>
+                                                <a href="javascript:void(0)" onclick="return alert('Sản phẩm đã tồn tại trong danh sách yêu thích')" ><i class="ion-ios-heart-outline"></i> Thêm vào yêu thích</a>
                                                 <?php
                                             }
                                         }
                                         ?>
-                                        <a href="javascript:void(0)"><i class="ion-ios-loop-strong"></i> Compare</a>
+                                        <a href="javascript:void(0)"><i class="ion-ios-loop-strong"></i> So sánh</a>
                                     </div>
                                     <div class="product_meta">
-                                        <span class="posted_in">Categories: <a href="shop.php?cate_id=<?php echo $single['cate_id'] ?>" rel="tag"><?php echo $single['title'] ?></a></span>
+                                        <span class="posted_in">Danh mục: <a href="shop.php?cate_id=<?php echo $single['cate_id'] ?>" rel="tag"><?php echo $single['title'] ?></a></span>
                                     </div>
                                     <div class="single-product-sharing">
                                         <div class="widget widget_socialsharing_widget">
-                                            <h3 class="widget-title">Share this product</h3>
+                                            <h3 class="widget-title">Chia sẻ sản phẩm</h3>
                                             <ul class="social-icons">
                                                 <li><a class="facebook social-icon" href="#"><i class="fa fa-facebook"></i></a></li>
                                                 <li><a class="twitter social-icon" href="#"><i class="fa fa-twitter"></i></a></li>
@@ -304,7 +304,7 @@
                         <div class="col-sm-12">
                             <ul class="nav nav-tabs">
                                 <li class="active">
-                                    <a data-toggle="tab" href="#description">Description</a>
+                                    <a data-toggle="tab" href="#description">Mô tả</a>
                                 </li>
                                 <li>
                                     <a data-toggle="tab" href="#reviews">Reviews <?php echo $rate['count'] ?></a>
@@ -330,9 +330,9 @@
                                         }
                                     }
                                     </script>
-                                    <h2>Description</h2>
-                                    <div style="width: 50%; float: left;"><?php echo $single['detail'] ?></div>
-                                    <div style="width: 50%; float: right; padding-left: 5%">
+                                    <h2>Mô tả</h2>
+                                    <div style="width: 45%; float: left;"><?php echo $single['detail'] ?></div>
+                                    <div style="width: 45%; float: right; padding-left: 5%; margin-top: -5%">
                                         <p style="font-weight: bold; font-size: 26px">Thông số:</p> 
                                         <p><?php echo $single['parameter'] ?></p>
                                     </div>
@@ -389,9 +389,8 @@
                                     <?php endif ?>
 
                                     <div class="comment-respond">
-                                        <p>Add a review</p>
-                                        <p>Your email address will not be published. Required fields are marked *</p>
-                                        <p>Your rating</p>
+                                        <p>Thêm đánh giá</p>
+                                        <p>Đánh giá sao</p>
 
 
                                     <?php if ($user == null): ?>
@@ -441,7 +440,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="section-title">
-                                <h3>Related products</h3>
+                                <h3>Sản phẩm liên quan</h3>
                             </div>
                         </div>
                     </div>
@@ -471,7 +470,7 @@
                                             </div>
                                             <div class="product-hidden">
                                                 <div class="add-to-cart">
-                                                    <a href="add-cart.php?id=<?php echo $rlt['id'] ?>">Add to cart</a>
+                                                    <a href="add-cart.php?id=<?php echo $rlt['id'] ?>">Thêm vào giỏ</a>
                                                 </div>
                                                 <div class="star-actions">
                                                     <div class="product-rattings">

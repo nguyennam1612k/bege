@@ -207,14 +207,19 @@
         </div>
         <!-- Body main wrapper end -->
 
+        <script>
+            window.jQuery || document.write('<script src="js/jquery-3.2.1.min.js"><\/script>')
 
-        <!-- jQuery Local -->
-        <script>window.jQuery || document.write('<script src="js/jquery-3.2.1.min.js"><\/script>')</script>
+        </script>
 
         <!-- Popper min js -->
         <script src="js/popper.min.js"></script>
         <!-- Bootstrap min js  -->
         <script src="js/bootstrap.min.js"></script>
+        <!-- nivo slider pack js  -->
+        <script src="js/jquery.nivo.slider.pack.js"></script>
+        <!-- All plugins here -->
+        <script src="js/plugins.js"></script>
         <!-- Main js  -->
         <script src="js/main.js"></script>
 
