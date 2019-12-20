@@ -26,6 +26,10 @@
     $sqlQuery = "SELECT * from products order by rate desc limit 2";
     $topRateProducts = executeQuery($sqlQuery, true);
 
+    //select ramdom voucher
+    $sqlQuery = "SELECT * from vouchers order by rand() limit 5";
+    $vouchers = executeQuery($sqlQuery, true);
+
 ?>
 <div class="col-xs-12 col-md-3 sidebar-shop">
     <div class="sidebar-product-categori">
@@ -118,6 +122,36 @@
                             <a href="search.php?tag=chip 1022">chip 1022</a>
                         </div>
                     </div>
+                </div><div class="sidebar-tag">
+                    <div class="widget-title">
+                        <h3>Mã giảm giá</h3>
+                    </div>
+                    <div class="widget-content">
+                        <ul class="product-categories">
+                            <?php foreach ($vouchers as $value): ?>
+                                <label for="" style="float: left; width: 50%">
+                                    <?php echo $value['title'] ?>
+                                </label>
+                                <input onclick="copyVoucher()" readonly="" type="text" value="<?php echo $value['code'] ?>" id="myInput" style="width: 50%">
+                            <?php endforeach ?>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
+<script>
+    function copyVoucher() {
+      /* Get the text field */
+      var copyText = document.getElementById("myInput");
+
+      /* Select the text field */
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+      /* Copy the text inside the text field */
+      document.execCommand("copy");
+
+      /* Alert the copied text */
+      alert("Copied the text: " + copyText.value);
+  }
+</script>
