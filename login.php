@@ -147,7 +147,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Mật khẩu</label>
-                                                <input type="text" name="password" placeholder="Mật khẩu ..." id="input-password" class="form-control">
+                                                <input type="password" name="password" placeholder="Mật khẩu ..." id="input-password" class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <input id="remember" type="checkbox" name="remember" value="ok">

@@ -3,7 +3,26 @@
     require_once "commons/constants.php";
     require_once "commons/helpers.php";
 
-    
+    $sortBy = isset( $_GET['sortBy']) ? $_GET['sortBy'] : 'id';
+
+    if ( $sortBy == "especially"){
+        $sortValue = 'especially desc';
+    } else if ( $sortBy == "rate"){
+        $sortValue = 'rate desc';
+    } else if ( $sortBy == "date"){
+        $sortValue = 'id desc';
+    } else if ( $sortBy  == "low-price"){
+        $sortValue = 'sale_price asc';
+    } else if ( $sortBy == "hight-price"){
+        $sortValue = 'sale_price desc';
+    } else if ( $sortBy == 'id'){
+        $sortValue = 'id asc';
+    } else {
+        echo "<script>alert('không có xắp xếp theo ".$sortBy."')</script>";
+        $sortValue = 'id asc';
+    }
+
+
     //PHÂN TRANG
     $page=1;//khởi tạo trang ban đầu
     $limit=16;//số bản ghi trên 1 trang (2 bản ghi trên 1 trang)
@@ -30,13 +49,16 @@
     $start=($page-1)*$limit;
     //PHÂN TRANG END
 
-    $sqlQuery = "SELECT * from products limit $start,$limit";
+    $sqlQuery = "SELECT * from products order by $sortValue limit $start,$limit";
     $products = executeQuery($sqlQuery, true);
 
     //đếm số sản phẩm phù hợp
     $sqlDem = "SELECT count(id) as count from products";
     $reality = executeQuery($sqlDem, false);
     $reality = isset($reality) ? $reality : null;
+
+    // echo ($sqlQuery).'<br>';
+    // dd($products);
 
 ?>
 <!DOCTYPE html>
@@ -114,21 +136,22 @@
                                     </div>
                                     <p class="woocommerce-result-count">Hiện thị 1–12 trong <?php echo $countAb ?> kết quả</p>
                                     <div class="woocommerce-ordering">
-                                        <form method="get" class="woocommerce-ordering hidden-xs">
+                                        <form method="get" id="formSelect" class="woocommerce-ordering hidden-xs" action="<?php echo $_SERVER['PHP_SELF']  ?>?page=<?php echo $page ?>">
                                             <div class="orderby-wrapper">
                                                 <label>Sắp xếp :</label>
-                                                <select class="nice-select-menu orderby">
-                                                    <option dara-display="Select" aria-label="activate to sort column ascending">Mặc định phân loại</option>
-                                                    <option value="popularity">Mức độ phổ biến</option>
-                                                    <option value="rating">Đánh giá cao</option>
+                                                <select class="nice-select-menu orderby" onchange="onSelectChange();" name="sortBy" >
+                                                    <option dara-display="Select" aria-label="activate to sort column ascending" value="id">Mặc định phân loại</option>
+                                                    <option value="especially">Mức độ phổ biến</option>
+                                                    <option value="rate">Đánh giá cao</option>
                                                     <option value="date">Sản phẩm mới</option>
-                                                    <option value="price">Theo giá: thấp đến cao</option>
-                                                    <option value="price-desc">Theo giá: cao đến thấp</option>
+                                                    <option value="low-price">Theo giá: thấp đến cao</option>
+                                                    <option value="hight-price">Theo giá: cao đến thấp</option>
                                                 </select>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
+
                                 <div class="shop-page-product-area tab-content">
                                     <div id="grid" class="tab-pane fade in show active">
                                         <div class="row">
@@ -306,14 +329,14 @@
                                         }
 
                                         ?>
-                                        <li><a class="page-numbers" href="?page=<?php echo $tik ?>"><span class="<?php echo $classPage ?>"><?php echo $tik ?></span></a></li>
+                                        <li><a class="page-numbers" href="?sortBy=<?php echo $sortBy ?>&page=<?php echo $tik ?>"><span class="<?php echo $classPage ?>"><?php echo $tik ?></span></a></li>
 
                                         <?php
                                     }
                                     ?>
 
                                     <?php if ($tik > 1): ?>
-                                        <li><a class="next page-numbers" href="?page=<?php echo $page+1 ?>">→</a></li>
+                                        <li><a class="next page-numbers" href="?sortBy=<?php echo $sortBy ?>&page=<?php echo $page+1 ?>">→</a></li>
                                     <?php endif ?>
                                 </ul>
                             </nav>
@@ -348,3 +371,8 @@
 
 <!-- Mirrored from preview.hasthemes.com/bege-v4/bege/shop.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Nov 2019 11:48:19 GMT -->
 </html>
+<script>
+    function onSelectChange(){
+        document.getElementById('formSelect').submit('&page=<?php echo $page ?>');
+   }
+</script>

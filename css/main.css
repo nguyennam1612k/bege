@@ -6269,6 +6269,10 @@ a:hover {
     font-size: 14px;
     height: 45px;
     padding: 10px;
+}.return-customer .form-group input[type="password"] {
+    font-size: 14px;
+    height: 45px;
+    padding: 10px;
 }
 
 .form-register .form-group input[type="radio"] {
@@ -7783,7 +7787,8 @@ a.ideas-btn:hover {
 .disabled {
     cursor: not-allowed;
 }
-.style-img a img{
-    height: 200px;
+.style-img{
+    height: 250px;
+    /*border: 1px solid #ccc;*/
 }
 /*== My Account Page End ==*/

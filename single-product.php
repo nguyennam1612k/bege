@@ -10,20 +10,29 @@
         $product_id = $randomProduct['id'];
     }
 
-    //Cộng thêm lượt xem mỗi khi truy cập
-    $sqlUpdateView = "UPDATE products set views=views+1 where id=$product_id";
-    executeQuery($sqlUpdateView);
+    $_COOKIE['view'.$product_id] = isset($_COOKIE['view'.$product_id]) ? $_COOKIE['view'.$product_id] : null;
+    if($_COOKIE['view'.$product_id] == null){
+
+    //Cộng thêm lượt xem mỗi khi truy cập trong 1 ngày
+        $sqlUpdateView = "UPDATE products set views=views+1 where id=$product_id";
+        executeQuery($sqlUpdateView);
+    }
+    setcookie('view'.$product_id, 'upview', time()+3600*24);
 
     //select product
     $sqlQuery = "SELECT
-                    categories.title,products.*
+                    v.name as vendor,c.title,p.*
                 from
-                    products inner join categories
-                on
-                    categories.id=products.cate_id
-                where products.id=$product_id";
+                    products as p
+                inner join categories as c
+                    on
+                        c.id=p.cate_id
+                inner join vendors as v
+                    on v.id=p.id
+                where p.id=$product_id";
     $single = executeQuery($sqlQuery, false);
 
+    // dd($single);
     //select comment và đánh giá
     $sqlQuery = "SELECT users.name, users.avatar, comments.*
                 from comments INNER JOIN users ON users.id=comments.user_id
@@ -66,7 +75,7 @@
 <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Bege || <?php echo $product['name'] ?></title>
+        <title>Bege || <?php echo $single['name'] ?></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -125,6 +134,7 @@
 
             /* Modified from: https://github.com/mukulkant/Star-rating-using-pure-css */
         </style>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
         <!--[if lte IE 9]>
@@ -148,7 +158,7 @@
                                 <span class="separator">/</span>
                                 <a href="shop.php">Cửa hàng</a>
                                 <span class="separator">/</span>
-                                <a href="shop.php?cate_id=<?php echo $single['cate_id'] ?>"><?php echo $single['title'] ?></a>
+                                <a href="search.php?cate_id=<?php echo $single['cate_id'] ?>"><?php echo $single['title'] ?></a>
                                 <span class="separator">/</span> <?php echo $single['name'] ?>
                             </nav>
                         </div>
@@ -277,7 +287,10 @@
                                     </div>
                                     <div class="product_meta">
                                         <span class="posted_in">Danh mục: <a href="shop.php?cate_id=<?php echo $single['cate_id'] ?>" rel="tag"><?php echo $single['title'] ?></a></span>
+                                        <span class="posted_in">Hãng: <a href="shop.php?cate_id=<?php echo $single['cate_id'] ?>" rel="tag"><?php echo $single['vendor'] ?></a></span>
                                     </div>
+                                    <!-- <div class="product_meta">
+                                    </div> -->
                                     <div class="single-product-sharing">
                                         <div class="widget widget_socialsharing_widget">
                                             <h3 class="widget-title">Chia sẻ sản phẩm</h3>
