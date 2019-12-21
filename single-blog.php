@@ -41,7 +41,7 @@
 
     if(isset($_POST['btn_submit']) && $user != null){
         extract($_REQUEST);
-        $content = str_replace("'","\'", $content);
+        $content = nl2br( str_replace("'","\'", $content) );
         //Reply for
         if(isset($_POST['reply_for'])){
             $sqlInsert = "INSERT into blog_comments
@@ -68,7 +68,7 @@
 <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Bege || Single Blog</title>
+        <title>Bege || <?php echo $blog['name'] ?></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 

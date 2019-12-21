@@ -16,13 +16,13 @@
         if(empty($detail)){
             $detail = "";
         }else{
-            $detail = str_replace("'","\'", $detail);
+            $detail = nl2br(str_replace("'","\'", $detail));
         }
 
         if(empty($parameter)){
             $parameter = "";
         }else{
-            $parameter = str_replace("'","\'", $parameter);
+            $parameter = nl2br(str_replace("'","\'", $parameter));
         }
 
         if($_FILES['new_feature']['name'] == ""){
