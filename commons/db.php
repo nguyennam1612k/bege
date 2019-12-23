@@ -3,7 +3,7 @@
 // tạo ra kết nối đến csdl
 function getConnect(){
 	$host = "127.0.0.1";
-	$dbname = "du_an_1";
+	$dbname = "project_01";
 	$dbusername = "root";
 	$dbpwd = "";
 	try{
